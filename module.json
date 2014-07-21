@@ -1,5 +1,5 @@
 {
     "enabled"   : true,
     "seeder"    : "Cysha\\Modules\\Admin\\Seeds\\DatabaseSeeder",
-    "order"     : 1
+    "order"     : 2
 }
