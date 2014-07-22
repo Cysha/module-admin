@@ -8,7 +8,7 @@ Route::filter('auth.admin', function () {
     }
 
     if (Auth::user()->isAdmin() === false) {
-        return Redirect::route('home')->withError(Lang::get('admin::admin.unauthorized'));
+        return Redirect::route('pxcms.pages.home')->withError(Lang::get('admin::admin.unauthorized'));
     }
 });
 
