@@ -8,11 +8,12 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "composer/installers"               : "dev-master"
+        "composer/installers"               : "dev-master",
 
-
+        "cartalyst/data-grid"               : "dev-master"
     },
     "repositories": [
-        { "type": "vcs", "url": "https://github.com/cysha/installers" }
+        { "type": "vcs", "url": "https://github.com/cysha/installers" },
+        { "type": "vcs", "url": "https://github.com/xLink/data-grid" }
     ]
 }

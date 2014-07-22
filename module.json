@@ -1,5 +1,6 @@
 {
     "enabled"   : true,
+    "provider"  : "Cysha\\Modules\\Admin\\ServiceProvider",
     "seeder"    : "Cysha\\Modules\\Admin\\Seeds\\DatabaseSeeder",
     "order"     : 2
 }
