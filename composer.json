@@ -13,8 +13,7 @@
         "cartalyst/data-grid"               : "dev-master"
     },
     "repositories": [
-        {"type": "composer", "url": "http://packages.cartalyst.com" },
         { "type": "vcs", "url": "https://github.com/cysha/installers" },
-        { "type": "vcs", "url": "https://github.com/xLink/data-grid" }
+        { "type": "vcs", "url": "git@github.com:xLink/data-grid.git" }
     ]
 }
