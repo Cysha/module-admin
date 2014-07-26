@@ -23,7 +23,7 @@ class ServiceProvider extends BaseServiceProvider
     private function registerOtherPackages()
     {
         $serviceProviders = [
-            'Cartalyst\DataGrid\Laravel\DataGridServiceProvider',
+            'Chumper\Datatable\DatatableServiceProvider',
         ];
 
         foreach ($serviceProviders as $sp) {
@@ -31,7 +31,7 @@ class ServiceProvider extends BaseServiceProvider
         }
 
         $aliases = [
-            'DataGrid' => 'Cartalyst\DataGrid\Laravel\Facades\DataGrid',
+            'Datatable' => 'Chumper\Datatable\Facades\DatatableFacade',
         ];
 
         foreach ($aliases as $alias => $class) {

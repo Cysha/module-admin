@@ -33,9 +33,9 @@ class InstallCommand extends BaseCommand
     public function fire()
     {
         $packages = array(
-            'cartalyst/datatables' => array(
+            'chumper/datatable' => array(
                 'name'      => 'DataTables',
-                'assets'    => true,
+                'config'    => true,
             ),
         );
 
