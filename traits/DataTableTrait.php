@@ -1,6 +1,7 @@
 <?php namespace Cysha\Modules\Admin\Traits;
 
 use Datatable;
+use View;
 
 trait DataTableTrait
 {
@@ -36,6 +37,7 @@ trait DataTableTrait
 
         $data['options'] = $this->options ?: array();
 
+        View::share('tableOptions', $data['options']);
 
         return $this->setView('admin.datatables.index', $data, 'module:admin');
     }

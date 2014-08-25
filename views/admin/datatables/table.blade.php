@@ -1,5 +1,5 @@
 <?php //echo \Debug::dump([$options, $callbacks, $values, $data, $columns, $noScript, $id, $class], ''); ?>
-<table class="table table-striped table-bordered {{ $class = str_random(8) }}">
+<table class="table dataTable table-striped table-bordered">
     <colgroup>
     @foreach($columns as $key => $col)
         <col class="col {{ $key }}" width="{{ array_get($col, 'width')}}"  />
@@ -14,6 +14,17 @@
         @endforeach
         </tr>
     </thead>
+
+    @if(array_get($tableOptions, 'tfoot', false) === true)
+    <tfoot>
+        <tr class="info">
+        @foreach($columns as $key => $col)
+            <td class="foot {{ $key }}">&nbsp;</td>
+        @endforeach
+        </tr>
+    </tfoot>
+    @endif
+
     <tbody>
         @foreach($data as $row)
         <tr>
@@ -26,24 +37,26 @@
 </table>
 
 <script type="text/javascript">
-jQuery(function () {
-    jQuery.extend( jQuery.fn.dataTable.defaults, {
-        "bSearching": false,
-        "bOrdering": false
-    } );
 
-    jQuery('.{{ $class }}').dataTable({
-       "bAutoWidth": false,
-       @foreach ($options as $k => $o) {{ json_encode($k) }}: {{ json_encode($o) }},
-       @endforeach
-       @foreach ($callbacks as $k => $o) {{ json_encode($k) }}: {{ $o }},
-       @endforeach
+tableOptions = {
+    @foreach ($options as $k => $o) {{ json_encode($k) }}: {{ json_encode($o) }},
+    @endforeach
+    @foreach ($callbacks as $k => $o) {{ json_encode($k) }}: {{ $o }},
+    @endforeach
 
-       "fnDrawCallback": function (oSettings) {
-           if (window.onDatatableReady) {
-               window.onDatatableReady();
-           }
-       }
-    });
+    "bStateSave": true,
+    "bFilter": {{ (array_get($tableOptions, 'filtering', false) === true ? 'true' : 'false') }},
+    "bSort": {{ (array_get($tableOptions, 'sorting', false) === true ? 'true' : 'false') }},
+    "bPaginate": {{ (array_get($tableOptions, 'pagination', false) === true ? 'true' : 'false') }},
+    "bAutoWidth": false,
+    "fnDrawCallback": function (oSettings) {
+        if (window.onDatatableReady) {
+            window.onDatatableReady();
+        }
+    }
+};
+
+jQuery(window).load(function () {
+    jQuery('table.dataTable').dataTable(tableOptions);
 });
 </script>
