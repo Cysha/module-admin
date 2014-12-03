@@ -14,11 +14,13 @@ trait DataTableTrait
 
     public function assets()
     {
-        $this->objTheme->asset()->add('datatable-js', '//cdn.datatables.net/1.9.4/js/jquery.dataTables.js', array('app.js'));
-        $this->objTheme->asset()->add('datatable-bs-js', '//cdn.datatables.net/plug-ins/fcd3b3cf0d/integration/bootstrap/3/dataTables.bootstrap.js', array('datatable-js'));
+        $protocol = \Request::secure() ? 'https' : 'http';
 
-        $this->objTheme->asset()->add('datatable-bs-css', '//cdn.datatables.net/plug-ins/fcd3b3cf0d/integration/bootstrap/3/dataTables.bootstrap.css', array('bootstrap'));
-        $this->objTheme->asset()->add('datatable-fa-css', '//cdn.datatables.net/plug-ins/725b2a2115b/integration/font-awesome/dataTables.fontAwesome.css', array('bootstrap-bs-css'));
+        $this->objTheme->asset()->add('datatable-js', $protocol.'://cdn.datatables.net/1.9.4/js/jquery.dataTables.js', array('app.js'));
+        $this->objTheme->asset()->add('datatable-bs-js', $protocol.'://cdn.datatables.net/plug-ins/fcd3b3cf0d/integration/bootstrap/3/dataTables.bootstrap.js', array('datatable-js'));
+
+        $this->objTheme->asset()->add('datatable-bs-css', $protocol.'://cdn.datatables.net/plug-ins/fcd3b3cf0d/integration/bootstrap/3/dataTables.bootstrap.css', array('bootstrap'));
+        $this->objTheme->asset()->add('datatable-fa-css', $protocol.'://cdn.datatables.net/plug-ins/725b2a2115b/integration/font-awesome/dataTables.fontAwesome.css', array('bootstrap-bs-css'));
         //$this->objTheme->asset()->add('datatable-viewcss', 'packages/modules/admin/css/admin.datatable-view.css', array('datatable-css'));
     }
 
@@ -51,7 +53,7 @@ trait DataTableTrait
         $options = [
             'show' => [],
             'search' => [],
-            'order' => [],
+            'sorting' => [],
         ];
 
         // loop through the columns we have and assign them to the table
@@ -72,7 +74,7 @@ trait DataTableTrait
             }
 
             if (array_get($column, 'sorting', false) === true) {
-                $options['order'][] = $key;
+                $options['sorting'][] = $key;
             }
 
             if (array_get($column, 'filtering', false) === true) {
@@ -83,7 +85,7 @@ trait DataTableTrait
         // make sure any options get set properly
         count($options['show']) && call_user_func_array([$table, 'showColumns'], array_get($options, 'show', []));
         count($options['search']) && call_user_func_array([$table, 'searchColumns'], array_get($options, 'search', []));
-        count($options['order']) && call_user_func_array([$table, 'orderColumns'], array_get($options, 'order', []));
+        count($options['sorting']) && call_user_func_array([$table, 'orderColumns'], array_get($options, 'sorting', []));
 
         $table->setAliasMapping();
         return $table->make();
