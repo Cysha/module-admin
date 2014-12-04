@@ -44,14 +44,10 @@ tableOptions = {
     @foreach ($callbacks as $k => $o) {{ json_encode($k) }}: {{ $o }},
     @endforeach
 
-    <?php $sorting = array_get($tableOptions, 'sorting', []); ?>
-    //"aaSorting": {{ empty($sorting) ? '[]' : json_encode($sorting) }}, // {{ $sorting }}
-
-    //"bStateSave": true,
+    "bStateSave": true,
     "bFilter": {{ (array_get($tableOptions, 'filtering', false) === true ? 'true' : 'false') }},
     "bSort": {{ (array_get($tableOptions, 'sorting', false) === true ? 'true' : 'false') }},
     "bPaginate": {{ (array_get($tableOptions, 'pagination', false) === true ? 'true' : 'false') }},
-    "bLengthChange": {{ (array_get($tableOptions, 'pagination', false) === true ? 'true' : 'false') }},
     "bAutoWidth": false,
     "fnDrawCallback": function (oSettings) {
         if (window.onDatatableReady) {
