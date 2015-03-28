@@ -9,6 +9,7 @@ class ServiceProvider extends BaseServiceProvider
     public function register()
     {
         $this->registerInstallCommand();
+        $this->registerViewComposers();
         $this->registerOtherPackages();
     }
 
@@ -18,6 +19,13 @@ class ServiceProvider extends BaseServiceProvider
             return new InstallCommand($this->app);
         });
         $this->commands('cms.modules.admin:install');
+    }
+
+    public function registerViewComposers()
+    {
+        $this->app->make('view')->composer('admin::widgets.cmsUpdate', '\Cysha\Modules\Admin\Composers\Widgets@CmsUpdate');
+        $this->app->make('view')->composer('admin::widgets.userCount', '\Cysha\Modules\Admin\Composers\Widgets@UserCount');
+        $this->app->make('view')->composer('admin::widgets.latestUsers', '\Cysha\Modules\Admin\Composers\Widgets@LatestUsers');
     }
 
     private function registerOtherPackages()
