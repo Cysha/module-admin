@@ -6,4 +6,4 @@
  ->addColumn($columns)
  ->setUrl(array_get($options, 'source', false))
  ->setOptions('sPaginationType', 'bootstrap')
- ->render('admin::admin.datatables.table') }}
+ ->render(partial('admin::admin.datatables.table')) }}

@@ -3,7 +3,7 @@
         <div class="pull-left">CMS Updates</div>
         <div class="pull-right"><small>
             @if (array_get($info, 'upToDate', false) === false)
-                New version availiable.
+                <span class="label label-warning"><i class="fa fa-fw fa-exclamation-triangle"></i></span> New version availiable.
             @else
                 This is the latest version.
             @endif
@@ -22,10 +22,12 @@
                 </div>
                 <div class="col-md-10">
                     <div class="row">
-                        <a href="{{ array_get($commit, 'html_url') }}" title="{{{ array_get($commit, 'commit.message') }}}" target="_blank"><span style="font-size: 20px; font-weight: bold; margin-bottom: 5px;">{{{ Str::limit(array_get($commit, 'commit.message'), 50) }}}</span></a>
+                        <a href="{{ array_get($commit, 'html_url') }}" title="{{{ array_get($commit, 'commit.message') }}}" target="_blank"><span style="font-size: 20px; font-weight: bold; margin-bottom: 5px;">
+                            {{{ Str::limit(array_get($commit, 'commit.message'), 50) }}}
+                        </span></a>
                     </div>
                     <div class="row">
-                        <span>Posted {{ array_get($commit, 'commit.author.date') }} by <a href="{{ array_get($commit, 'author.html_url') }}" target="_blank">{{ array_get($commit, 'author.login') }}</a></span>
+                        <span><a href="{{ array_get($commit, 'author.html_url') }}" target="_blank">{{ array_get($commit, 'author.login') }}</a> Commited <a href="https://github.com/Cysha/PhoenixCMS/commit/{{ array_get($commit, 'html_url') }}" target="_blank">{{{ substr(array_get($commit, 'sha'), 0, 10) }}}</a> on {{ \Carbon\Carbon::parse(array_get($commit, 'commit.author.date'))->format('d/m/Y H:i:s') }} </span>
                     </div>
                 </div>
             </div>
