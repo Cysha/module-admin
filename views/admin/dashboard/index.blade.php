@@ -37,7 +37,7 @@ jQuery(function () {
     jQuery('.grid-stack').gridstack(options);
 
     /** savey crap */
-    new function () {
+    dashboard = new function () {
         this.serialized_data = {{ (($gridData = Config::get('admin::dashboard.grid')) !== null ? $gridData : '{}') }};
 
         this.grid = jQuery('.grid-stack').data('gridstack');

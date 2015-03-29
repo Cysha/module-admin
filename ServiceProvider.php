@@ -26,6 +26,8 @@ class ServiceProvider extends BaseServiceProvider
         $this->app->make('view')->composer('admin::widgets.cmsUpdate', '\Cysha\Modules\Admin\Composers\Widgets@CmsUpdate');
         $this->app->make('view')->composer('admin::widgets.userCount', '\Cysha\Modules\Admin\Composers\Widgets@UserCount');
         $this->app->make('view')->composer('admin::widgets.latestUsers', '\Cysha\Modules\Admin\Composers\Widgets@LatestUsers');
+        $this->app->make('view')->composer('admin::widgets.memoryUsage', '\Cysha\Modules\Admin\Composers\Widgets@MemoryUsage');
+        $this->app->make('view')->composer('admin::widgets.latestUsers', '\Cysha\Modules\Admin\Composers\Widgets@LatestUsers');
     }
 
     private function registerOtherPackages()

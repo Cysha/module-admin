@@ -19,7 +19,7 @@ class Widgets
         $users =  with(new $authModel)->orderBy('created_at', 'desc')->take(8)->get()->transform(function ($model) {
             return $model->transform();
         });
-        $view->with('widgetUserCount', $users);
+        $view->with('users', $users);
     }
 
     public function CmsUpdate($view)
@@ -36,6 +36,16 @@ class Widgets
             'currentVersion' => $currentVersion,
             'commits'        => array_slice($github, 0, 3),
         ]);
+    }
+
+    public function MemoryUsage($view)
+    {
+        $pid = getmypid();
+        exec("ps -eo%mem,rss,pid | grep $pid", $output);
+
+        $return = explode('  ', $output[0]);
+
+        $view->with('memory', convert($return[1] * 1024));
     }
 
 }
