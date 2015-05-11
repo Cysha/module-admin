@@ -1,6 +1,17 @@
 {
-    "enabled"   : true,
-    "provider"  : "Cysha\\Modules\\Admin\\ServiceProvider",
-    "seeder"    : "Cysha\\Modules\\Admin\\Seeds\\DatabaseSeeder",
-    "order"     : 2
+    "name": "Admin",
+    "alias": "admin",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 2,
+    "providers": [
+        "Cms\\Modules\\Admin\\Providers\\AdminModuleServiceProvider",
+        "Cms\\Modules\\Admin\\Providers\\AdminRoutingProvider"
+    ],
+    "aliases":{},
+    "files": [
+        "start.php",
+        "helpers.php"
+    ]
 }
