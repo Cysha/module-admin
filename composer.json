@@ -1,15 +1,19 @@
 {
-	"name": "cysha/admin",
-	"description": "",
-	"authors": [
-		{
-			"name": "User",
-			"email": "user@cybershade.org"
-		}
-	],
-	"autoload": {
-		"psr-4": {
-			"Cms\\Modules\\Admin\\": ""
-		}
-	}
+    "name": "cysha/pxcms-admin",
+    "type": "pxcms-module",
+    "description": "Admin Module for Phoenix CMS v1",
+    "license": "MIT",
+    "authors": [
+        { "name": "xLink", "email": "xLink@cybershade.org" }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "composer/installers"               : "dev-master",
+
+        "chumper/datatable"                 : "dev-develop",
+        "guzzlehttp/guzzle"                 : "~5.0"
+    },
+    "repositories": [
+        { "type": "vcs", "url": "https://github.com/cysha/installers" }
+    ]
 }
