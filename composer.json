@@ -4,7 +4,7 @@
     "description": "Admin Module for Phoenix CMS v1",
     "license": "MIT",
     "authors": [
-        { "name": "xLink", "email": "xLink@cybershade.org" }
+        { "name": "xLink (Dan Aldridge)", "email": "xLink@cybershade.org" }
     ],
     "minimum-stability": "dev",
     "require": {

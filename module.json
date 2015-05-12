@@ -7,9 +7,12 @@
     "order": 2,
     "providers": [
         "Cms\\Modules\\Admin\\Providers\\AdminModuleServiceProvider",
-        "Cms\\Modules\\Admin\\Providers\\AdminRoutingProvider"
+        "Cms\\Modules\\Admin\\Providers\\AdminRoutingProvider",
+        "Chumper\\Datatable\\DatatableServiceProvider"
     ],
-    "aliases":{},
+    "aliases":{
+        "Datatable": "Chumper\\Datatable\\Facades\\DatatableFacade"
+    },
     "files": [
         "start.php",
         "helpers.php"
