@@ -8,6 +8,7 @@
     "providers": [
         "Cms\\Modules\\Admin\\Providers\\AdminModuleServiceProvider",
         "Cms\\Modules\\Admin\\Providers\\AdminRoutingProvider",
+        "Cms\\Modules\\Admin\\Providers\\AdminEventsProvider",
         "Chumper\\Datatable\\DatatableServiceProvider"
     ],
     "aliases":{
