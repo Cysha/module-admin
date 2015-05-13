@@ -1,5 +1,9 @@
 <?php namespace Cms\Modules\Admin\Http\Controllers\Backend\Config;
 
+use Config;
+use DateTime;
+use DateTimeZone;
+
 class SiteController extends BaseConfigController
 {
     public function getIndex()
@@ -9,6 +13,7 @@ class SiteController extends BaseConfigController
 
         return $this->setView('admin.config.index', [
             'indexRoutes' => $this->getIndexRoutes(),
+            'timezones'   => $this->getTimezones(),
         ], 'module');
     }
 
@@ -56,5 +61,35 @@ class SiteController extends BaseConfigController
         }
 
         return $indexRoutes;
+    }
+
+    private function getTimezones()
+    {
+        $zones = timezone_identifiers_list();
+        $locations = [];
+
+        foreach ($zones as $zone) {
+            $zoneExploded = explode('/', $zone); // 0 => Continent, 1 => City
+
+            // Only use "friendly" continent names
+            if ($zoneExploded[0] == 'Africa' || $zoneExploded[0] == 'America' || $zoneExploded[0] == 'Antarctica' || $zoneExploded[0] == 'Arctic' || $zoneExploded[0] == 'Asia' || $zoneExploded[0] == 'Atlantic' || $zoneExploded[0] == 'Australia' || $zoneExploded[0] == 'Europe' || $zoneExploded[0] == 'Indian' || $zoneExploded[0] == 'Pacific') {
+                if (isset($zoneExploded[1]) != '') {
+                    $area = str_replace('_', ' ', $zoneExploded[1]);
+
+                    if (!empty($zoneExploded[2])) {
+                        $area = $area . ' (' . str_replace('_', ' ', $zoneExploded[2]) . ')';
+                    }
+
+                    $offset = (new DateTime("now", new DateTimeZone($zone)))->getOffset();
+                    $locations[$zoneExploded[0]][$zone] = sprintf('UTC%s%s %s',
+                        ($offset < 0 ? '-' : '+'),
+                        gmdate('H:i', abs($offset)),
+                        $area
+                    );
+                }
+            }
+        }
+
+        return $locations;
     }
 }
