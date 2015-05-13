@@ -6,7 +6,7 @@ if (!function_exists('save_config_var')) {
     {
         $setting = str_replace('_', '.', $setting);
 
-        $configModel = new Core\Models\DBConfig;
+        $configModel = new \Cms\Modules\Core\Models\DBConfig;
 
         $settingInfo = $configModel->explodeSetting($setting);
 
@@ -15,7 +15,7 @@ if (!function_exists('save_config_var')) {
         }
 
         // check to see if we already have this setting going
-        $DBConfig = Core\Models\DBConfig::where('environment', $env);
+        $DBConfig = with(new $configModel)->where('environment', $env);
         if (isset($settingInfo['group'])) {
             $DBConfig->where('group', $settingInfo['group']);
         }
@@ -37,7 +37,7 @@ if (!function_exists('save_config_var')) {
 
         // else create a new one
         } else {
-            $DBConfig = new Core\Models\DBConfig;
+            $DBConfig = with(new $configModel);
             $saved = $DBConfig->set($setting, $value);
         }
 

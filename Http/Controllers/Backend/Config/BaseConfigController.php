@@ -1,14 +1,14 @@
-<?php namespace Cms\Modules\Admin\Controllers\Backend\Config;
+<?php namespace Cms\Modules\Admin\Http\Controllers\Backend\Config;
 
-use Cms\Modules\Admin\Controllers\Http\Backend\BaseAdminController;
+use Cms\Modules\Admin\Http\Controllers\Backend\BaseAdminController;
 use Cms\Modules\Core;
 use Input;
 
 class BaseConfigController extends BaseAdminController
 {
-    public function __construct()
+    public function boot()
     {
-        parent::__construct();
+        parent::boot();
 
         $this->theme->breadcrumb()->add('Configuration Manager', route('admin.config.index'));
     }
