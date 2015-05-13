@@ -63,10 +63,16 @@ class SiteController extends BaseConfigController
         return $indexRoutes;
     }
 
+    /**
+     * Generates a user friendly version of the timezones
+     *
+     * Based off: https://gist.github.com/serverdensity/82576
+     * @return array
+     */
     private function getTimezones()
     {
-        $zones = timezone_identifiers_list();
         $locations = [];
+        $zones = timezone_identifiers_list();
 
         foreach ($zones as $zone) {
             $zoneExploded = explode('/', $zone); // 0 => Continent, 1 => City
