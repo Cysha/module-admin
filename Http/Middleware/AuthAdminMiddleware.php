@@ -44,7 +44,7 @@ class AuthAdminMiddleware
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {
-                return redirect(route('pxcms.admin.login'))
+                return redirect(route('pxcms.pages.home'))
                     ->withError('Error: You need to be authenticated to get there, Or you do not have the neccesary permissions.');
             }
         }
