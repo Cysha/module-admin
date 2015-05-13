@@ -12,6 +12,7 @@ class AdminModuleServiceProvider extends BaseModuleProvider
      */
     protected $middleware = [
         'Admin' => [
+            'auth.admin' => 'AuthAdminMiddleware',
         ],
     ];
 
