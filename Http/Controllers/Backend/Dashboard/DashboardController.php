@@ -71,9 +71,9 @@ class DashboardController extends BaseAdminController
                 }
 
                 // test for the pre-defined config string
-                $configStr = $module->name().'::admin.dashboard_widgets';
+                $configStr = sprintf('cms.%s.admin.dashboard_widgets', $module->name());
                 if (Config::has($configStr)) {
-                    $configVar = Config::get($configStr);
+                    $configVar = config($configStr);
 
                     // add it to an array if not already
                     if (!is_array($configVar)) {

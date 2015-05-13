@@ -38,7 +38,7 @@ jQuery(function () {
 
     /** savey crap */
     dashboard = new function () {
-        this.serialized_data = {{ (($gridData = Config::get('admin::dashboard.grid')) !== null ? $gridData : '{}') }};
+        this.serialized_data = {{ (($gridData = config('cms.admin.dashboard.grid')) !== null ? $gridData : '{}') }};
 
         this.grid = jQuery('.grid-stack').data('gridstack');
 
@@ -64,7 +64,7 @@ jQuery(function () {
                     height: node.height
                 };
             }, this);
-            jQuery.post("{{ URL::route('admin.dashboard.savegrid') }}", {
+            jQuery.post("{{ route('admin.dashboard.savegrid') }}", {
                 grid: JSON.stringify(this.serialized_data)
             });
         }.bind(this);
@@ -124,7 +124,7 @@ jQuery(function () {
             console.log(['loading', id]);
             jQuery.ajax({
                 type: "POST",
-                url: '{{ URL::route('admin.dashboard.widget') }}',
+                url: '{{ route('admin.dashboard.widget') }}',
                 data: {widget: id},
                 success: function (data) {
                     jQuery(element).html(data);
