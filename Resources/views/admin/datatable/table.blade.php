@@ -1,5 +1,4 @@
-<?php //echo \Debug::dump([$options, $callbacks, $values, $data, $columns, $noScript, $id, $class], ''); ?>
-<table class="table dataTable table-striped table-bordered">
+<table id="{{ $id }}" class="table dataTable table-striped table-bordered">
     <colgroup>
     @foreach($columns as $key => $col)
         <col class="col {{ $key }}" width="{{ array_get($col, 'width')}}" />
@@ -14,8 +13,7 @@
         @endforeach
         </tr>
     </thead>
-
-    @if(array_get($tableOptions, 'tfoot', false) === true)
+    @if(array_get($tableConfig, 'options.tfoot', false) !== false)
     <tfoot>
         <tr class="info">
         @foreach($columns as $key => $col)
@@ -39,11 +37,6 @@
 <script type="text/javascript">
 
 tableOptions = {
-    @foreach ($options as $k => $o) {{ json_encode($k) }}: {{ json_encode($o) }},
-    @endforeach
-    @foreach ($callbacks as $k => $o) {{ json_encode($k) }}: {{ $o }},
-    @endforeach
-
     "bStateSave": true,
     "bFilter": {{ (array_get($tableConfig, 'options.filtering', false) === true ? 'true' : 'false') }},
     "bSort": {{ (array_get($tableConfig, 'options.sorting', false) === true ? 'true' : 'false') }},
@@ -57,6 +50,6 @@ tableOptions = {
 };
 
 jQuery(window).load(function () {
-    jQuery('table.dataTable').dataTable(tableOptions);
+    jQuery('table.dataTable').dataTable(jQuery.extend(tableOptions, {!! $options !!}));
 });
 </script>

@@ -5,35 +5,36 @@ use Datatable;
 trait DataTableTrait
 {
     private $collection = null;
-    private $columns    = array();
+    private $columns    = [];
     private $pagination = true;
     private $filtering  = true;
     private $sorting    = true;
-    private $options    = array();
+    private $options    = [];
 
     public function renderDataTable($config)
     {
-        $config = config($config);
-        if (empty($config)) {
+        $tableConfig = config($config);
+        if (empty($tableConfig)) {
             throw new Exception('Could not load datatable configuration.');
         }
 
-        if (($arr = array_get($config, 'page.title', null)) !== null) {
+        if (($arr = array_get($tableConfig, 'page.title', null)) !== null) {
             $this->theme->setTitle($arr);
         }
-        if (($arr = array_get($config, 'header', null)) !== null) {
-            $this->theme->setActions($arr);
+        if (($arr = array_get($tableConfig, 'page.actions', null)) !== null) {
+            $this->setActions($arr);
         }
-        if (($arr = array_get($config, 'options', null)) !== null) {
-            $this->theme->setTableOptions($arr);
+        if (($arr = array_get($tableConfig, 'options', null)) !== null) {
+            $this->setTableOptions($arr);
         }
-        if (($arr = array_get($config, 'columns', null)) !== null) {
-            $this->theme->setTableColumns($arr);
+        if (($arr = array_get($tableConfig, 'columns', null)) !== null) {
+            $this->setTableColumns($arr);
         }
 
-        view()->share('tableConfig', $config);
+        view()->share('tableConfig', $tableConfig);
+        view()->share('tableOptions', $this->options);
 
-        return \Request::isMethod('post') ? $this->getDataTableJson() : $this->getDataTableHtml();
+        return \Request::ajax() ? $this->getDataTableJson() : $this->getDataTableHtml();
     }
 
     public function assets()
@@ -62,7 +63,7 @@ trait DataTableTrait
             return false;
         });
 
-        $data['options'] = $this->options ?: array();
+        $data['options'] = $this->options ?: [];
 
         return $this->setView('admin.datatable.index', $data, 'module:admin');
     }
@@ -129,9 +130,25 @@ trait DataTableTrait
     {
         $actionColumn = null;
 
-        $tpl = '<a class="%s" href="%s"><span class="btn-label"><i class="%s"></i></span><span>%s</span></a>&nbsp;';
+        // $tpl = '<a class="%s" href="%s"><span class="btn-label"><i class="%s"></i></span><span>%s</span></a>&nbsp;';
         foreach ($buttons($model) as $btn) {
-            $actionColumn .= sprintf($tpl, $btn['btn-class'], $btn['btn-link'], $btn['btn-icon'], $btn['btn-text']);
+
+            if (array_get($btn, 'btn-text', null) !== null) {
+                $tpl = '<span class="btn-label"><i class="%s"></i></span><span>%s</span>';
+                $label = sprintf($tpl, array_get($btn, 'btn-icon'), array_get($btn, 'btn-text', null));
+
+            } elseif (array_get($btn, 'btn-title', null) !== null) {
+                $tpl = '<span title="%2$s" data-toggle="tooltip"><i class="%1$s"></i></span>';
+                $label = sprintf($tpl, array_get($btn, 'btn-icon'), array_get($btn, 'btn-title', null));
+
+            } else {
+                $tpl = '<i class="%s"></i>';
+                $label = sprintf($tpl, array_get($btn, 'btn-icon'));
+            }
+
+            $tpl = '<a class="%s" href="%s">%s</a>';
+            $actionColumn .= sprintf($tpl, array_get($btn, 'btn-class'), array_get($btn, 'btn-link'), $label);
+            //$actionColumn .= sprintf($tpl, $btn['btn-class'], $btn['btn-link'], $btn['btn-icon'], $btn['btn-text']);
         }
 
         return $actionColumn;
