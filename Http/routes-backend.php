@@ -3,14 +3,16 @@
 // URI: /{backend}/config
 Route::group(['prefix' => 'config', 'namespace' => 'Config'], function () {
 
-    // URI: /{backend}/config/theme/
-    Route::group(['prefix' => 'theme'], function () {
-        Route::get('switch/{theme}', ['as' => 'admin.theme.switch', 'uses' => 'ThemeController@getSwitch']);
-        Route::get('/', ['as' => 'admin.theme.index', 'uses' => 'ThemeController@getIndex']);
-    });
+    Route::get('website', ['as' => 'admin.config.website', 'uses' => 'WebsiteController@getIndex']);
+    Route::get('theme', ['as' => 'admin.config.theme', 'uses' => 'ThemeController@getIndex']);
+    Route::get('services', ['as' => 'admin.config.services', 'uses' => 'ServicesController@getIndex']);
+    Route::get('cache', ['as' => 'admin.config.cache', 'uses' => 'CacheController@getIndex']);
+    Route::get('debug', ['as' => 'admin.config.debug', 'uses' => 'DebugController@getIndex']);
 
-    Route::post('save', ['as' => 'admin.config.store', 'uses' => 'SiteController@postStoreConfig']);
-    Route::get('/', ['as' => 'admin.config.index', 'uses' => 'SiteController@getIndex']);
+    Route::post('save', ['as' => 'admin.config.store', 'uses' => 'WebsiteController@postStoreConfig']);
+    Route::get('/', function () {
+        return Redirect::route('pxcms.admin.index');
+    });
 });
 
 // URI: /{backend}/dashboard

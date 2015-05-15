@@ -4,14 +4,14 @@ use Config;
 use DateTime;
 use DateTimeZone;
 
-class SiteController extends BaseConfigController
+class WebsiteController extends BaseConfigController
 {
     public function getIndex()
     {
-        $this->theme->setTitle('Configuration Manager');
-        $this->theme->breadcrumb()->add('Site Config', route('admin.config.index'));
+        $this->theme->setTitle('Website Configuration');
+        $this->theme->breadcrumb()->add('Website Configuration', route('admin.config.website'));
 
-        return $this->setView('admin.config.index', [
+        return $this->setView('admin.config.website', [
             'indexRoutes' => $this->getIndexRoutes(),
             'timezones'   => $this->getTimezones(),
         ], 'module');

@@ -10,7 +10,7 @@ class BaseConfigController extends BaseAdminController
     {
         parent::boot();
 
-        $this->theme->breadcrumb()->add('Configuration Manager', route('admin.config.index'));
+        $this->theme->breadcrumb()->add('Configuration Manager', route('admin.config.website'));
     }
 
     /**
