@@ -128,30 +128,28 @@ trait DataTableTrait
 
     private function buildActionButtons(callable $buttons, $model)
     {
-        $actionColumn = null;
+        $actionColumn = [];
 
-        // $tpl = '<a class="%s" href="%s"><span class="btn-label"><i class="%s"></i></span><span>%s</span></a>&nbsp;';
         foreach ($buttons($model) as $btn) {
 
-            if (array_get($btn, 'btn-text', null) !== null) {
-                $tpl = '<span class="btn-label"><i class="%s"></i></span><span>%s</span>';
+            if (isset($btn['btn-text'])) {
+                $tpl = '<span class="btn-label"><i class="%s fa-fw"></i></span> <span>%s</span>';
                 $label = sprintf($tpl, array_get($btn, 'btn-icon'), array_get($btn, 'btn-text', null));
 
-            } elseif (array_get($btn, 'btn-title', null) !== null) {
-                $tpl = '<span title="%2$s" data-toggle="tooltip"><i class="%1$s"></i></span>';
+            } elseif (isset($btn['btn-title'])) {
+                $tpl = '<span title="%2$s" data-toggle="tooltip"><i class="%1$s fa-fw"></i></span>';
                 $label = sprintf($tpl, array_get($btn, 'btn-icon'), array_get($btn, 'btn-title', null));
 
             } else {
-                $tpl = '<i class="%s"></i>';
+                $tpl = '<i class="%s fa-fw"></i>';
                 $label = sprintf($tpl, array_get($btn, 'btn-icon'));
             }
 
             $tpl = '<a class="%s" href="%s">%s</a>';
-            $actionColumn .= sprintf($tpl, array_get($btn, 'btn-class'), array_get($btn, 'btn-link'), $label);
-            //$actionColumn .= sprintf($tpl, $btn['btn-class'], $btn['btn-link'], $btn['btn-icon'], $btn['btn-text']);
+            $actionColumn[] = sprintf($tpl, array_get($btn, 'btn-class'), array_get($btn, 'btn-link', '#'), $label);
         }
 
-        return $actionColumn;
+        return implode('&nbsp;', $actionColumn);
     }
 
 /** Setters **/
