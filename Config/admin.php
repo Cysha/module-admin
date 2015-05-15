@@ -4,12 +4,27 @@ return [
 
     'acp_menu' => [
         'System' => [
-            'admin.config.index' => '<i class="fa fa-fw fa-wrench"></i> Configuration',
+            [
+                'route'      => 'admin.config.index',
+                'text'       => 'Configuration',
+                'icon'       => 'fa-wrench',
+                //'permission' => 'manage@auth_user'
+            ],
         ],
     ],
 
     'config_menu' => [
-        'admin.config.index' => '<i class="fa fa-fw fa-wrench"></i> Site Config',
-        'admin.theme.index'  => '<i class="fa fa-fw fa-wrench"></i> Theme Manager',
+        [
+            'route'      => 'admin.config.index',
+            'text'       => 'Site Config',
+            'icon'       => 'fa-wrench',
+            //'permission' => 'manage@auth_user'
+        ],
+        [
+            'route'      => 'admin.theme.index',
+            'text'       => 'Theme Manager',
+            'icon'       => 'fa-wrench',
+            //'permission' => 'manage@auth_user'
+        ],
     ],
 ];
