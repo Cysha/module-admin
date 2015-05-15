@@ -1,6 +1,7 @@
-@extends(partial('admin::admin.config._form'))
+@extends(partial('admin::admin.config._layout'))
 
-@section('admin-form')
+@section('admin-config')
+{!! Former::horizontal_open(route('admin.config.store')) !!}
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">Website</h3>
@@ -12,4 +13,9 @@
             {!! Form::Config('cms.core.app.force-secure', 'radio')->radios(['Yes' => ['value' => 'true'], 'No' => ['value' => 'false']])->label('Force HTTPS?') !!}
         </div>
     </div>
+
+    <button class="btn-labeled btn btn-success pull-right" type="submit">
+        <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span> Save
+    </button>
+{!! Former::close() !!}
 @stop

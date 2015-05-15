@@ -1,6 +1,7 @@
-@extends(partial('admin::admin.config._form'))
+@extends(partial('admin::admin.config._layout'))
 
-@section('admin-form')
+@section('admin-config')
+{!! Former::horizontal_open(route('admin.config.store')) !!}
     <div class="alert alert-warning"><strong>Warning:</strong> This panel is still WIP and might not work 100%, if at all.</div>
 
     <div class="panel panel-default">
@@ -26,4 +27,9 @@
             </table>
         </div>
     </div>
+
+    <button class="btn-labeled btn btn-success pull-right" type="submit">
+        <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span> Save
+    </button>
+{!! Former::close() !!}
 @stop
