@@ -6,6 +6,7 @@ Route::group(['prefix' => 'config', 'namespace' => 'Config'], function () {
     Route::get('website', ['as' => 'admin.config.website', 'uses' => 'WebsiteController@getIndex']);
     Route::get('theme', ['as' => 'admin.config.theme', 'uses' => 'ThemeController@getIndex']);
     Route::get('services', ['as' => 'admin.config.services', 'uses' => 'ServicesController@getIndex']);
+    Route::get('routes', ['as' => 'admin.config.routes', 'uses' => 'RoutesController@getIndex']);
     Route::get('cache', ['as' => 'admin.config.cache', 'uses' => 'CacheController@getIndex']);
     Route::get('debug', ['as' => 'admin.config.debug', 'uses' => 'DebugController@getIndex']);
 
