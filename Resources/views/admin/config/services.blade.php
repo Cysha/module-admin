@@ -25,24 +25,22 @@
         <div class="panel-heading">
             <h3 class="panel-title">OAuth</h3>
         </div>
-        <div class="panel-body">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Service</th>
-                        <th>Key</th>
-                        <th>Secret</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <table class="panel-body table table-striped">
+            <thead>
+                <tr>
+                    <th>Service</th>
+                    <th>Key</th>
+                    <th>Secret</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     <button class="btn-labeled btn btn-success pull-right" type="submit">
