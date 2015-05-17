@@ -36,7 +36,8 @@ class AuthAdminMiddleware
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {
-                return redirect()->guest(route('pxcms.user.login'));
+                return redirect()->guest(route('pxcms.user.login'))
+                    ->withError(trans('auth::auth.permissions.authenticated'));
             }
         }
 
@@ -45,7 +46,7 @@ class AuthAdminMiddleware
                 return response('Unauthorized.', 401);
             } else {
                 return redirect(route('pxcms.pages.home'))
-                    ->withError('Error: You need to be authenticated to get there, Or you do not have the neccesary permissions.');
+                    ->withError(trans('auth::auth.permissions.unauthorized'));
             }
         }
 
