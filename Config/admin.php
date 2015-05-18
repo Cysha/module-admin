@@ -10,6 +10,18 @@ return [
                 'icon'       => 'fa-wrench',
                 'permission' => 'manage@admin_config'
             ],
+            [
+                'route'      => 'admin.config.theme',
+                'text'       => 'Theme Manager',
+                'icon'       => 'fa-image',
+                'permission' => 'theme@admin_config'
+            ],
+            //[
+            //    'route'      => 'admin.module.manager',
+            //    'text'       => 'Module Manager',
+            //    'icon'       => 'fa-puzzle-piece',
+            //    'permission' => 'manage@admin_modules'
+            //],
         ],
     ],
 
@@ -21,15 +33,9 @@ return [
             'permission' => 'website@admin_config'
         ],
         [
-            'route'      => 'admin.config.theme',
-            'text'       => 'Theme Manager',
-            'icon'       => 'fa-image',
-            'permission' => 'theme@admin_config'
-        ],
-        [
             'route'      => 'admin.config.services',
             'text'       => 'API Keys',
-            'icon'       => 'fa-sitemap',
+            'icon'       => 'fa-key',
             'permission' => 'services@admin_config'
         ],
         [
@@ -41,7 +47,7 @@ return [
         [
             'route'      => 'admin.config.cache',
             'text'       => 'Cache',
-            'icon'       => 'fa-cogs',
+            'icon'       => 'fa-recycle',
             'permission' => 'cache@admin_config'
         ],
         [

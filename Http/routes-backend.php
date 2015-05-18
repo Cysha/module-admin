@@ -3,7 +3,10 @@
 use Illuminate\Routing\Router;
 
 // URI: /{backend}/config
-$router->group(['prefix' => 'config', 'namespace' => 'Config'], function (Router $router) {
+$router->group([
+    'prefix' => 'config',
+    'namespace' => 'Config'
+], function (Router $router) {
 
     $router->get('website', ['as' => 'admin.config.website', 'uses' => 'WebsiteController@getIndex']);
     $router->get('theme', ['as' => 'admin.config.theme', 'uses' => 'ThemeController@getIndex']);
@@ -19,11 +22,27 @@ $router->group(['prefix' => 'config', 'namespace' => 'Config'], function (Router
 });
 
 // URI: /{backend}/dashboard
-$router->group(['prefix' => 'dashboard', 'namespace' => 'Dashboard'], function (Router $router) {
+$router->group([
+    'prefix'    => 'dashboard',
+    'namespace' => 'Dashboard',
+], function (Router $router) {
+
     $router->post('saveGrid', ['as' => 'admin.dashboard.savegrid', 'uses' => 'DashboardController@saveGrid']);
     $router->post('loadWidget', ['as' => 'admin.dashboard.widget', 'uses' => 'DashboardController@loadWidget']);
 
     $router->get('/', ['as' => 'pxcms.admin.index', 'uses' => 'DashboardController@getIndex']);
+});
+
+// URI: /{backend}/modules
+$router->group([
+    'prefix'        => 'modules',
+    'namespace'     => 'Modules',
+    'middleware'    => ['hasPermission'],
+    'hasPermission' => 'manage@admin_modules',
+], function (Router $router) {
+
+    $router->post('/', ['uses' => 'ModuleManagerController@moduleManager']);
+    $router->get('/', ['as' => 'admin.module.manager', 'uses' => 'ModuleManagerController@moduleManager']);
 });
 
 // the admin authentication routes
