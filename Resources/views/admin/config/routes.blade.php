@@ -17,7 +17,7 @@
             <tbody>
                 <tr>
                     <td>API Path</td>
-                    <td>{!! Form::Config('cms.core.app.paths.api')->label(false) !!}</td>
+                    <td>{!! Form::Config('api.prefix')->label(false) !!}</td>
                 </tr>
                 <tr>
                     <td>Frontend Path</td>
