@@ -34,21 +34,16 @@ $router->group([
 });
 
 // URI: /{backend}/modules
-$router->group([
-    'prefix'        => 'modules',
-    'namespace'     => 'Modules',
-    'middleware'    => ['hasPermission'],
-    'hasPermission' => 'manage@admin_modules',
-], function (Router $router) {
+// $router->group([
+//     'prefix'        => 'modules',
+//     'namespace'     => 'Modules',
+//     'middleware'    => ['hasPermission'],
+//     'hasPermission' => 'manage@admin_modules',
+// ], function (Router $router) {
 
-    $router->post('/', ['uses' => 'ModuleManagerController@moduleManager']);
-    $router->get('/', ['as' => 'admin.module.manager', 'uses' => 'ModuleManagerController@moduleManager']);
-});
-
-// the admin authentication routes
-$router->get('login', ['as' => 'pxcms.admin.login', 'uses' => 'AuthController@getLogin']);
-$router->post('login', 'AuthController@postLogin');
-$router->get('logout', ['as' => 'pxcms.admin.logout', 'uses' => 'AuthController@getLogout']);
+//     $router->post('/', ['uses' => 'ModuleManagerController@moduleManager']);
+//     $router->get('/', ['as' => 'admin.module.manager', 'uses' => 'ModuleManagerController@moduleManager']);
+// });
 
 // i said, the dashboard!
 $router->get('/', function () {
