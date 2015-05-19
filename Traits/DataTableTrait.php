@@ -15,7 +15,7 @@ trait DataTableTrait
     {
         $tableConfig = config($config);
         if (empty($tableConfig)) {
-            throw new Exception('Could not load datatable configuration.');
+            throw new \Exception('Could not load datatable configuration.');
         }
 
         if (($arr = array_get($tableConfig, 'page.title', null)) !== null) {
