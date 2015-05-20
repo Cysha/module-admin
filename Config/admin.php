@@ -57,4 +57,11 @@ return [
             'permission' => 'debug@admin_config'
         ],
     ],
+
+    /**
+     * These will be loaded on /{backend}/config/services
+     */
+    'apikey_views' => [
+        'admin::admin.config.keys.ganalytics',
+    ],
 ];
