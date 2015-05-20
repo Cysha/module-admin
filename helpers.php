@@ -4,8 +4,6 @@
 if (!function_exists('save_config_var')) {
     function save_config_var($setting, $value, $env = null)
     {
-        $setting = str_replace('_', '.', $setting);
-
         $configModel = new \Cms\Modules\Core\Models\DBConfig;
 
         $settingInfo = $configModel->explodeSetting($setting);
@@ -37,6 +35,10 @@ if (!function_exists('save_config_var')) {
 
         // else create a new one
         } else {
+            // if no value exists and this value is empty, dont bother :)
+            if (empty($value)) {
+                return true;
+            }
             $DBConfig = with(new $configModel);
             $saved = $DBConfig->set($setting, $value);
         }
