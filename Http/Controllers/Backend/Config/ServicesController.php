@@ -4,8 +4,8 @@ class ServicesController extends BaseConfigController
 {
     public function getIndex()
     {
-        $this->theme->setTitle('API Keys Configuration');
-        $this->theme->breadcrumb()->add('API Keys Configuration', route('admin.config.services'));
+        $this->theme->setTitle('Services Configuration');
+        $this->theme->breadcrumb()->add('Services Configuration', route('admin.config.services'));
 
         return $this->setView('admin.config.services', [
 

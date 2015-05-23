@@ -38,7 +38,7 @@ return [
         ],
         [
             'route'      => 'admin.config.services',
-            'text'       => 'API Keys',
+            'text'       => 'Services',
             'icon'       => 'fa-key',
             'order'      => 2,
             'permission' => 'services@admin_config'
@@ -69,7 +69,7 @@ return [
     /**
      * These will be loaded on /{backend}/config/services
      */
-    'apikey_views' => [
-        'admin::admin.config.keys.ganalytics',
+    'services_views' => [
+        'admin::admin.config.partials.google',
     ],
 ];

@@ -4,7 +4,7 @@
 {!! Former::horizontal_open(route('admin.config.store')) !!}
     <div class="alert alert-info"><strong>Warning:</strong> This panel will allow you to configure API Keys for the services that require them.</div>
 
-    @foreach(config('cms.admin.admin.apikey_views') as $view)
+    @foreach(config('cms.admin.admin.services_views') as $view)
         @include(partial($view))
     @endforeach
 
