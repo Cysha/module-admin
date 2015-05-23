@@ -5,11 +5,12 @@ return [
     'acp_menu' => [
         'System' => [
             [
-                'route'      => 'admin.config.website',
-                'text'       => 'Configuration',
-                'icon'       => 'fa-wrench',
-                'order'      => 1,
-                'permission' => 'manage@admin_config'
+                'route'         => 'admin.config.website',
+                'text'          => 'Configuration',
+                'icon'          => 'fa-wrench',
+                'order'         => 1,
+                'permission'    => 'manage@admin_config',
+                'activePattern' => '\/{backend}\/config\/*',
             ],
             [
                 'route'      => 'admin.config.theme',
