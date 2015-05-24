@@ -1,7 +1,14 @@
 <?php
 
 return [
-    'acp_menu' => [
+
+    'backend_sidebar' => [
+        [
+            'route'         => 'pxcms.admin.index',
+            'text'          => 'Dashboard',
+            'icon'          => 'fa-dashboard',
+            'order'         => 1,
+        ],
         'User Management' => [],
         'System' => [
             [
@@ -29,7 +36,7 @@ return [
         ],
     ],
 
-    'config_menu' => [
+    'backend_config_menu' => [
         [
             'route'      => 'admin.config.website',
             'text'       => 'Website Configuration',
