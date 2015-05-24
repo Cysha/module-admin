@@ -1,12 +1,13 @@
 <?php namespace Cms\Modules\Admin\Http\Controllers\Backend\Dashboard;
 
 use Cms\Modules\Admin\Http\Controllers\Backend\BaseAdminController;
+use Cms\Modules\Admin\Services\DashboardService;
 use Input;
 use Config;
 
 class DashboardController extends BaseAdminController
 {
-    public function getIndex()
+    public function getIndex(DashboardService $dashboard)
     {
         $this->theme->asset()->add(
             'jquery-ui.min.js',
@@ -31,14 +32,14 @@ class DashboardController extends BaseAdminController
 
         $this->theme->setTitle('Dashboard');
         return $this->setView('admin.dashboard.index', [
-            'widgetList' => $this->getWidgetList(),
+            'widgetList' => $dashboard->getWidgetList(),
         ], 'module');
     }
 
-    public function loadWidget()
+    public function loadWidget(DashboardService $dashboard)
     {
         $requestedWidget = Input::get('widget');
-        if (in_array($requestedWidget, array_keys($this->getWidgetList()))) {
+        if (in_array($requestedWidget, array_keys($dashboard->getWidgetList()))) {
             return view($requestedWidget);
         }
 
@@ -56,44 +57,4 @@ class DashboardController extends BaseAdminController
         return $save ? 'true' : 'false';
     }
 
-
-    private function getWidgetList()
-    {
-        $widgets = [];
-
-        // grab the module list
-        $modules = app('modules');
-        if (count($modules)) {
-            foreach ($modules as $module) {
-                // make sure the module is enabled
-                if (!$module->enabled()) {
-                    continue;
-                }
-
-                // test for the pre-defined config string
-                $configStr = sprintf('cms.%s.admin.dashboard_widgets', $module->name());
-                if (Config::has($configStr)) {
-                    $configVar = config($configStr);
-
-                    // add it to an array if not already
-                    if (!is_array($configVar)) {
-                        $configVar = [$configVar];
-                    }
-
-                    foreach ($configVar as $route => $name) {
-                        // if route is numeric, means we dont have a human readable name
-                        if (is_numeric($route)) {
-                            $route = $name;
-                            $name = 'Untitled Widget '.$route;
-                        }
-
-                        // add this route to the array to pass back
-                        $widgets = array_merge($widgets, [$route => '['.$module->name().'] '.$name]);
-                    }
-                }
-            }
-        }
-
-        return $widgets;
-    }
 }
