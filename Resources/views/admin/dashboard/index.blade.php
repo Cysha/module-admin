@@ -1,5 +1,6 @@
 <div class="row">
     <div class="col-md-12">
+        <a class="btn btn-default pull-right" id="clear-grid" href="#">Clear Grid</a>
         <a class="btn btn-default pull-right" id="edit-grid" data-mode="0" href="#">Edit Grid</a>
         <a class="btn btn-default pull-right" id="add-widget" data-toggle="modal" data-target="#myModal">Add Widget</a>
     </div>
@@ -18,10 +19,10 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                {{ Former::open(URL::route('admin.dashboard.widget')) }}
-                    {{ Former::select('widget', 'Choose Widget')->options(['x' => 'Choose a widget']+$widgetList)->default('x') }}
+                {!! Former::open(route('admin.dashboard.widget')) !!}
+                    {!! Former::select('widget', 'Choose Widget')->options(['x' => 'Choose a widget']+$widgetList)->default('x') !!}
                     <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Add Widget & Close</button>
-                {{ Former::close() }}
+                {!! Former::close() !!}
                 </div>
             </div>
         </div>
@@ -38,7 +39,7 @@ jQuery(function () {
 
     /** savey crap */
     dashboard = new function () {
-        this.serialized_data = {{ (($gridData = config('cms.admin.dashboard.grid')) !== null ? $gridData : '{}') }};
+        this.serialized_data = {!! (($gridData = config('cms.admin.dashboard.grid')) !== null ? $gridData : '{}') !!};
 
         this.grid = jQuery('.grid-stack').data('gridstack');
 
@@ -72,6 +73,10 @@ jQuery(function () {
         this.clear_grid = function () {
             this.grid.remove_all();
             jQuery(jQuery.find('option:hidden')).show();
+
+            jQuery.post("{{ route('admin.dashboard.savegrid') }}", {
+                grid: '{}'
+            });
         }.bind(this);
 
         this.edit_grid = function () {
@@ -104,9 +109,11 @@ jQuery(function () {
         }.bind(this);
 
         this.spawn_widget = function (node) {
-            element = jQuery('<div><div class="grid-stack-item-content" /><div/>');
+            element = jQuery('<div><div class="grid-stack-item-content" /><div/>').hide();
 
-            this.grid.add_widget(element, node.x, node.y, node.width, node.height, node.auto_position);
+            this.grid
+                .add_widget(element, node.x, node.y, node.width, node.height, node.auto_position)
+                ;
 
             if (!node.id.length) {
                 return;
@@ -116,6 +123,8 @@ jQuery(function () {
             this.grid.movable(element, false);
 
             this.load_data(node.id, element.find('.grid-stack-item-content'));
+
+            element.fadeIn();
 
             return element;
         }.bind(this);
@@ -134,6 +143,7 @@ jQuery(function () {
         }.bind(this);
 
         jQuery('#edit-grid').click(this.edit_grid);
+        jQuery('#clear-grid').click(this.clear_grid);
 
         jQuery('#myModal').on('hidden.bs.modal', function (e) {
             value = jQuery('select[name=widget]').val();

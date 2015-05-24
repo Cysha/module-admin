@@ -21,12 +21,12 @@ class DashboardController extends BaseAdminController
         );
         $this->theme->asset()->add(
             'gridstack.js',
-            'packages/module/admin/assets/gridstack/gridstack.js',
+            'modules/admin/gridstack/gridstack.js',
             ['lodash.min.js']
         );
         $this->theme->asset()->add(
             'gridstack.css',
-            'packages/module/admin/assets/gridstack/gridstack.css',
+            'modules/admin/gridstack/gridstack.css',
             ['lodash.min.js']
         );
 
@@ -53,7 +53,7 @@ class DashboardController extends BaseAdminController
             return 'false';
         }
 
-        $save = save_config_var('admin::dashboard.grid', $grid);
+        $save = save_config_var('cms.admin.dashboard.grid', $grid);
         return $save ? 'true' : 'false';
     }
 

@@ -37,7 +37,7 @@ class DashboardService
             }
 
             // test for the pre-defined config string
-            $configStr = sprintf('cms.%s.admin.dashboard_widgets', $module->getLowerName());
+            $configStr = sprintf('cms.%s.widgets.dashboard', $module->getLowerName());
             if (!$this->config->has($configStr)) {
                 continue;
             }
@@ -48,20 +48,12 @@ class DashboardService
                 continue;
             }
 
-            // add it to an array if not already
-            if (!is_array($configVar)) {
-                $configVar = [$configVar];
-            }
-
-            foreach ($configVar as $route => $name) {
-                // if route is numeric, means we dont have a human readable name
-                if (is_numeric($route)) {
-                    $route = $name;
-                    $name = 'Untitled Widget '.$route;
-                }
+            foreach ($configVar as $widget) {
+                $view = array_get($widget, 'view');
+                $name = array_get($widget, 'name');
 
                 // add this route to the array to pass back
-                $widgets = array_merge($widgets, [$route => '['.$module->getStudlyName().'] '.$name]);
+                $widgets = array_merge($widgets, [$view => '['.$module->getStudlyName().'] '.$name]);
             }
         }
 
