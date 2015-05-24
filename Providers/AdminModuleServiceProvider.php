@@ -47,7 +47,7 @@ class AdminModuleServiceProvider extends BaseModuleProvider
      */
     public function registerWidgets()
     {
-        $config = array_column(config('cms'), 'widgets');
+        $config = get_array_column(config('cms'), 'widgets');
         if (!count($config)) {
             return;
         }
