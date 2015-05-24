@@ -16,9 +16,6 @@ $router->group([
     $router->get('debug', ['as' => 'admin.config.debug', 'uses' => 'DebugController@getIndex']);
 
     $router->post('save', ['as' => 'admin.config.store', 'uses' => 'WebsiteController@postStoreConfig']);
-    $router->get('/', function () {
-        return Redirect::route('pxcms.admin.index');
-    });
 });
 
 // URI: /{backend}/dashboard
@@ -46,6 +43,4 @@ $router->group([
 // });
 
 // i said, the dashboard!
-$router->get('/', function () {
-    return Redirect::route('pxcms.admin.index');
-});
+$router->get('/', ['uses' => 'Dashboard\DashboardController@redirect']);

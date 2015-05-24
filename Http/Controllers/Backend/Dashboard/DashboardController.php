@@ -57,4 +57,8 @@ class DashboardController extends BaseAdminController
         return $save ? 'true' : 'false';
     }
 
+    public function redirect()
+    {
+        return redirect(route('pxcms.admin.index'));
+    }
 }
