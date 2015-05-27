@@ -11,11 +11,15 @@ trait DataTableTrait
     private $sorting    = true;
     private $options    = [];
 
-    public function renderDataTable($config)
+    public function renderDataTable($tableConfig)
     {
-        $tableConfig = config($config);
         if (empty($tableConfig)) {
             throw new \Exception('Could not load datatable configuration.');
+        }
+
+        // add a temp legacy mode for the config versions
+        if (is_string($tableConfig)) {
+            $tableConfig = config($tableConfig);
         }
 
         if (($arr = array_get($tableConfig, 'page.title', null)) !== null) {
