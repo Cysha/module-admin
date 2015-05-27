@@ -2,14 +2,26 @@
 
 return [
     'admin_config' => [
-        'manage', 'website', 'theme', 'services', 'cache', 'debug', 'routes',
+        'manage'           => 'Manage the admin config',
+        'website'          => 'Manage the website',
+        'theme'            => 'Change the theme',
+        'services'         => 'Manage site-wide services',
+        'cache'            => 'Manage the Cache',
+        'debug'            => 'Enable &amp; Disable debugging',
+        'routes'           => 'Clear and Cache routes',
     ],
 
     'admin_modules' => [
         // backend manager
-        'manage', 'manage.create', 'manage.read', 'manage.update', 'manage.delete',
+        'manage'           => 'Manage modules',
+        'manage.create'    => 'Create a module?',
+        'manage.read'      => 'Read a module\'s configuration',
+        'manage.update'    => 'Update a module\'s configuration',
+        'manage.delete'    => 'Remove a module from the site',
 
-        'module.install', 'module.uninstall', 'module.toggle'
+        'module.install'   => 'Install a new module',
+        'module.uninstall' => 'Uninstall a module',
+        'module.toggle'    => 'Toggle a module\'s enabled state',
     ],
 
 ];
