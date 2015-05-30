@@ -25,8 +25,8 @@ trait DataTableTrait
         if (($arr = array_get($tableConfig, 'page.title', null)) !== null) {
             $this->theme->setTitle($arr);
         }
-        if (($arr = array_get($tableConfig, 'page.actions', null)) !== null) {
-            $this->setActions($arr);
+        if (($arr = array_get($tableConfig, 'page.header', null)) !== null) {
+            $this->setActions(['header' => $arr]);
         }
         if (($arr = array_get($tableConfig, 'options', null)) !== null) {
             $this->setTableOptions($arr);
