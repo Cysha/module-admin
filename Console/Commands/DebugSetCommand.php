@@ -34,6 +34,7 @@ class DebugSetCommand extends Command
                 save_config_var($settingStr, 'false');
             break;
         }
+        $this->callSilent('cache:clear');
     }
 
     /**
