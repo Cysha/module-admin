@@ -4,6 +4,6 @@
 
 {!! Datatable::table()
      ->addColumn($columns)
-     ->setUrl(route(array_get($tableConfig, 'options.source', false)))
+     ->setUrl(array_get($tableOptions, 'options.source', false))
      ->setOptions('sPaginationType', 'bootstrap')
      ->render(partial('admin::admin.datatable.table')) !!}

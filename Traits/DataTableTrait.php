@@ -50,10 +50,18 @@ trait DataTableTrait
             $this->setTableColumns($arr);
         }
 
+        // share some infos
         view()->share('tableConfig', $tableConfig);
         view()->share('tableOptions', $this->options);
 
-        return \Request::ajax() ? $this->getDataTableJson() : $this->getDataTableHtml();
+        // if its for the data, output now
+        if (\Request::ajax()) {
+            return $this->getDataTableJson();
+        }
+
+        // otherwise output the table
+        $data = $this->getDataTableData();
+        return $this->getDataTableHtml($data);
     }
 
     public function assets()
@@ -68,7 +76,12 @@ trait DataTableTrait
         //$this->theme->asset()->add('datatable-viewcss', 'packages/modules/admin/css/admin.datatable-view.css', array('datatable-css'));
     }
 
-    private function getDataTableHtml()
+    private function getDataTableHtml($data)
+    {
+        return $this->setView('admin.datatable.index', $data, 'module:admin');
+    }
+
+    private function getDataTableData()
     {
         $this->assets();
         $data = [];
@@ -84,7 +97,7 @@ trait DataTableTrait
 
         $data['options'] = $this->options ?: [];
 
-        return $this->setView('admin.datatable.index', $data, 'module:admin');
+        return $data;
     }
 
     private function getDataTableJson()
@@ -178,6 +191,13 @@ trait DataTableTrait
         $value = array_pull($options, 'collection', null);
         if ($value !== null) {
             $this->setCollection($value);
+        }
+
+        $value = array_pull($options, 'source', null);
+        if ($value !== null) {
+            $this->setOption('source', route($value));
+        } else {
+            $this->setOption('source', \Request::url());
         }
 
         // assign the rest of the things
