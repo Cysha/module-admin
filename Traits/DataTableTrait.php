@@ -1,5 +1,6 @@
 <?php namespace Cms\Modules\Admin\Traits;
 
+use Cms\Modules\Admin\Events\GotDatatableConfig;
 use Datatable;
 
 trait DataTableTrait
@@ -22,6 +23,20 @@ trait DataTableTrait
             $tableConfig = config($tableConfig);
         }
 
+        // see if there is an update for this table
+        $update = event(new GotDatatableConfig($tableConfig));
+
+        // clear any empty ones
+        $update = array_filter($update);
+
+        // if we have any updates, replace them into the config
+        if (count($update)) {
+            foreach ($update as $update) {
+                $tableConfig = array_replace($tableConfig, $update);
+            }
+        }
+
+        // PROCESS MY PRETTIES :D
         if (($arr = array_get($tableConfig, 'page.title', null)) !== null) {
             $this->theme->setTitle($arr);
         }
