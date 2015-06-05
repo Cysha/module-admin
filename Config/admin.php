@@ -8,4 +8,9 @@ return [
     'services_views' => [
         'admin::admin.config.partials.google',
     ],
+
+    'permission_manage' => [
+        'admin_config',
+        'admin_modules',
+    ],
 ];
