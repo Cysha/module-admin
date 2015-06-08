@@ -2,6 +2,7 @@
 
 return [
     'admin_config' => [
+        'access'           => 'Have access to the admin panel',
         'manage'           => 'Manage the admin config',
         'website'          => 'Manage the website',
         'theme'            => 'Change the theme',
