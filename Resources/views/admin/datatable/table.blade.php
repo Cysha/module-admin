@@ -1,13 +1,13 @@
 <table id="{{ $id }}" class="table dataTable table-striped table-bordered">
     <colgroup>
     @foreach($columns as $key => $col)
-        <col class="col {{ $key }}" width="{{ array_get($col, 'width')}}" />
+        <col class="col {{ str_slug($key) }}" width="{{ array_get($col, 'width') }}" />
     @endforeach
     </colgroup>
     <thead>
         <tr>
         @foreach($columns as $key => $col)
-            <th class="head {{ $key }}">
+            <th class="head {{ str_slug('th_'.$key) }} {{ array_get($col, 'th-class', null) }}">
                 {{ $col['th'] }}
             </th>
         @endforeach
@@ -17,25 +17,20 @@
     <tfoot>
         <tr class="info">
         @foreach($columns as $key => $col)
-            <td class="foot {{ $key }}">&nbsp;</td>
+            <th class="head {{ str_slug('th_'.$key) }} {{ array_get($col, 'th-class', null) }}">
+                {{ $col['th'] }}
+            </th>
         @endforeach
         </tr>
     </tfoot>
     @endif
 
     <tbody>
-        @foreach($data as $row)
-        <tr>
-            @foreach($row as $cell)
-            <td>{{ $cell }}</td>
-            @endforeach
-        </tr>
-        @endforeach
+
     </tbody>
 </table>
 
 <script type="text/javascript">
-
 tableOptions = {
     "bStateSave": true,
     "bFilter": {{ (array_get($tableConfig, 'options.filtering', false) === true ? 'true' : 'false') }},
