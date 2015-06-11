@@ -39,7 +39,13 @@ class DashboardController extends BaseAdminController
     public function loadWidget(DashboardService $dashboard)
     {
         $requestedWidget = Input::get('widget');
-        if (in_array($requestedWidget, array_keys($dashboard->getWidgetList()))) {
+
+        $widgetList = [];
+        foreach ($dashboard->getWidgetList() as $module => $widgets) {
+            $widgetList = array_merge($widgetList, $widgets);
+        }
+
+        if (in_array($requestedWidget, array_keys($widgetList))) {
             return view($requestedWidget);
         }
 

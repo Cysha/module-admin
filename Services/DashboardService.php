@@ -53,7 +53,10 @@ class DashboardService
                 $name = array_get($widget, 'name');
 
                 // add this route to the array to pass back
-                $widgets = array_merge($widgets, [$view => '['.$module->getStudlyName().'] '.$name]);
+                if (!isset($widgets[$module->getStudlyName()])) {
+                    $widgets[$module->getStudlyName()] = [];
+                }
+                $widgets[$module->getStudlyName()] = array_merge($widgets[$module->getStudlyName()], [$view => $name]);
             }
         }
 
