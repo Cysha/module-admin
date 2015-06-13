@@ -26,13 +26,13 @@ return [
                 'order'      => 2,
                 'permission' => 'theme@admin_config'
             ],
-            //[
-            //    'route'      => 'admin.module.manager',
-            //    'text'       => 'Module Manager',
-            //    'icon'       => 'fa-puzzle-piece',
-            //    'order'      => 3,
-            //    'permission' => 'manage@admin_modules'
-            //],
+            [
+               'route'      => 'admin.modules.manager',
+               'text'       => 'Module Manager',
+               'icon'       => 'fa-puzzle-piece',
+               'order'      => 3,
+               'permission' => 'manage@admin_modules'
+            ],
         ],
     ],
 

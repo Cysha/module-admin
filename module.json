@@ -1,8 +1,14 @@
 {
     "name": "Admin",
     "alias": "admin",
-    "description": "",
-    "keywords": [],
+    "description": "Administration Module for Phoenix CMS",
+    "authors": [
+        { "name": "xLink (Dan Aldridge)", "email": "xLink@cybershade.org" }
+    ],
+    "keywords": [
+        "core-module"
+    ],
+    "version": "v1.0.0",
     "active": 1,
     "order": 2,
     "providers": [
