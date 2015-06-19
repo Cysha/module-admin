@@ -1,7 +1,8 @@
 <?php namespace Cms\Modules\Admin\Traits;
 
 use Cms\Modules\Admin\Events\GotDatatableConfig;
-use Datatable;
+use yajra\Datatables\Engine\CollectionEngine;
+use yajra\Datatables\Facades\Datatables;
 
 trait DataTableTrait
 {
@@ -26,7 +27,7 @@ trait DataTableTrait
         // see if there is an update for this table
         $update = event(new GotDatatableConfig($tableConfig));
 
-        // clear any empty ones
+        // clear any empty updates
         $update = array_filter($update);
 
         // if we have any updates, replace them into the config
@@ -61,6 +62,7 @@ trait DataTableTrait
 
         // otherwise output the table
         $data = $this->getDataTableData();
+
         return $this->getDataTableHtml($data);
     }
 
@@ -68,10 +70,10 @@ trait DataTableTrait
     {
         $protocol = \Request::secure() ? 'https' : 'http';
 
-        $this->theme->asset()->add('datatable-js', $protocol.'://cdn.datatables.net/1.9.4/js/jquery.dataTables.js', array('app.js'));
-        $this->theme->asset()->add('datatable-bs-js', $protocol.'://cdn.datatables.net/plug-ins/fcd3b3cf0d/integration/bootstrap/3/dataTables.bootstrap.js', array('datatable-js'));
+        $this->theme->asset()->add('datatable-js', $protocol.'://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js', array('app.js'));
+        $this->theme->asset()->add('datatable-bs-js', $protocol.'://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js', array('datatable-js'));
 
-        $this->theme->asset()->add('datatable-bs-css', $protocol.'://cdn.datatables.net/plug-ins/fcd3b3cf0d/integration/bootstrap/3/dataTables.bootstrap.css', array('bootstrap'));
+        $this->theme->asset()->add('datatable-bs-css', $protocol.'://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css', array('bootstrap'));
         $this->theme->asset()->add('datatable-fa-css', $protocol.'://cdn.datatables.net/plug-ins/725b2a2115b/integration/font-awesome/dataTables.fontAwesome.css', array('bootstrap-bs-css'));
         //$this->theme->asset()->add('datatable-viewcss', 'packages/modules/admin/css/admin.datatable-view.css', array('datatable-css'));
     }
@@ -95,24 +97,17 @@ trait DataTableTrait
             return false;
         });
 
-        $data['options'] = $this->options ?: [];
+        $data['options'] = json_encode($this->options ?: []);
 
         return $data;
     }
 
     private function getDataTableJson()
     {
-        $table = Datatable::collection($this->collection);
-
+        $table = Datatables::of($this->collection);
         $columns = $this->getColumns();
 
-        $options = [
-            'show' => [],
-            'search' => [],
-            'order' => [],
-        ];
-
-        // loop through the columns we have and assign them to the table
+        // process columns
         foreach ($columns as $key => $column) {
             $value = array_get($column, 'tr', null);
 
@@ -124,27 +119,28 @@ trait DataTableTrait
             }
 
             if (is_callable($value)) {
-                $table->addColumn($key, $value);
-            } else {
-                $options['show'][] = $key;
-            }
-
-            if (array_get($column, 'sorting', false) === true) {
-                $options['order'][] = $key;
-            }
-
-            if (array_get($column, 'filtering', false) === true) {
-                $options['search'][] = $key;
+                $table->editColumn($key, $value);
             }
         }
 
-        // make sure any options get set properly
-        count($options['show']) && call_user_func_array([$table, 'showColumns'], array_get($options, 'show', []));
-        count($options['search']) && call_user_func_array([$table, 'searchColumns'], array_get($options, 'search', []));
-        count($options['order']) && call_user_func_array([$table, 'orderColumns'], array_get($options, 'order', []));
+        if (array_get($this->options, 'searching', false) !== false) {
+            $request = app('request');
+            $table->filter(function ($instance) use ($request, $columns) {
+                foreach ($columns as $key => $column) {
+                    if (array_get($column, 'searchable', false) === false) {
+                        continue;
+                    }
+                    \Debug::console('searchable - '.$key);
+                    if ($request->has($key)) {
+                        $instance->collection = $instance->collection->filter(function ($row) use ($request, $key) {
+                            return str_contains($row[$key], $request->get($key)) ? true : false;
+                        });
+                    }
+                }
+            });
+        }
 
-        $table->setAliasMapping();
-        return $table->make();
+        return $table->make(true);
     }
 
 /** Getters **/
@@ -195,10 +191,13 @@ trait DataTableTrait
 
         $value = array_pull($options, 'source', null);
         if ($value !== null) {
-            $this->setOption('source', route($value));
+            $this->setOption('ajax', route($value));
         } else {
-            $this->setOption('source', \Request::url());
+            $this->setOption('ajax', \Request::url());
         }
+
+        $this->setOption('processing', true);
+        $this->setOption('serverSide', true);
 
         // assign the rest of the things
         foreach ($options as $key => $value) {
@@ -209,6 +208,38 @@ trait DataTableTrait
     private function setTableColumns(array $value)
     {
         $this->columns = $value;
+
+        $this->setOption('columns', []);
+
+        // loop through the columns we have and assign them to the table
+        $counter = 0;
+        foreach ($this->columns as $key => $column) {
+
+            if ($this->options['sort_column'] == $key) {
+                $this->setOption('order', [[$counter, array_get($this->options, 'sort_order', 'desc')]]);
+            }
+
+            array_set($this->options, 'columns.'.$counter, [
+                'data' => $key,
+            ]);
+
+            if ($key !== 'actions') {
+                $value = array_get($column, 'tr', null);
+                $visible = is_callable($value) ? true : false;
+                $orderable = array_get($column, 'orderable', false);
+                $searchable = array_get($column, 'searchable', false);
+
+                array_set($this->options, 'columnDefs', [[
+                    'targets' => [ $counter ],
+                    'visible' => $visible === true ? 'true' : 'false',
+                    'orderable' => $orderable === true ? 'true' : 'false',
+                    'searchable' => $searchable === true ? 'true' : 'false',
+                ]]);
+            }
+
+            $counter++;
+        }
+
     }
 
     private function setCollection(callable $closure)

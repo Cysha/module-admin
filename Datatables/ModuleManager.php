@@ -32,27 +32,33 @@ class ModuleManager
              * Set up some table options, these will be passed back to the view
              */
             'options' => [
-                'filtering'     => true,
-                'pagination'    => true,
-                'sorting'       => true,
-                'sort_column'   => 'order',
-                'source'        => null,
-                'collection'    => function () {
-                    $modules = [];
+                'pagination' => false,
+                'searching' => false,
+                'ordering' => false,
+                'sort_column' => 'order',
+                'sort_order' => 'desc',
+                'source' => null,
+                'collection' => function () {
+                    $modules = new Collection;
 
                     // get the currently installed list of modules
                     foreach (File::directories(app_path('Modules/')) as $directory) {
-                        // grab the module name
                         $moduleName = class_basename($directory);
 
-                        $modules[] = (object) [
-                            'module' => json_decode(file_get_contents($directory.'/module.json')),
-                            'composer' => json_decode(file_get_contents($directory.'/composer.json')),
-                        ];
+                        $module = json_decode(file_get_contents($directory.'/module.json'));
+                        //$composer = json_decode(file_get_contents($directory.'/composer.json'));
+
+                        $modules->push((object) [
+                            'order' => (int) $module->order,
+                            'name' => $module->name,
+                            'authors' => $module->authors,
+                            'version' => $module->version,
+                            'keywords' => $module->keywords,
+                            'active' => $module->active,
+                        ]);
                     }
 
-
-                    return new Collection($modules);
+                    return $modules;
                 },
             ],
 
@@ -71,20 +77,19 @@ class ModuleManager
                 'order' => [
                     'th' => 'Load Order',
                     'tr' => function ($model) {
-                        return $model->module->order;
+                        return $model->order;
                     },
-                    'sorting' => true,
-                    'filtering' => true,
+                    'orderable' => true,
                     'width' => '10%',
                 ],
 
                 'name' => [
                     'th' => 'Name',
                     'tr' => function ($model) {
-                        return $model->module->name;
+                        return $model->name;
                     },
-                    'sorting' => true,
-                    'filtering' => true,
+                    'orderable' => true,
+                    'searchable' => true,
                     'width' => '10%',
                 ],
 
@@ -93,24 +98,24 @@ class ModuleManager
                     'tr' => function ($model) {
                         $authors = null;
 
-                        foreach ($model->module->authors as $author) {
+                        foreach ($model->authors as $author) {
                             $authors .= sprintf('%s<br />', $author->name);
                         }
 
                         return $authors;
                     },
-                    'sorting' => true,
-                    'filtering' => true,
+                    'orderable' => true,
+                    'searchable' => true,
                     'width' => '20%',
                 ],
 
                 'version' => [
                     'th' => 'Version',
                     'tr' => function ($model) {
-                        return $model->module->version;
+                        return $model->version;
                     },
-                    'sorting' => true,
-                    'filtering' => true,
+                    'orderable' => true,
+                    'searchable' => true,
                     'width' => '10%',
                 ],
 
@@ -118,12 +123,12 @@ class ModuleManager
                     'th' => 'Keywords',
                     'tr' => function ($model) {
                         $keywords = null;
-                        if (empty($model->module->keywords)) {
+                        if (empty($model->keywords)) {
                             return $keywords;
                         }
 
                         $tpl = '<span class="label label-default">%s</span>&nbsp;';
-                        foreach ($model->module->keywords as $keyword) {
+                        foreach ($model->keywords as $keyword) {
                             $keywords .= sprintf($tpl, $keyword);
                         }
 
@@ -135,7 +140,7 @@ class ModuleManager
                 'active' => [
                     'th' => 'Active',
                     'tr' => function ($model) {
-                        return $model->module->active === 1
+                        return $model->active === 1
                             ? '<div class="label label-success">Active</div>'
                             : '<div class="label label-danger">Not Active</div>';
                     },
@@ -151,7 +156,7 @@ class ModuleManager
                         if (Lock::can('manage.read', 'auth_user')) {
                             $return[] = [
                                 'btn-title' => 'View User',
-                                'btn-link'  => route('admin.user.view', $model->id),
+                                'btn-link'  => route('admin.user.view', $model->name),
                                 'btn-class' => 'btn btn-default btn-xs btn-labeled',
                                 'btn-icon'  => 'fa fa-file-text-o'
                             ];
@@ -160,7 +165,7 @@ class ModuleManager
                         if (Lock::can('manage.update', 'auth_user')) {
                             $return[] = [
                                 'btn-title' => 'Edit',
-                                'btn-link'  => route('admin.user.edit', $model->id),
+                                'btn-link'  => route('admin.user.edit', $model->name),
                                 'btn-class' => 'btn btn-warning btn-xs btn-labeled',
                                 'btn-icon'  => 'fa fa-pencil'
                             ];

@@ -16,10 +16,11 @@
         "Cms\\Modules\\Admin\\Providers\\AdminRoutingProvider",
         "Cms\\Modules\\Admin\\Providers\\AdminEventsProvider",
         "Cms\\Modules\\Admin\\Providers\\AdminServicesProvider",
-        "Chumper\\Datatable\\DatatableServiceProvider"
+        "yajra\\Datatables\\DatatablesServiceProvider"
     ],
     "aliases":{
-        "Datatable": "Chumper\\Datatable\\Facades\\DatatableFacade"
+        "Datatable": "Chumper\\Datatable\\Facades\\DatatableFacade",
+        "Datatables": "yajra\\Datatables\\Facades\\Datatables"
     },
     "files": [
         "start.php",
