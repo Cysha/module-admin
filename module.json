@@ -19,7 +19,6 @@
         "yajra\\Datatables\\DatatablesServiceProvider"
     ],
     "aliases":{
-        "Datatable": "Chumper\\Datatable\\Facades\\DatatableFacade",
         "Datatables": "yajra\\Datatables\\Facades\\Datatables"
     },
     "files": [
