@@ -13,13 +13,13 @@
     <thead>
         <tr>
         @foreach($columns as $key => $col)
-            <th class="head {{ str_slug('th_'.$key) }} {{ array_get($col, 'th-class', null) }}">
+            <th class="head {{ str_slug('th_'.$key) }} {{ array_get($col, 'th-class', null) }}" data-search="{{ array_get($col, 'searchable', false) === true ? 'true' : 'false' }}">
                 {{ $col['th'] }}
             </th>
         @endforeach
         </tr>
     </thead>
-    @if(array_get($tableConfig, 'options.tfoot', false) !== false)
+    @if(array_get($tableOptions, 'tfoot', false) === true)
     <tfoot>
         <tr class="info">
         @foreach($columns as $key => $col)
@@ -36,9 +36,32 @@
     </tbody>
 </table>
 
-{!! \Debug::dump($tableOptions, ''); !!}
 <script>
-jQuery.extend(jQuery.fn.dataTable.defaults, {!! $options !!});
+var options = {!! $options !!};
+
+@if(array_get($tableConfig, 'options.column_search', false) === true)
+    options['initComplete'] = function () {
+        this.api().columns().every(function () {
+            var column = jQuery('#{{ $id }} thead th').eq(this.index());
+
+            var title = column.text().trim();
+            if (title == 'Actions' || column.data('search') === false) {
+                jQuery(this.footer()).empty();
+                return;
+            }
+
+            var input = jQuery('<input />').attr({'type': 'text', 'placeholder': 'Search '+title});
+
+            jQuery(input).appendTo(jQuery(this.footer()).empty()).on('change', function () {
+                var val = jQuery.fn.dataTable.util.escapeRegex(jQuery(this).val());
+
+                this.search(val ? val : '', true, false).draw();
+            });
+        });
+    };
+@endif
+
+jQuery.extend(jQuery.fn.dataTable.defaults, options);
 
 jQuery(window).load(function () {
     jQuery('#{{ $id }}').dataTable();

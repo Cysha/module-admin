@@ -56,7 +56,7 @@ trait DataTableTrait
         view()->share('tableOptions', $this->options);
 
         // if its for the data, output now
-        if (\Request::ajax()) {
+        if (\Request::ajax() || (config('app.debug') === true && app('request')->get('columns'))) {
             return $this->getDataTableJson();
         }
 
@@ -134,7 +134,7 @@ trait DataTableTrait
                     if ($request->has($key)) {
                         $instance->collection = $instance->collection->filter(function ($row) use ($request, $key) {
                             return str_contains($row[$key], $request->get($key)) ? true : false;
-                        });
+                        })->toArray();
                     }
                 }
             });
@@ -196,6 +196,12 @@ trait DataTableTrait
             $this->setOption('ajax', \Request::url());
         }
 
+        $value = array_pull($options, 'column_search', false);
+        if ($value === true) {
+            $this->setOption('tfoot', true);
+            $this->setOption('searching', false);
+        }
+
         $this->setOption('processing', true);
         $this->setOption('serverSide', true);
 
@@ -221,6 +227,7 @@ trait DataTableTrait
 
             array_set($this->options, 'columns.'.$counter, [
                 'data' => $key,
+                'name' => $key,
             ]);
 
             if ($key !== 'actions') {
