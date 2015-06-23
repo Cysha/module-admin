@@ -13,4 +13,11 @@ return [
         'admin_config',
         'admin_modules',
     ],
+
+    /**
+     * These will be loaded on /{backend}/config/cache
+     */
+    'cache_keys' => [
+
+    ],
 ];

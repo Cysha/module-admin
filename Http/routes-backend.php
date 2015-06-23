@@ -15,6 +15,8 @@ $router->group([
     $router->get('cache', ['as' => 'admin.config.cache', 'uses' => 'CacheController@getIndex', 'middleware' => 'hasPermission', 'hasPermission' => 'cache@admin_config']);
     $router->get('debug', ['as' => 'admin.config.debug', 'uses' => 'DebugController@getIndex', 'middleware' => 'hasPermission', 'hasPermission' => 'debug@admin_config']);
 
+    $router->post('cache', ['uses' => 'CacheController@postIndex', 'middleware' => 'hasPermission', 'hasPermission' => 'cache@admin_config']);
+
     $router->post('save', ['as' => 'admin.config.store', 'uses' => 'WebsiteController@postStoreConfig']);
 });
 
