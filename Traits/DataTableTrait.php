@@ -189,6 +189,13 @@ trait DataTableTrait
             $this->setCollection($value);
         }
 
+        // this one is only here for BC
+        $value = array_pull($options, 'pagination', null);
+        if ($value !== null) {
+            $this->setOption('paginate', $value);
+        }
+
+        // when source is null, set it to current url
         $value = array_pull($options, 'source', null);
         if ($value !== null) {
             $this->setOption('ajax', route($value));
@@ -196,6 +203,7 @@ trait DataTableTrait
             $this->setOption('ajax', \Request::url());
         }
 
+        // turn the footer on when column_search is enabled, and normal search off
         $value = array_pull($options, 'column_search', false);
         if ($value === true) {
             $this->setOption('tfoot', true);
@@ -220,6 +228,10 @@ trait DataTableTrait
         // loop through the columns we have and assign them to the table
         $counter = 0;
         foreach ($this->columns as $key => $column) {
+            $value = array_get($column, 'tr', null);
+            if ($column === null || $value === null) {
+                continue;
+            }
 
             if ($this->options['sort_column'] == $key) {
                 $this->setOption('order', [[$counter, array_get($this->options, 'sort_order', 'desc')]]);
@@ -227,11 +239,10 @@ trait DataTableTrait
 
             array_set($this->options, 'columns.'.$counter, [
                 'data' => $key,
-                'name' => $key,
+                //'name' => $key,
             ]);
 
             if ($key !== 'actions') {
-                $value = array_get($column, 'tr', null);
                 $visible = is_callable($value) ? true : false;
                 $orderable = array_get($column, 'orderable', false);
                 $searchable = array_get($column, 'searchable', false);
