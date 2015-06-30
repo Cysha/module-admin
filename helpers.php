@@ -76,6 +76,10 @@ if (!function_exists('build_helper_buttons')) {
         if (isset($btn['btn-method'])) {
             $extras[] = 'data-method="'.array_get($btn, 'btn-method', 'GET').'"';
         }
+        if (isset($btn['btn-extras'])) {
+            $extras[] = array_get($btn, 'btn-extras');
+        }
+
 
         $tpl = '<a class="%s" href="%s">%s</a>';
         if (!empty($extras)) {
