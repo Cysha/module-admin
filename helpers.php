@@ -55,3 +55,33 @@ if (!function_exists('convertUnits')) {
         return number_format($size / pow(1024, $power), 2, '.', ',') . ' ' . $units[$power];
     }
 }
+
+if (!function_exists('build_helper_buttons')) {
+    function build_helper_button(array $btn)
+    {
+        if (isset($btn['btn-text'])) {
+            $tpl = '<span class="btn-label"><i class="%s fa-fw"></i></span> <span>%s</span>';
+            $label = sprintf($tpl, array_get($btn, 'btn-icon'), array_get($btn, 'btn-text', null));
+
+        } elseif (isset($btn['btn-title'])) {
+            $tpl = '<span title="%2$s" data-toggle="tooltip"><i class="%1$s fa-fw"></i></span>';
+            $label = sprintf($tpl, array_get($btn, 'btn-icon'), array_get($btn, 'btn-title', null));
+
+        } else {
+            $tpl = '<i class="%s fa-fw"></i>';
+            $label = sprintf($tpl, array_get($btn, 'btn-icon'));
+        }
+
+        $extras = [];
+        if (isset($btn['btn-method'])) {
+            $extras[] = 'data-method="'.array_get($btn, 'btn-method', 'GET').'"';
+        }
+
+        $tpl = '<a class="%s" href="%s">%s</a>';
+        if (!empty($extras)) {
+            $tpl = '<a class="%s" href="%s" '.implode(' ', $extras).'>%s</a>';
+        }
+
+        return sprintf($tpl, array_get($btn, 'btn-class'), array_get($btn, 'btn-link', '#'), $label);
+    }
+}

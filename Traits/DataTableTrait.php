@@ -159,22 +159,7 @@ trait DataTableTrait
         $actionColumn = [];
 
         foreach ($buttons($model) as $btn) {
-
-            if (isset($btn['btn-text'])) {
-                $tpl = '<span class="btn-label"><i class="%s fa-fw"></i></span> <span>%s</span>';
-                $label = sprintf($tpl, array_get($btn, 'btn-icon'), array_get($btn, 'btn-text', null));
-
-            } elseif (isset($btn['btn-title'])) {
-                $tpl = '<span title="%2$s" data-toggle="tooltip"><i class="%1$s fa-fw"></i></span>';
-                $label = sprintf($tpl, array_get($btn, 'btn-icon'), array_get($btn, 'btn-title', null));
-
-            } else {
-                $tpl = '<i class="%s fa-fw"></i>';
-                $label = sprintf($tpl, array_get($btn, 'btn-icon'));
-            }
-
-            $tpl = '<a class="%s" href="%s">%s</a>';
-            $actionColumn[] = sprintf($tpl, array_get($btn, 'btn-class'), array_get($btn, 'btn-link', '#'), $label);
+            $actionColumn[] = build_helper_button($btn);
         }
 
         return implode('&nbsp;', $actionColumn);
