@@ -62,8 +62,5 @@ var options = {!! $options !!};
 @endif
 
 jQuery.extend(jQuery.fn.dataTable.defaults, options);
-
-jQuery(window).load(function () {
-    jQuery('#{{ $id }}').dataTable();
-});
+var datatable = jQuery('#{{ $id }}').DataTable();
 </script>
