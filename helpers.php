@@ -59,6 +59,11 @@ if (!function_exists('convertUnits')) {
 if (!function_exists('build_helper_buttons')) {
     function build_helper_button(array $btn)
     {
+        $perm = array_pull($btn, 'hasPermission', null);
+        if ($perm !== null && !hasPermission($perm)) {
+            return null;
+        }
+
         if (isset($btn['btn-text'])) {
             $tpl = '<span class="btn-label"><i class="%s fa-fw"></i></span> <span>%s</span>';
             $label = sprintf($tpl, array_get($btn, 'btn-icon'), array_get($btn, 'btn-text', null));
