@@ -59,11 +59,13 @@ if (!function_exists('convertUnits')) {
 if (!function_exists('build_helper_buttons')) {
     function build_helper_button(array $btn)
     {
+        // check for permissions
         $perm = array_pull($btn, 'hasPermission', null);
         if ($perm !== null && !hasPermission($perm)) {
             return null;
         }
 
+        // the button structure, basic text, tooltip or just icon
         if (isset($btn['btn-text'])) {
             $tpl = '<span class="btn-label"><i class="%s fa-fw"></i></span> <span>%s</span>';
             $label = sprintf($tpl, array_get($btn, 'btn-icon'), array_get($btn, 'btn-text', null));
@@ -78,19 +80,41 @@ if (!function_exists('build_helper_buttons')) {
         }
 
         $extras = [];
+        // check for ujs method
         if (isset($btn['btn-method'])) {
             $extras[] = 'data-method="'.array_get($btn, 'btn-method', 'GET').'"';
         }
+
+        // check for extras key, this will just be a html string
         if (isset($btn['btn-extras'])) {
             $extras[] = array_get($btn, 'btn-extras');
         }
 
+        // figure out where to link this to
+        $url = '#';
+        if (($route = array_get($btn, 'btn-route', null)) !== null) {
 
-        $tpl = '<a class="%s" href="%s">%s</a>';
-        if (!empty($extras)) {
-            $tpl = '<a class="%s" href="%s" '.implode(' ', $extras).'>%s</a>';
+            // if its an array throw it at route()
+            if (is_array($route)) {
+                list($route, $arguments) = $route;
+
+                $url = route($route, transform_button_args($arguments));
+            } else {
+                // else just call it normally
+                $url = route($route);
+            }
+
+        } elseif (($direct = array_get($btn, 'btn-link', null)) !== null) {
+            $url = $direct;
         }
 
-        return sprintf($tpl, array_get($btn, 'btn-class'), array_get($btn, 'btn-link', '#'), $label);
+        // build the template
+        $tpl = '<a class="%1$s" href="%2$s">%3$s</a>';
+        if (!empty($extras)) {
+            $tpl = '<a class="%1$s" href="%2$s" '.implode(' ', $extras).'>%3$s</a>';
+        }
+
+        // build the button wrapper
+        return sprintf($tpl, array_get($btn, 'btn-class'), $url, $label);
     }
 }
