@@ -144,6 +144,11 @@ class ModuleManager
                     'tr' => function ($model) {
                         $return = [];
 
+                        // core modules should not be disabled o.O
+                        if (in_array('core-module', $model->keywords)) {
+                            return $return;
+                        }
+
                         if ($model->active) {
                             $return[] = [
                                 'btn-title' => 'Disable Module',
