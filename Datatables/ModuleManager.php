@@ -39,26 +39,8 @@ class ModuleManager
                 'sort_order' => 'desc',
                 'source' => null,
                 'collection' => function () {
-                    $modules = new Collection;
-
-                    // get the currently installed list of modules
-                    foreach (File::directories(app_path('Modules/')) as $directory) {
-                        $moduleName = class_basename($directory);
-
-                        $module = json_decode(file_get_contents($directory.'/module.json'));
-                        //$composer = json_decode(file_get_contents($directory.'/composer.json'));
-
-                        $modules->push((object) [
-                            'order' => (int) $module->order,
-                            'name' => $module->name,
-                            'authors' => $module->authors,
-                            'version' => $module->version,
-                            'keywords' => $module->keywords,
-                            'active' => $module->active,
-                        ]);
-                    }
-
-                    return $modules;
+                    $model = 'Cms\Modules\Core\Models\Module';
+                    return $model::all();
                 },
             ],
 
@@ -80,13 +62,23 @@ class ModuleManager
                         return $model->order;
                     },
                     'orderable' => true,
-                    'width' => '10%',
+                    'width' => '5%',
                 ],
 
                 'name' => [
                     'th' => 'Name',
                     'tr' => function ($model) {
                         return $model->name;
+                    },
+                    'orderable' => true,
+                    'searchable' => true,
+                    'width' => '15%',
+                ],
+
+                'alias' => [
+                    'th' => 'Namespace',
+                    'tr' => function ($model) {
+                        return $model->alias;
                     },
                     'orderable' => true,
                     'searchable' => true,
@@ -106,7 +98,7 @@ class ModuleManager
                     },
                     'orderable' => true,
                     'searchable' => true,
-                    'width' => '20%',
+                    'width' => '15%',
                 ],
 
                 'version' => [
@@ -116,7 +108,7 @@ class ModuleManager
                     },
                     'orderable' => true,
                     'searchable' => true,
-                    'width' => '10%',
+                    'width' => '7%',
                 ],
 
                 'keywords' => [
@@ -140,34 +132,37 @@ class ModuleManager
                 'active' => [
                     'th' => 'Active',
                     'tr' => function ($model) {
-                        return $model->active === 1
+                        return $model->active
                             ? '<div class="label label-success">Active</div>'
                             : '<div class="label label-danger">Not Active</div>';
                     },
-                    'width' => '10%',
+                    'width' => '7%',
                 ],
 
                 'actions' => [
                     'th' => 'Actions',
                     'tr' => function ($model) {
                         $return = [];
-                        return $return;
 
-                        if (Lock::can('manage.read', 'auth_user')) {
+                        if ($model->active) {
                             $return[] = [
-                                'btn-title' => 'View User',
-                                'btn-link'  => route('admin.user.view', $model->name),
-                                'btn-class' => 'btn btn-default btn-xs btn-labeled',
-                                'btn-icon'  => 'fa fa-file-text-o'
+                                'btn-title' => 'Disable Module',
+                                'btn-link'  => route('admin.modules.disable', $model->alias),
+                                'btn-class' => 'btn btn-xs btn-labeled btn-danger',
+                                'btn-icon'  => 'fa fa-lock',
+                                'btn-method' => 'post',
+                                'btn-extras' => 'data-remote="true" data-confirm="Are you sure you want to disable '.$model->name.'?" data-disable-with="<i class=\'fa fa-refresh fa-spin\'></i>"',
+                                'hasPermission' => 'module.toggle@admin_modules',
                             ];
-                        }
-
-                        if (Lock::can('manage.update', 'auth_user')) {
+                        } else {
                             $return[] = [
-                                'btn-title' => 'Edit',
-                                'btn-link'  => route('admin.user.edit', $model->name),
-                                'btn-class' => 'btn btn-warning btn-xs btn-labeled',
-                                'btn-icon'  => 'fa fa-pencil'
+                                'btn-title' => 'Enable Module',
+                                'btn-link'  => route('admin.modules.enable', $model->alias),
+                                'btn-class' => 'btn btn-xs btn-labeled btn-success',
+                                'btn-icon'  => 'fa fa-unlock',
+                                'btn-method' => 'post',
+                                'btn-extras' => 'data-remote="true" data-confirm="Are you sure you want to enable '.$model->name.'?" data-disable-with="<i class=\'fa fa-refresh fa-spin\'></i>"',
+                                'hasPermission' => 'module.toggle@admin_modules',
                             ];
                         }
 

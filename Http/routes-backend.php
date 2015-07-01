@@ -42,6 +42,13 @@ $router->group([
     'hasPermission' => 'manage@admin_modules'
 ], function (Router $router) {
 
+    $router->group(['prefix' => '{admin_module_name}'],function (Router $router) {
+        $router->post('enable', ['as' => 'admin.modules.enable', 'uses' => 'ModuleController@postEnableModule']);
+        $router->post('disable', ['as' => 'admin.modules.disable', 'uses' => 'ModuleController@postDisableModule']);
+
+        $router->get('/', ['as' => 'admin.modules.view', 'uses' => 'ModuleController@getInfo']);
+    });
+
     $router->post('/', ['as' => 'admin.modules.update', 'uses' => 'ModuleController@checkForUpdates']);
     $router->get('/', ['as' => 'admin.modules.manager', 'uses' => 'ModuleController@manager']);
 });

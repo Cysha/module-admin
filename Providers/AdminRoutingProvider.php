@@ -1,6 +1,7 @@
 <?php namespace Cms\Modules\Admin\Providers;
 
 use Cms\Modules\Core\Providers\CmsRoutingProvider;
+use Illuminate\Routing\Router;
 
 class AdminRoutingProvider extends CmsRoutingProvider
 {
@@ -29,5 +30,15 @@ class AdminRoutingProvider extends CmsRoutingProvider
     protected function getApiRoute()
     {
         return __DIR__ . '/../Http/routes-api.php';
+    }
+
+    public function boot(Router $router)
+    {
+        parent::boot($router);
+
+        $router->bind('admin_module_name', function ($name) {
+            return \Cms\Modules\Core\Models\Module::findOrFail($name);
+        });
+
     }
 }

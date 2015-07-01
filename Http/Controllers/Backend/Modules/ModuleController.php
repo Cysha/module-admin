@@ -3,6 +3,7 @@
 use Cms\Modules\Admin\Datatables\ModuleManager;
 use Cms\Modules\Admin\Http\Controllers\Backend\BaseAdminController;
 use Cms\Modules\Admin\Traits\DataTableTrait;
+use Cms\Modules\Core\Models\Module;
 use Illuminate\Support\Facades\File;
 
 class ModuleController extends BaseAdminController
@@ -14,4 +15,22 @@ class ModuleController extends BaseAdminController
         return $this->renderDataTable(with(new ModuleManager)->boot());
     }
 
+
+    public static function postEnableModule($module)
+    {
+        try{
+            app('modules')->find($module->alias)->enable();
+        } catch(Exception $e) {
+            throw new ModelNotFoundException;
+        }
+    }
+
+    public static function postDisableModule($module)
+    {
+        try{
+            app('modules')->find($module->alias)->disable();
+        } catch(Exception $e) {
+            throw new ModelNotFoundException;
+        }
+    }
 }

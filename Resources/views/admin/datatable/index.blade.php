@@ -14,7 +14,7 @@
         <tr>
         @foreach($columns as $key => $col)
             <th class="head {{ str_slug('th_'.$key) }} {{ array_get($col, 'th-class', null) }}" data-search="{{ array_get($col, 'searchable', false) === true ? 'true' : 'false' }}">
-                {{ $col['th'] }}
+                {!! $col['th'] !!}
             </th>
         @endforeach
         </tr>
@@ -24,7 +24,7 @@
         <tr class="info">
         @foreach($columns as $key => $col)
             <th class="head {{ str_slug('th_'.$key) }} {{ array_get($col, 'th-class', null) }}">
-                {{ $col['th'] }}
+                {!! $col['th'] !!}
             </th>
         @endforeach
         </tr>
