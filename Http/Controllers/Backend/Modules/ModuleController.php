@@ -18,6 +18,10 @@ class ModuleController extends BaseAdminController
 
     public static function postEnableModule($module)
     {
+        if (in_array('core-module', $model->keywords)) {
+            return app()->abort(401);
+        }
+
         try{
             app('modules')->find($module->alias)->enable();
         } catch(Exception $e) {
@@ -27,6 +31,10 @@ class ModuleController extends BaseAdminController
 
     public static function postDisableModule($module)
     {
+        if (in_array('core-module', $model->keywords)) {
+            return app()->abort(401);
+        }
+
         try{
             app('modules')->find($module->alias)->disable();
         } catch(Exception $e) {
