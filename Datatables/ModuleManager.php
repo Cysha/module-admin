@@ -145,10 +145,12 @@ class ModuleManager
                 'actions' => [
                     'th' => 'Actions',
                     'tr' => function ($model) {
+                        return [];
                         $return = [];
+                        $keywords = !empty($model->keywords) ? $model->keywords : [];
 
                         // core modules should not be disabled o.O
-                        if (in_array('core-module', $model->keywords)) {
+                        if (in_array('core-module', $keywords)) {
                             return $return;
                         }
 
