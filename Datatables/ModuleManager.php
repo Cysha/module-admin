@@ -59,7 +59,7 @@ class ModuleManager
                 'order' => [
                     'th' => 'Load Order',
                     'tr' => function ($model) {
-                        return $model->order;
+                        return array_get($model, 'order', null);
                     },
                     'orderable' => true,
                     'width' => '5%',
@@ -68,7 +68,7 @@ class ModuleManager
                 'name' => [
                     'th' => 'Name',
                     'tr' => function ($model) {
-                        return $model->name;
+                        return array_get($model, 'name', null);
                     },
                     'orderable' => true,
                     'searchable' => true,
@@ -78,7 +78,7 @@ class ModuleManager
                 'alias' => [
                     'th' => 'Namespace',
                     'tr' => function ($model) {
-                        return $model->alias;
+                        return array_get($model, 'alias', null);
                     },
                     'orderable' => true,
                     'searchable' => true,
@@ -89,11 +89,11 @@ class ModuleManager
                     'th' => 'Author',
                     'tr' => function ($model) {
                         $authors = null;
-                        if (empty($model->authors)) {
+                        if (empty(array_get($model, 'authors', null))) {
                             return $authors;
                         }
 
-                        foreach ($model->authors as $author) {
+                        foreach (array_get($model, 'authors', null) as $author) {
                             $authors .= sprintf('%s<br />', $author->name);
                         }
 
@@ -107,7 +107,7 @@ class ModuleManager
                 'version' => [
                     'th' => 'Version',
                     'tr' => function ($model) {
-                        return $model->version;
+                        return array_get($model, 'version', null);
                     },
                     'orderable' => true,
                     'searchable' => true,
@@ -118,12 +118,12 @@ class ModuleManager
                     'th' => 'Keywords',
                     'tr' => function ($model) {
                         $keywords = null;
-                        if (empty($model->keywords)) {
+                        if (empty(array_get($model, 'keywords', null))) {
                             return $keywords;
                         }
 
                         $tpl = '<span class="label label-default">%s</span>&nbsp;';
-                        foreach ($model->keywords as $keyword) {
+                        foreach (array_get($model, 'keywords', null) as $keyword) {
                             $keywords .= sprintf($tpl, $keyword);
                         }
 
@@ -135,7 +135,7 @@ class ModuleManager
                 'active' => [
                     'th' => 'Active',
                     'tr' => function ($model) {
-                        return $model->active
+                        return array_get($model, 'active', null)
                             ? '<div class="label label-success">Active</div>'
                             : '<div class="label label-danger">Not Active</div>';
                     },
@@ -147,31 +147,31 @@ class ModuleManager
                     'tr' => function ($model) {
                         return [];
                         $return = [];
-                        $keywords = !empty($model->keywords) ? $model->keywords : [];
+                        $keywords = !empty(array_get($model, 'keywords', null)) ? array_get($model, 'keywords', null) : [];
 
                         // core modules should not be disabled o.O
                         if (in_array('core-module', $keywords)) {
                             return $return;
                         }
 
-                        if ($model->active) {
+                        if (array_get($model, 'active', null)) {
                             $return[] = [
                                 'btn-title' => 'Disable Module',
-                                'btn-link'  => route('admin.modules.disable', $model->alias),
+                                'btn-link'  => route('admin.modules.disable', array_get($model, 'alias', null)),
                                 'btn-class' => 'btn btn-xs btn-labeled btn-danger',
                                 'btn-icon'  => 'fa fa-lock',
                                 'btn-method' => 'post',
-                                'btn-extras' => 'data-remote="true" data-confirm="Are you sure you want to disable '.$model->name.'?" data-disable-with="<i class=\'fa fa-refresh fa-spin\'></i>"',
+                                'btn-extras' => 'data-remote="true" data-confirm="Are you sure you want to disable '.array_get($model, 'name', null).'?" data-disable-with="<i class=\'fa fa-refresh fa-spin\'></i>"',
                                 'hasPermission' => 'module.toggle@admin_modules',
                             ];
                         } else {
                             $return[] = [
                                 'btn-title' => 'Enable Module',
-                                'btn-link'  => route('admin.modules.enable', $model->alias),
+                                'btn-link'  => route('admin.modules.enable', array_get($model, 'alias', null)),
                                 'btn-class' => 'btn btn-xs btn-labeled btn-success',
                                 'btn-icon'  => 'fa fa-unlock',
                                 'btn-method' => 'post',
-                                'btn-extras' => 'data-remote="true" data-confirm="Are you sure you want to enable '.$model->name.'?" data-disable-with="<i class=\'fa fa-refresh fa-spin\'></i>"',
+                                'btn-extras' => 'data-remote="true" data-confirm="Are you sure you want to enable '.array_get($model, 'name', null).'?" data-disable-with="<i class=\'fa fa-refresh fa-spin\'></i>"',
                                 'hasPermission' => 'module.toggle@admin_modules',
                             ];
                         }
