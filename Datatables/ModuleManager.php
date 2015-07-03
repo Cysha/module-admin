@@ -89,6 +89,9 @@ class ModuleManager
                     'th' => 'Author',
                     'tr' => function ($model) {
                         $authors = null;
+                        if (empty($model->authors)) {
+                            return $authors;
+                        }
 
                         foreach ($model->authors as $author) {
                             $authors .= sprintf('%s<br />', $author->name);
