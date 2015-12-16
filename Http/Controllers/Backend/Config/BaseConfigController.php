@@ -1,7 +1,8 @@
-<?php namespace Cms\Modules\Admin\Http\Controllers\Backend\Config;
+<?php
+
+namespace Cms\Modules\Admin\Http\Controllers\Backend\Config;
 
 use Cms\Modules\Admin\Http\Controllers\Backend\BaseAdminController;
-use Cms\Modules\Core;
 use Input;
 
 class BaseConfigController extends BaseAdminController
@@ -14,7 +15,8 @@ class BaseConfigController extends BaseAdminController
     }
 
     /**
-     * Save the settings passed in
+     * Save the settings passed in.
+     *
      * @return bool
      */
     public function postStoreConfig()
@@ -40,13 +42,13 @@ class BaseConfigController extends BaseAdminController
 
     /**
      * PHP replaces .'s with _'s in most variables and many others,
-     * this function will get the real var names
+     * this function will get the real var names.
      *
      * @see  http://php.net/manual/en/language.variables.external.php
      */
     private function getRealInput()
     {
-        $input = file_get_contents("php://input");
+        $input = file_get_contents('php://input');
         $return = [];
         if (empty($input)) {
             return $return;
@@ -65,5 +67,4 @@ class BaseConfigController extends BaseAdminController
 
         return $return;
     }
-
 }

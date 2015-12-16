@@ -1,4 +1,6 @@
-<?php namespace Cms\Modules\Admin\Console\Commands;
+<?php
+
+namespace Cms\Modules\Admin\Console\Commands;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -39,12 +41,13 @@ class DebugSetCommand extends Command
 
     /**
      * Get the console command arguments.
+     *
      * @return array
      */
     protected function getArguments()
     {
-        return array(
-            array('setting', InputArgument::OPTIONAL, 'The debug value.', null),
-        );
+        return [
+            ['setting', InputArgument::OPTIONAL, 'The debug value.', null],
+        ];
     }
 }

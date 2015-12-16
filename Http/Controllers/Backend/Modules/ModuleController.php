@@ -1,10 +1,11 @@
-<?php namespace Cms\Modules\Admin\Http\Controllers\Backend\Modules;
+<?php
+
+namespace Cms\Modules\Admin\Http\Controllers\Backend\Modules;
 
 use Cms\Modules\Admin\Datatables\ModuleManager;
 use Cms\Modules\Admin\Http\Controllers\Backend\BaseAdminController;
 use Cms\Modules\Admin\Traits\DataTableTrait;
 use Cms\Modules\Core\Models\Module;
-use Illuminate\Support\Facades\File;
 
 class ModuleController extends BaseAdminController
 {
@@ -12,9 +13,8 @@ class ModuleController extends BaseAdminController
 
     public function manager()
     {
-        return $this->renderDataTable(with(new ModuleManager)->boot());
+        return $this->renderDataTable(with(new ModuleManager())->boot());
     }
-
 
     public static function postEnableModule($module)
     {
@@ -22,10 +22,10 @@ class ModuleController extends BaseAdminController
             return app()->abort(401);
         }
 
-        try{
+        try {
             app('modules')->find($module->alias)->enable();
-        } catch(Exception $e) {
-            throw new ModelNotFoundException;
+        } catch (Exception $e) {
+            throw new ModelNotFoundException();
         }
     }
 
@@ -35,10 +35,10 @@ class ModuleController extends BaseAdminController
             return app()->abort(401);
         }
 
-        try{
+        try {
             app('modules')->find($module->alias)->disable();
-        } catch(Exception $e) {
-            throw new ModelNotFoundException;
+        } catch (Exception $e) {
+            throw new ModelNotFoundException();
         }
     }
 }

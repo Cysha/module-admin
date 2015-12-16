@@ -4,7 +4,7 @@
 if (!function_exists('save_config_var')) {
     function save_config_var($setting, $value, $env = null)
     {
-        $configModel = new \Cms\Modules\Core\Models\DBConfig;
+        $configModel = new \Cms\Modules\Core\Models\DBConfig();
 
         $settingInfo = $configModel->explodeSetting($setting);
 
@@ -13,7 +13,7 @@ if (!function_exists('save_config_var')) {
         }
 
         // check to see if we already have this setting going
-        $DBConfig = with(new $configModel)->where('environment', $env);
+        $DBConfig = with(new $configModel())->where('environment', $env);
         if (isset($settingInfo['group'])) {
             $DBConfig->where('group', $settingInfo['group']);
         }
@@ -39,7 +39,7 @@ if (!function_exists('save_config_var')) {
             if (empty($value)) {
                 return true;
             }
-            $DBConfig = with(new $configModel);
+            $DBConfig = with(new $configModel());
             $saved = $DBConfig->set($setting, $value);
         }
 
@@ -50,9 +50,10 @@ if (!function_exists('save_config_var')) {
 if (!function_exists('convertUnits')) {
     function convertUnits($size)
     {
-        $units = array( 'B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
+        $units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
         $power = $size > 0 ? floor(log($size, 1024)) : 0;
-        return number_format($size / pow(1024, $power), 2, '.', ',') . ' ' . $units[$power];
+
+        return number_format($size / pow(1024, $power), 2, '.', ',').' '.$units[$power];
     }
 }
 
@@ -62,18 +63,16 @@ if (!function_exists('build_helper_buttons')) {
         // check for permissions
         $perm = array_pull($btn, 'hasPermission', null);
         if ($perm !== null && !hasPermission($perm)) {
-            return null;
+            return;
         }
 
         // the button structure, basic text, tooltip or just icon
         if (isset($btn['btn-text'])) {
             $tpl = '<span class="btn-label"><i class="%s fa-fw"></i></span> <span>%s</span>';
             $label = sprintf($tpl, array_get($btn, 'btn-icon'), array_get($btn, 'btn-text', null));
-
         } elseif (isset($btn['btn-title'])) {
             $tpl = '<span title="%2$s" data-toggle="tooltip"><i class="%1$s fa-fw"></i></span>';
             $label = sprintf($tpl, array_get($btn, 'btn-icon'), array_get($btn, 'btn-title', null));
-
         } else {
             $tpl = '<i class="%s fa-fw"></i>';
             $label = sprintf($tpl, array_get($btn, 'btn-icon'));
@@ -103,7 +102,6 @@ if (!function_exists('build_helper_buttons')) {
                 // else just call it normally
                 $url = route($route);
             }
-
         } elseif (($direct = array_get($btn, 'btn-link', null)) !== null) {
             $url = $direct;
         }

@@ -4,8 +4,8 @@ use Illuminate\Routing\Router;
 
 // URI: /{backend}/config
 $router->group([
-    'prefix' => 'config',
-    'namespace' => 'Config'
+    'prefix'    => 'config',
+    'namespace' => 'Config',
 ], function (Router $router) {
 
     $router->get('website', ['as' => 'admin.config.website', 'uses' => 'WebsiteController@getIndex', 'middleware' => 'hasPermission', 'hasPermission' => 'website@admin_config']);
@@ -22,10 +22,10 @@ $router->group([
 
 // URI: /{backend}/dashboard
 $router->group([
-    'prefix' => 'dashboard',
-    'namespace' => 'Dashboard',
-    'middleware' => 'hasPermission',
-    'hasPermission' => 'access@admin_config'
+    'prefix'        => 'dashboard',
+    'namespace'     => 'Dashboard',
+    'middleware'    => 'hasPermission',
+    'hasPermission' => 'access@admin_config',
 ], function (Router $router) {
 
     $router->post('saveGrid', ['as' => 'admin.dashboard.savegrid', 'uses' => 'DashboardController@saveGrid']);
@@ -36,13 +36,13 @@ $router->group([
 
 // URI: /{backend}/modules
 $router->group([
-    'prefix' => 'modules',
-    'namespace' => 'Modules',
-    'middleware' => 'hasPermission',
-    'hasPermission' => 'manage@admin_modules'
+    'prefix'        => 'modules',
+    'namespace'     => 'Modules',
+    'middleware'    => 'hasPermission',
+    'hasPermission' => 'manage@admin_modules',
 ], function (Router $router) {
 
-    $router->group(['prefix' => '{admin_module_name}'],function (Router $router) {
+    $router->group(['prefix' => '{admin_module_name}'], function (Router $router) {
         $router->post('enable', ['as' => 'admin.modules.enable', 'uses' => 'ModuleController@postEnableModule']);
         $router->post('disable', ['as' => 'admin.modules.disable', 'uses' => 'ModuleController@postDisableModule']);
 
