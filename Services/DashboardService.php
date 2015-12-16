@@ -1,4 +1,6 @@
-<?php namespace Cms\Modules\Admin\Services;
+<?php
+
+namespace Cms\Modules\Admin\Services;
 
 use Illuminate\Contracts\Config\Repository as Config;
 use Pingpong\Modules\Repository as Module;

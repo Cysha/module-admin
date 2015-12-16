@@ -1,7 +1,9 @@
-<?php namespace Cms\Modules\Admin\Database\Seeders;
+<?php
 
-use Illuminate\Database\Seeder;
+namespace Cms\Modules\Admin\Database\Seeders;
+
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
 
 class AdminTableSeeder extends Seeder
 {
@@ -16,5 +18,4 @@ class AdminTableSeeder extends Seeder
 
         // $this->call("OthersTableSeeder");
     }
-
 }

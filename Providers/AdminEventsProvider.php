@@ -1,10 +1,12 @@
-<?php namespace Cms\Modules\Admin\Providers;
+<?php
 
-use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
-use Cms\Modules\Core\Providers\BaseEventsProvider;
-use Cms\Modules\Core;
-use Cms\Modules\Admin;
+namespace Cms\Modules\Admin\Providers;
+
 use Cache;
+use Cms\Modules\Admin;
+use Cms\Modules\Core;
+use Cms\Modules\Core\Providers\BaseEventsProvider;
+use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 
 class AdminEventsProvider extends BaseEventsProvider
 {
@@ -28,11 +30,11 @@ class AdminEventsProvider extends BaseEventsProvider
 
     ];
 
-
     /**
      * Register any other events for your application.
      *
-     * @param  \Illuminate\Contracts\Events\Dispatcher  $events
+     * @param \Illuminate\Contracts\Events\Dispatcher $events
+     *
      * @return void
      */
     public function boot(DispatcherContract $events)

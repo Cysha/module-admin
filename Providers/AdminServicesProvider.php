@@ -1,7 +1,9 @@
-<?php namespace Cms\Modules\Admin\Providers;
+<?php
 
-use Illuminate\Support\ServiceProvider;
+namespace Cms\Modules\Admin\Providers;
+
 use Illuminate\Foundation\AliasLoader;
+use Illuminate\Support\ServiceProvider;
 
 class AdminServicesProvider extends ServiceProvider
 {
@@ -22,7 +24,5 @@ class AdminServicesProvider extends ServiceProvider
             $this->app->register('Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider');
             AliasLoader::getInstance()->alias('Bugsnag', 'Bugsnag\BugsnagLaravel\BugsnagFacade');
         }
-
-
     }
 }

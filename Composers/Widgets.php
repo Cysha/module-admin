@@ -1,9 +1,11 @@
-<?php namespace Cms\Modules\Admin\Composers;
+<?php
 
-use Illuminate\Contracts\Config\Repository as Config;
+namespace Cms\Modules\Admin\Composers;
+
 use Cms\Modules\Auth\Repositories\User\RepositoryInterface as UserRepo;
-use GuzzleHttp\Client;
 use File;
+use GuzzleHttp\Client;
+use Illuminate\Contracts\Config\Repository as Config;
 
 class Widgets
 {
@@ -24,7 +26,7 @@ class Widgets
     }
 
     /**
-     * Get User Count
+     * Get User Count.
      */
     public function UserCount($view)
     {
@@ -34,7 +36,7 @@ class Widgets
 
     public function LatestUsers($view)
     {
-        $users =  $this->user->transformModels($this->user->orderBy('created_at', 'desc')->limit(8)->get());
+        $users = $this->user->transformModels($this->user->orderBy('created_at', 'desc')->limit(8)->get());
         $view->with('users', $users);
     }
 
@@ -42,7 +44,7 @@ class Widgets
     {
         // grab the repo commits
         $url = 'https://api.github.com/repos/Cysha/PhoenixCMS/commits';
-        $response = with(new Client)->get($url);
+        $response = with(new Client())->get($url);
         $github = $response->json();
 
         $currentVersion = substr(File::get(base_path().'/.git/FETCH_HEAD'), 0, 40);
@@ -63,5 +65,4 @@ class Widgets
 
         $view->with('memory', convertUnits($return[1] * 1024));
     }
-
 }

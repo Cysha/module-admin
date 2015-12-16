@@ -1,17 +1,18 @@
-<?php namespace Cms\Modules\Admin\Traits;
+<?php
+
+namespace Cms\Modules\Admin\Traits;
 
 use Cms\Modules\Admin\Events\GotDatatableConfig;
-use yajra\Datatables\Engine\CollectionEngine;
 use yajra\Datatables\Facades\Datatables;
 
 trait DataTableTrait
 {
     private $collection = null;
-    private $columns    = [];
+    private $columns = [];
     private $pagination = true;
-    private $filtering  = true;
-    private $sorting    = true;
-    private $options    = [];
+    private $filtering = true;
+    private $sorting = true;
+    private $options = [];
 
     public function renderDataTable($tableConfig)
     {
@@ -70,11 +71,11 @@ trait DataTableTrait
     {
         $protocol = \Request::secure() ? 'https' : 'http';
 
-        $this->theme->asset()->add('datatable-js', $protocol.'://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js', array('app.js'));
-        $this->theme->asset()->add('datatable-bs-js', $protocol.'://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js', array('datatable-js'));
+        $this->theme->asset()->add('datatable-js', $protocol.'://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js', ['app.js']);
+        $this->theme->asset()->add('datatable-bs-js', $protocol.'://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js', ['datatable-js']);
 
-        $this->theme->asset()->add('datatable-bs-css', $protocol.'://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css', array('bootstrap'));
-        $this->theme->asset()->add('datatable-fa-css', $protocol.'://cdn.datatables.net/plug-ins/725b2a2115b/integration/font-awesome/dataTables.fontAwesome.css', array('bootstrap-bs-css'));
+        $this->theme->asset()->add('datatable-bs-css', $protocol.'://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css', ['bootstrap']);
+        $this->theme->asset()->add('datatable-fa-css', $protocol.'://cdn.datatables.net/plug-ins/725b2a2115b/integration/font-awesome/dataTables.fontAwesome.css', ['bootstrap-bs-css']);
         //$this->theme->asset()->add('datatable-viewcss', 'packages/modules/admin/css/admin.datatable-view.css', array('datatable-css'));
     }
 
@@ -94,6 +95,7 @@ trait DataTableTrait
             if (isset($row['filtering']) && $row['filtering'] === true) {
                 return true;
             }
+
             return false;
         });
 
@@ -143,13 +145,14 @@ trait DataTableTrait
         return $table->make(true);
     }
 
-/** Getters **/
+    /** Getters **/
     private function getColumns()
     {
         return array_filter($this->columns, function ($row) {
             if (!isset($row['tr']) || $row['tr'] === false) {
                 return false;
             }
+
             return true;
         });
     }
@@ -165,7 +168,7 @@ trait DataTableTrait
         return implode('&nbsp;', $actionColumn);
     }
 
-/** Setters **/
+    /** Setters **/
     private function setTableOptions(array $options)
     {
         // assign collection
@@ -233,16 +236,15 @@ trait DataTableTrait
                 $searchable = array_get($column, 'searchable', false);
 
                 array_set($this->options, 'columnDefs', [[
-                    'targets' => [ $counter ],
-                    'visible' => $visible === true ? 'true' : 'false',
-                    'orderable' => $orderable === true ? 'true' : 'false',
+                    'targets'    => [$counter],
+                    'visible'    => $visible === true ? 'true' : 'false',
+                    'orderable'  => $orderable === true ? 'true' : 'false',
                     'searchable' => $searchable === true ? 'true' : 'false',
                 ]]);
             }
 
             $counter++;
         }
-
     }
 
     private function setCollection(callable $closure)
@@ -254,5 +256,4 @@ trait DataTableTrait
     {
         $this->options[$key] = $value;
     }
-
 }
