@@ -4,6 +4,8 @@
         <div class="pull-right"><small>
             @if (array_get($info, 'upToDate', false) === false)
                 <span class="label label-warning"><i class="fa fa-fw fa-exclamation-triangle"></i></span> New version availiable.
+            @elseif (array_get($info, 'upToDate', false) === null)
+                This is an unknown version, try running 'git pull' to version check.
             @else
                 This is the latest version.
             @endif
