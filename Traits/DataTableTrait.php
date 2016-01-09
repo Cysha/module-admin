@@ -125,19 +125,34 @@ trait DataTableTrait
 
         if (array_get($this->options, 'searching', false) !== false) {
             $request = app('request');
+
+            /*
+            TODO: this filters out the correct rows, but doesnt pass it back to the datatable???
             $table->filter(function ($instance) use ($request, $columns) {
-                foreach ($columns as $key => $column) {
-                    if (array_get($column, 'searchable', false) === false) {
+
+                \Debug::console(['before', $instance->collection]);
+                foreach ($request->get('columns') as $idx => $info) {
+                    if (empty(array_get($info, 'search.value', null))) {
                         continue;
                     }
-                    \Debug::console('searchable - '.$key);
-                    if ($request->has($key)) {
-                        $instance->collection = $instance->collection->filter(function ($row) use ($request, $key) {
-                            return str_contains($row[$key], $request->get($key)) ? true : false;
-                        })->toArray();
+
+                    if (array_get($info, 'searchable', false) === false) {
+                        continue;
                     }
+                    $key = array_get($info, 'data', null);
+
+                    $instance->collection = $instance->collection->filter(function ($row) use ($info, $key) {
+                        return str_contains(strtolower($row->$key), strtolower(array_get($info, 'search.value'))) ? true : false;
+                    });
+
                 }
-            });
+
+                \Debug::console(['after', $instance->collection]);
+            });*/
+
+        // disable the inbuilt searching all together if option is false
+        } else {
+            $table->filter(function() {});
         }
 
         return $table->make(true);

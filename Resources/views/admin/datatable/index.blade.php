@@ -44,7 +44,7 @@ var options = {!! $options !!};
         this.api().columns().every(function () {
             var column = jQuery('#{{ $id }} thead th').eq(this.index());
 
-            var title = column.text().trim();
+            var title = jQuery(column).text().trim();
             if (title == 'Actions' || column.data('search') === false) {
                 jQuery(this.footer()).empty();
                 return;
@@ -52,10 +52,13 @@ var options = {!! $options !!};
 
             var input = jQuery('<input />').attr({'type': 'text', 'placeholder': 'Search '+title});
 
+            var column = this;
             jQuery(input).appendTo(jQuery(this.footer()).empty()).on('change', function () {
                 var val = jQuery.fn.dataTable.util.escapeRegex(jQuery(this).val());
 
-                this.search(val ? val : '', true, false).draw();
+                column
+                    .search(val ? val : '', false, false)
+                    .draw();
             });
         });
     };
