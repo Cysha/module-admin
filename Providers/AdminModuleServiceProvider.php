@@ -24,6 +24,7 @@ class AdminModuleServiceProvider extends BaseModuleProvider
     protected $commands = [
         'Admin' => [
             'cms:debug' => 'DebugSetCommand',
+            'cms:maintenance' => 'MaintenanceSetCommand',
         ],
     ];
 
