@@ -11,7 +11,7 @@
         "composer/installers": "dev-master",
 
         "yajra/laravel-datatables-oracle": "~5.0",
-        "guzzlehttp/guzzle": "~5.0"
+        "guzzlehttp/guzzle": "~6.0"
     },
     "repositories": [
         { "type": "vcs", "url": "https://github.com/cysha/installers" }
