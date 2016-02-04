@@ -24,5 +24,8 @@ class AdminServicesProvider extends ServiceProvider
         }
 
 
+        // register datatables
+        AliasLoader::getInstance()->alias('Datatables', 'yajra\Datatables\Facades\Datatables');
+        $this->app->register('yajra\Datatables\DatatablesServiceProvider');
     }
 }

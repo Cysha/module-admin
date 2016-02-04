@@ -15,11 +15,9 @@
         "Cms\\Modules\\Admin\\Providers\\AdminModuleServiceProvider",
         "Cms\\Modules\\Admin\\Providers\\AdminRoutingProvider",
         "Cms\\Modules\\Admin\\Providers\\AdminEventsProvider",
-        "Cms\\Modules\\Admin\\Providers\\AdminServicesProvider",
-        "yajra\\Datatables\\DatatablesServiceProvider"
+        "Cms\\Modules\\Admin\\Providers\\AdminServicesProvider"
     ],
     "aliases":{
-        "Datatables": "yajra\\Datatables\\Facades\\Datatables"
     },
     "files": [
         "start.php",
