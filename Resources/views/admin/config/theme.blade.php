@@ -26,8 +26,8 @@
                 <tr>
                     <th width="20%">Theme Thumbnail</th>
                     <th width="30%">Theme Name</th>
-                    <th width="20%">Version</th>
                     <th width="20%">Author</th>
+                    <th width="20%">Version</th>
                     <th width="5%">Default?</th>
                 </tr>
                 @foreach($themes as $theme)
