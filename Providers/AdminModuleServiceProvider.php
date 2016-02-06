@@ -57,7 +57,6 @@ class AdminModuleServiceProvider extends BaseModuleProvider
         foreach ($config as $module) {
 
             foreach (array_get($module, 'dashboard') as $widget) {
-                // echo \Debug::dump($widget, '');
                 view()->composer(array_get($widget, 'view'), array_get($widget, 'class'));
             }
         }
