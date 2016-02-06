@@ -3,7 +3,7 @@
 return [
 
     'backend_sidebar' => [
-        'System' => [
+        'Site Management' => [
             'children' => [
                 [
                     'route' => 'admin.config.website',
