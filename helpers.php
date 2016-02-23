@@ -56,7 +56,7 @@ if (!function_exists('convertUnits')) {
     }
 }
 
-if (!function_exists('build_helper_buttons')) {
+if (!function_exists('build_helper_button')) {
     function build_helper_button(array $btn)
     {
         // check for permissions
