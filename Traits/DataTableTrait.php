@@ -2,7 +2,7 @@
 
 use Cms\Modules\Admin\Events\GotDatatableConfig;
 use Yajra\Datatables\Engine\CollectionEngine;
-use Yajra\Datatables\Facades\Datatables;
+use Yajra\Datatables\Datatables;
 
 trait DataTableTrait
 {
