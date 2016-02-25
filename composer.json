@@ -10,7 +10,7 @@
     "require": {
         "composer/installers": "dev-master",
 
-        "yajra/laravel-datatables-oracle": "~5.0",
+        "yajra/laravel-datatables-oracle": "~6.0",
         "guzzlehttp/guzzle": "~6.0"
     },
     "repositories": [
