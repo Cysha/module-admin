@@ -1,5 +1,5 @@
 {
-    "name": "cysha/pxcms-admin",
+    "name": "cysha/module-admin",
     "type": "pxcms-module",
     "description": "Admin Module for Phoenix CMS v1",
     "license": "MIT",
