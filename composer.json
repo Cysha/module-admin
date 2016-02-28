@@ -1,7 +1,7 @@
 {
     "name": "cysha/module-admin",
     "type": "pxcms-module",
-    "description": "Admin Module for Phoenix CMS v1",
+    "description": "Administration Module for Phoenix CMS",
     "license": "MIT",
     "authors": [
         { "name": "xLink (Dan Aldridge)", "email": "xLink@cybershade.org" }
