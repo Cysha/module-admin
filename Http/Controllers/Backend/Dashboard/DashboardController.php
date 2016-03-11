@@ -1,9 +1,10 @@
-<?php namespace Cms\Modules\Admin\Http\Controllers\Backend\Dashboard;
+<?php
+
+namespace Cms\Modules\Admin\Http\Controllers\Backend\Dashboard;
 
 use Cms\Modules\Admin\Http\Controllers\Backend\BaseAdminController;
 use Cms\Modules\Admin\Services\DashboardService;
 use Input;
-use Config;
 
 class DashboardController extends BaseAdminController
 {
@@ -31,6 +32,7 @@ class DashboardController extends BaseAdminController
         );
 
         $this->theme->setTitle('Dashboard');
+
         return $this->setView('admin.dashboard.index', [
             'widgetList' => $dashboard->getWidgetList(),
         ], 'module');
@@ -60,6 +62,7 @@ class DashboardController extends BaseAdminController
         }
 
         $save = save_config_var('cms.admin.dashboard.grid', $grid);
+
         return $save ? 'true' : 'false';
     }
 

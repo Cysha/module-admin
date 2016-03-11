@@ -1,4 +1,6 @@
-<?php namespace Cms\Modules\Admin\Services;
+<?php
+
+namespace Cms\Modules\Admin\Services;
 
 use Illuminate\Contracts\Config\Repository as Config;
 use Pingpong\Modules\Repository as Module;
@@ -72,9 +74,10 @@ class ConfigService
     }
 
     /**
-     * Generates a user friendly version of the timezones
+     * Generates a user friendly version of the timezones.
      *
      * Based off: https://gist.github.com/serverdensity/82576
+     *
      * @return array
      */
     public function getTimezoneList()
@@ -91,10 +94,10 @@ class ConfigService
                     $area = str_replace('_', ' ', $zoneExploded[1]);
 
                     if (!empty($zoneExploded[2])) {
-                        $area = $area . ' (' . str_replace('_', ' ', $zoneExploded[2]) . ')';
+                        $area = $area.' ('.str_replace('_', ' ', $zoneExploded[2]).')';
                     }
 
-                    $offset = (new DateTime("now", new DateTimeZone($zone)))->getOffset();
+                    $offset = (new DateTime('now', new DateTimeZone($zone)))->getOffset();
                     $locations[$zoneExploded[0]][$zone] = sprintf('UTC%s%s %s',
                         ($offset < 0 ? '-' : '+'),
                         gmdate('H:i', abs($offset)),
@@ -106,5 +109,4 @@ class ConfigService
 
         return $locations;
     }
-
 }

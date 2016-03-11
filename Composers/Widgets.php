@@ -1,4 +1,6 @@
-<?php namespace Cms\Modules\Admin\Composers;
+<?php
+
+namespace Cms\Modules\Admin\Composers;
 
 use GuzzleHttp\Client;
 use File;
@@ -9,7 +11,7 @@ class Widgets
     {
         // grab the repo commits
         $url = 'https://api.github.com/repos/Cysha/PhoenixCMS/commits';
-        $response = with(new Client)->get($url);
+        $response = with(new Client())->get($url);
         $github = json_decode($response->getBody(), true);
 
         $currentVersion = 'Unknown';
@@ -18,9 +20,9 @@ class Widgets
         }
 
         $view->with('info', [
-            'upToDate'       => $currentVersion != 'Unknown' ? (array_get($github, '0.sha') == $currentVersion) : null,
+            'upToDate' => $currentVersion != 'Unknown' ? (array_get($github, '0.sha') == $currentVersion) : null,
             'currentVersion' => $currentVersion,
-            'commits'        => array_slice($github, 0, 3),
+            'commits' => array_slice($github, 0, 3),
         ]);
     }
 
@@ -33,5 +35,4 @@ class Widgets
 
         $view->with('memory', convertUnits($return[1] * 1024));
     }
-
 }

@@ -1,10 +1,11 @@
-<?php namespace Cms\Modules\Admin\Providers;
+<?php
+
+namespace Cms\Modules\Admin\Providers;
 
 use Cms\Modules\Core\Providers\BaseModuleProvider;
 
 class AdminModuleServiceProvider extends BaseModuleProvider
 {
-
     /**
      * Register the defined middleware.
      *
@@ -29,7 +30,7 @@ class AdminModuleServiceProvider extends BaseModuleProvider
     ];
 
     /**
-     * Register repository bindings to the IoC
+     * Register repository bindings to the IoC.
      *
      * @var array
      */
@@ -45,7 +46,7 @@ class AdminModuleServiceProvider extends BaseModuleProvider
     }
 
     /**
-     * Register all the widgets from the modules
+     * Register all the widgets from the modules.
      */
     public function registerWidgets()
     {
@@ -55,12 +56,9 @@ class AdminModuleServiceProvider extends BaseModuleProvider
         }
 
         foreach ($config as $module) {
-
             foreach (array_get($module, 'dashboard') as $widget) {
                 view()->composer(array_get($widget, 'view'), array_get($widget, 'class'));
             }
         }
     }
-
-
 }

@@ -1,4 +1,6 @@
-<?php namespace Cms\Modules\Admin\Http\Controllers\Backend\Config;
+<?php
+
+namespace Cms\Modules\Admin\Http\Controllers\Backend\Config;
 
 use Illuminate\Http\Request;
 
@@ -56,5 +58,4 @@ class CacheController extends BaseConfigController
 
         return $keys;
     }
-
 }

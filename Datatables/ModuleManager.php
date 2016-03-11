@@ -1,7 +1,8 @@
-<?php namespace Cms\Modules\Admin\Datatables;
+<?php
+
+namespace Cms\Modules\Admin\Datatables;
 
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\File;
 use Lock;
 
 class ModuleManager
@@ -9,26 +10,26 @@ class ModuleManager
     public function boot()
     {
         return [
-            /**
+            /*
              * Page Decoration Values
              */
             'page' => [
                 'title' => '<i class="fa fa-fw fa-puzzle-piece"></i> Module Manager',
                 'alert' => [
                     'class' => 'info',
-                    'text'  => '<i class="fa fa-info-circle"></i> The modules below are what you have installed.'
+                    'text' => '<i class="fa fa-info-circle"></i> The modules below are what you have installed.',
                 ],
                 'header' => [
                     [
                         'btn-text' => 'Check for Updates',
-                        'btn-link'  => 'admin.modules.update',
+                        'btn-link' => 'admin.modules.update',
                         'btn-class' => 'btn btn-info btn-labeled',
-                        'btn-icon'  => 'fa fa-fw fa-refresh'
-                    ]
-                ]
+                        'btn-icon' => 'fa fa-fw fa-refresh',
+                    ],
+                ],
             ],
 
-            /**
+            /*
              * Set up some table options, these will be passed back to the view
              */
             'options' => [
@@ -40,11 +41,12 @@ class ModuleManager
                 'source' => null,
                 'collection' => function () {
                     $model = 'Cms\Modules\Core\Models\Module';
+
                     return $model::all();
                 },
             ],
 
-            /**
+            /*
              * Lists the tables columns
              */
             'columns' => [
@@ -157,9 +159,9 @@ class ModuleManager
                         if (array_get($model, 'active', null)) {
                             $return[] = [
                                 'btn-title' => 'Disable Module',
-                                'btn-link'  => route('admin.modules.disable', array_get($model, 'alias', null)),
+                                'btn-link' => route('admin.modules.disable', array_get($model, 'alias', null)),
                                 'btn-class' => 'btn btn-xs btn-labeled btn-danger',
-                                'btn-icon'  => 'fa fa-lock',
+                                'btn-icon' => 'fa fa-lock',
                                 'btn-method' => 'post',
                                 'btn-extras' => 'data-remote="true" data-confirm="Are you sure you want to disable '.array_get($model, 'name', null).'?" data-disable-with="<i class=\'fa fa-refresh fa-spin\'></i>"',
                                 'hasPermission' => 'module.toggle@admin_modules',
@@ -167,9 +169,9 @@ class ModuleManager
                         } else {
                             $return[] = [
                                 'btn-title' => 'Enable Module',
-                                'btn-link'  => route('admin.modules.enable', array_get($model, 'alias', null)),
+                                'btn-link' => route('admin.modules.enable', array_get($model, 'alias', null)),
                                 'btn-class' => 'btn btn-xs btn-labeled btn-success',
-                                'btn-icon'  => 'fa fa-unlock',
+                                'btn-icon' => 'fa fa-unlock',
                                 'btn-method' => 'post',
                                 'btn-extras' => 'data-remote="true" data-confirm="Are you sure you want to enable '.array_get($model, 'name', null).'?" data-disable-with="<i class=\'fa fa-refresh fa-spin\'></i>"',
                                 'hasPermission' => 'module.toggle@admin_modules',
@@ -179,8 +181,7 @@ class ModuleManager
                         return $return;
                     },
                 ],
-            ]
+            ],
         ];
-
     }
 }

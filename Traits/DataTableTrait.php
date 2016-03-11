@@ -1,17 +1,18 @@
-<?php namespace Cms\Modules\Admin\Traits;
+<?php
+
+namespace Cms\Modules\Admin\Traits;
 
 use Cms\Modules\Admin\Events\GotDatatableConfig;
-use Yajra\Datatables\Engine\CollectionEngine;
 use Yajra\Datatables\Datatables;
 
 trait DataTableTrait
 {
     private $collection = null;
-    private $columns    = [];
+    private $columns = [];
     private $pagination = true;
-    private $filtering  = true;
-    private $sorting    = true;
-    private $options    = [];
+    private $filtering = true;
+    private $sorting = true;
+    private $options = [];
 
     public function renderDataTable($tableConfig)
     {
@@ -94,6 +95,7 @@ trait DataTableTrait
             if (isset($row['filtering']) && $row['filtering'] === true) {
                 return true;
             }
+
             return false;
         });
 
@@ -152,19 +154,20 @@ trait DataTableTrait
 
         // disable the inbuilt searching all together if option is false
         } else {
-            $table->filter(function() {});
+            $table->filter(function () {});
         }
 
         return $table->make(true);
     }
 
-/** Getters **/
+    /** Getters **/
     private function getColumns()
     {
         return array_filter($this->columns, function ($row) {
             if (!isset($row['tr']) || $row['tr'] === false) {
                 return false;
             }
+
             return true;
         });
     }
@@ -180,7 +183,7 @@ trait DataTableTrait
         return implode('&nbsp;', $actionColumn);
     }
 
-/** Setters **/
+    /** Setters **/
     private function setTableOptions(array $options)
     {
         // assign collection
@@ -248,16 +251,15 @@ trait DataTableTrait
                 $searchable = array_get($column, 'searchable', false);
 
                 array_set($this->options, 'columnDefs', [[
-                    'targets' => [ $counter ],
+                    'targets' => [$counter],
                     'visible' => $visible === true ? 'true' : 'false',
                     'orderable' => $orderable === true ? 'true' : 'false',
                     'searchable' => $searchable === true ? 'true' : 'false',
                 ]]);
             }
 
-            $counter++;
+            ++$counter;
         }
-
     }
 
     private function setCollection(callable $closure)
@@ -269,5 +271,4 @@ trait DataTableTrait
     {
         $this->options[$key] = $value;
     }
-
 }

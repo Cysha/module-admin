@@ -1,16 +1,16 @@
-<?php namespace Cms\Modules\Admin\Events\Handlers;
+<?php
+
+namespace Cms\Modules\Admin\Events\Handlers;
 
 use Cms\Modules\Admin\Events\ConfigWasSaved;
 use File;
 
 class SetDebug
 {
-
     /**
      * Handle the event.
      *
-     * @param  ConfigWasSaved $event
-     * @return void
+     * @param ConfigWasSaved $event
      */
     public function handle(ConfigWasSaved $event)
     {

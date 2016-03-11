@@ -1,4 +1,6 @@
-<?php namespace Cms\Modules\Admin\Providers;
+<?php
+
+namespace Cms\Modules\Admin\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Foundation\AliasLoader;
@@ -7,8 +9,6 @@ class AdminServicesProvider extends ServiceProvider
 {
     /**
      * Register the service provider.
-     *
-     * @return void
      */
     public function register()
     {
@@ -22,7 +22,6 @@ class AdminServicesProvider extends ServiceProvider
             $this->app->register('Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider');
             AliasLoader::getInstance()->alias('Bugsnag', 'Bugsnag\BugsnagLaravel\BugsnagFacade');
         }
-
 
         // register datatables
         $this->app->register('Yajra\Datatables\DatatablesServiceProvider');

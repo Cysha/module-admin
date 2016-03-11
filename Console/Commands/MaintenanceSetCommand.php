@@ -1,4 +1,6 @@
-<?php namespace Cms\Modules\Admin\Console\Commands;
+<?php
+
+namespace Cms\Modules\Admin\Console\Commands;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -39,6 +41,7 @@ class MaintenanceSetCommand extends Command
 
     /**
      * Get the console command arguments.
+     *
      * @return array
      */
     protected function getArguments()
