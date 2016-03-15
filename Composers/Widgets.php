@@ -25,14 +25,4 @@ class Widgets
             'commits' => array_slice($github, 0, 3),
         ]);
     }
-
-    public function MemoryUsage($view)
-    {
-        $pid = getmypid();
-        exec("ps -eo%mem,rss,pid | grep $pid", $output);
-
-        $return = explode('  ', $output[0]);
-
-        $view->with('memory', convertUnits($return[1] * 1024));
-    }
 }
