@@ -57,7 +57,7 @@ trait DataTableTrait
         view()->share('tableOptions', $this->options);
 
         // if its for the data, output now
-        if (\Request::ajax() || (config('app.debug') === true && app('request')->get('columns'))) {
+        if (\Request::ajax() || app('request')->get('columns')) {
             return $this->getDataTableJson();
         }
 
@@ -128,33 +128,28 @@ trait DataTableTrait
         if (array_get($this->options, 'searching', false) !== false) {
             $request = app('request');
 
-            /*
-            TODO: this filters out the correct rows, but doesnt pass it back to the datatable???
             $table->filter(function ($instance) use ($request, $columns) {
-
-                \Debug::console(['before', $instance->collection]);
-                foreach ($request->get('columns') as $idx => $info) {
-                    if (empty(array_get($info, 'search.value', null))) {
+                foreach ($request->get('columns') as $info) {
+                    $key = array_get($info, 'data', null);
+                    $value = $request->get($key);
+                    if (empty($value)) {
                         continue;
                     }
 
                     if (array_get($info, 'searchable', false) === false) {
                         continue;
                     }
-                    $key = array_get($info, 'data', null);
 
-                    $instance->collection = $instance->collection->filter(function ($row) use ($info, $key) {
-                        return str_contains(strtolower($row->$key), strtolower(array_get($info, 'search.value'))) ? true : false;
+                    $instance->collection = $instance->collection->filter(function ($row) use ($value, $key) {
+                        return str_contains(strtolower($row->$key), strtolower($value));
                     });
-
                 }
-
-                \Debug::console(['after', $instance->collection]);
-            });*/
-
+            });
         // disable the inbuilt searching all together if option is false
         } else {
-            $table->filter(function () {});
+            $table->filter(function () {
+
+            });
         }
 
         return $table->make(true);
@@ -210,7 +205,13 @@ trait DataTableTrait
         $value = array_pull($options, 'column_search', false);
         if ($value === true) {
             $this->setOption('tfoot', true);
-            $this->setOption('searching', false);
+            // $this->setOption('searching', false);
+            $ajaxUrl = $this->getOption('ajax');
+
+            $this->setOption('ajax', [
+                'url' => $ajaxUrl,
+                'data' => null,
+            ]);
         }
 
         $this->setOption('processing', true);
@@ -242,7 +243,7 @@ trait DataTableTrait
 
             array_set($this->options, 'columns.'.$counter, [
                 'data' => $key,
-                //'name' => $key,
+                'name' => $key,
             ]);
 
             if ($key !== 'actions') {
@@ -270,5 +271,10 @@ trait DataTableTrait
     private function setOption($key, $value)
     {
         $this->options[$key] = $value;
+    }
+
+    private function getOption($key)
+    {
+        return array_get($this->options, $key, null);
     }
 }
