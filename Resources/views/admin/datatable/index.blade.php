@@ -13,7 +13,9 @@
     <thead>
         <tr>
         @foreach($columns as $key => $col)
-            <th class="head {{ str_slug('th_'.$key) }} {{ array_get($col, 'th-class', null) }}" data-search="{{ array_get($col, 'searchable', false) === true ? 'true' : 'false' }}">
+            <th class="head {{ str_slug('th_'.$key) }} {{ array_get($col, 'th-class', null) }}"
+                data-search="{{ array_get($col, 'searchable', false) === true ? 'true' : 'false' }}">
+
                 {!! $col['th'] !!}
             </th>
         @endforeach
@@ -24,15 +26,13 @@
             <td>
                 @if ($key === 'actions')
                 <input type="submit"  class="form-control" value="Search">
-                @continue
-
-                @else
-                &nbsp;
-
                 @endif
 
-                @continue(!array_get($col, 'searchable', false))
-                <input type="text" class="form-control" name="{{ $key }}" id="{{ $key }}">
+                @if (array_get($col, 'searchable', false))
+                <input type="text" class="form-control" onclick="stopPropagation(event);"  name="{{ $key }}" id="{{ $key }}">
+                @else
+                &nbsp;
+                @endif
             </td>
         @endforeach
         </tr>
@@ -57,6 +57,8 @@
 </form>
 <script>
 var options = {!! $options !!};
+options.orderCellsTop = true;
+jQuery.extend(jQuery.fn.dataTable.defaults, options);
 
 @if(array_get($tableConfig, 'options.column_search', false) === true)
 
@@ -67,9 +69,11 @@ d.{{ $key }} = jQuery('input[name={{ $key }}]').val();
 @endforeach
 }
 
+jQuery.extend(jQuery.fn.dataTable.defaults, {
+    searching: false
+});
 @endif
 
-jQuery.extend(jQuery.fn.dataTable.defaults, options);
 var datatable = jQuery('#{{ $id }}').DataTable();
 @if(array_get($tableConfig, 'options.column_search', false) === true)
 jQuery('form[name=datatable-form]').submit(function(e) {
@@ -77,4 +81,12 @@ jQuery('form[name=datatable-form]').submit(function(e) {
     e.preventDefault();
 });
 @endif
+
+function stopPropagation(evt) {
+    if (evt.stopPropagation !== undefined) {
+        evt.stopPropagation();
+    } else {
+        evt.cancelBubble = true;
+    }
+}
 </script>

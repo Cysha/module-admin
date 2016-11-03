@@ -71,12 +71,32 @@ trait DataTableTrait
     {
         $protocol = \Request::secure() ? 'https' : 'http';
 
-        $this->theme->asset()->add('datatable-js', $protocol.'://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js', array('app.js'));
-        $this->theme->asset()->add('datatable-bs-js', $protocol.'://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js', array('datatable-js'));
+        $assets = [
+            [
+                'datatable-js',
+                '://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js',
+                ['app.js'],
+            ],
+            [
+                'datatable-bs-js',
+                '://cdn.datatables.net/v/bs/dt-1.10.12/datatables.min.js',
+                ['datatable-js'],
+            ],
+            [
+                'datatable-bs-css',
+                '://cdn.datatables.net/v/bs/dt-1.10.12/datatables.min.css',
+                ['bootstrap'],
+            ],
+            [
+                'datatable-fa-css',
+                '://cdn.datatables.net/plug-ins/725b2a2115b/integration/font-awesome/dataTables.fontAwesome.css',
+                ['datatable-bs-css'],
+            ],
+        ];
 
-        $this->theme->asset()->add('datatable-bs-css', $protocol.'://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css', array('bootstrap'));
-        $this->theme->asset()->add('datatable-fa-css', $protocol.'://cdn.datatables.net/plug-ins/725b2a2115b/integration/font-awesome/dataTables.fontAwesome.css', array('bootstrap-bs-css'));
-        //$this->theme->asset()->add('datatable-viewcss', 'packages/modules/admin/css/admin.datatable-view.css', array('datatable-css'));
+        foreach ($assets as $asset) {
+            $this->theme->asset()->add($asset[0], $protocol.$asset[1], $asset[2]);
+        }
     }
 
     private function getDataTableHtml($data)
@@ -204,7 +224,7 @@ trait DataTableTrait
         // turn the footer on when column_search is enabled, and normal search off
         $value = array_pull($options, 'column_search', false);
         if ($value === true) {
-            $this->setOption('tfoot', true);
+            // $this->setOption('tfoot', true);
             // $this->setOption('searching', false);
             $ajaxUrl = $this->getOption('ajax');
 
