@@ -2,6 +2,9 @@
 
 namespace Cms\Modules\Admin\Providers;
 
+use Cms\Modules\Core\Models\Module;
+use Cms\Modules\Core\Models\Navigation;
+use Cms\Modules\Core\Models\NavigationLink;
 use Cms\Modules\Core\Providers\CmsRoutingProvider;
 use Illuminate\Routing\Router;
 
@@ -37,8 +40,19 @@ class AdminRoutingProvider extends CmsRoutingProvider
     {
         parent::boot($router);
 
-        $router->bind('admin_module_name', function ($name) {
-            return \Cms\Modules\Core\Models\Module::findOrFail($name);
+        $router->bind('admin_module_name', function ($id) {
+            return (new Module())->findOrFail($id);
+        });
+
+        $router->bind('admin_nav_name', function ($name) {
+            return (new Navigation())
+                ->with('links')
+                ->where('name', $name)
+                ->firstOrFail();
+        });
+
+        $router->bind('admin_link_id', function ($id) {
+            return (new NavigationLink())->findOrFail($id);
         });
     }
 }

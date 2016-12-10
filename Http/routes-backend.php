@@ -53,4 +53,34 @@ $router->group([
     $router->get('/', ['as' => 'admin.modules.manager', 'uses' => 'ModuleController@manager']);
 });
 
+// URI: /{backend}/navigation
+$router->group([
+    'prefix' => 'navigation',
+    'namespace' => 'Navigation',
+    'middleware' => 'hasPermission',
+    'hasPermission' => 'manage@admin_nav',
+], function (Router $router) {
+
+    $router->post('create', ['uses' => 'NavController@store']);
+    $router->get('create', ['as' => 'admin.nav.create', 'uses' => 'NavController@create']);
+
+    $router->group(['prefix' => '{admin_nav_name}'], function (Router $router) {
+        $router->post('new-link', ['uses' => 'NavLinksController@store']);
+        $router->get('new-link', ['as' => 'admin.nav.links.create', 'uses' => 'NavLinksController@create']);
+
+        $router->group(['prefix' => 'link/{admin_link_id}'], function (Router $router) {
+            $router->post('up', ['as' => 'admin.nav.links.move-up', 'uses' => 'NavLinksController@postUp']);
+            $router->post('down', ['as' => 'admin.nav.links.move-down', 'uses' => 'NavLinksController@postDown']);
+
+            $router->post('/', ['uses' => 'NavLinksController@store']);
+            $router->get('/', ['as' => 'admin.nav.links.update', 'uses' => 'NavLinksController@update']);
+        });
+
+        $router->post('/', ['uses' => 'NavController@store']);
+        $router->get('/', ['as' => 'admin.nav.update', 'uses' => 'NavController@update']);
+    });
+
+    $router->get('/', ['as' => 'admin.nav.manager', 'uses' => 'NavController@manager']);
+});
+
 $router->get('/', ['uses' => 'Dashboard\DashboardController@redirect']);

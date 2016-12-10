@@ -12,6 +12,7 @@ return [
     'permission_manage' => [
         'admin_config',
         'admin_modules',
+        'admin_nav',
     ],
 
     /*

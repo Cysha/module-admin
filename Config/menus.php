@@ -27,6 +27,13 @@ return [
                    'order' => 3,
                    'permission' => 'manage@admin_modules',
                 ],
+                [
+                   'route' => 'admin.nav.manager',
+                   'text' => 'Navigation Manager',
+                   'icon' => 'fa-list-ul',
+                   'order' => 4,
+                   'permission' => 'manage@admin_nav',
+                ],
             ],
         ],
     ],

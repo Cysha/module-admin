@@ -25,4 +25,13 @@ return [
         'module.toggle' => 'Toggle a module\'s enabled state',
     ],
 
+    'admin_nav' => [
+        // backend manager
+        'manage' => 'Manage navigations',
+        'manage.create' => 'Create a navigation?',
+        'manage.read' => 'Read a navigations links',
+        'manage.update' => 'Update a navigation configuration',
+        'manage.delete' => 'Remove a navigation from the site',
+    ],
+
 ];
