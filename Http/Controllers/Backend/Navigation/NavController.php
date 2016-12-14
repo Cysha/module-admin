@@ -22,7 +22,7 @@ class NavController extends BaseAdminController
     {
         $this->theme->setTitle('Create Navigation');
         $this->theme->breadcrumb()->add('Manage Navigation', route('admin.nav.manager'));
-        $this->theme->breadcrumb()->add('Create Nav', route('admin.nav.update'));
+        $this->theme->breadcrumb()->add('Create Nav', route('admin.nav.create'));
 
         return $this->setView('admin.navigation.form');
     }
@@ -31,7 +31,7 @@ class NavController extends BaseAdminController
     {
         $this->theme->setTitle(sprintf('Manage Navigation > %s', $nav->name));
         $this->theme->breadcrumb()->add('Manage Navigation', route('admin.nav.manager'));
-        $this->theme->breadcrumb()->add('Update Nav', route('admin.nav.update'));
+        $this->theme->breadcrumb()->add('Update Nav', route('admin.nav.update', $nav->name));
 
         Former::populate($nav);
 

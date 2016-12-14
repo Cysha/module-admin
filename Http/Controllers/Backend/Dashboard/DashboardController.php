@@ -4,7 +4,7 @@ namespace Cms\Modules\Admin\Http\Controllers\Backend\Dashboard;
 
 use Cms\Modules\Admin\Http\Controllers\Backend\BaseAdminController;
 use Cms\Modules\Admin\Services\DashboardService;
-use Input;
+use Illuminate\Http\Request;
 
 class DashboardController extends BaseAdminController
 {
@@ -38,9 +38,9 @@ class DashboardController extends BaseAdminController
         ], 'module');
     }
 
-    public function loadWidget(DashboardService $dashboard)
+    public function loadWidget(DashboardService $dashboard, Request $input)
     {
-        $requestedWidget = Input::get('widget');
+        $requestedWidget = $input->get('widget');
 
         $widgetList = [];
         foreach ($dashboard->getWidgetList() as $module => $widgets) {
@@ -54,9 +54,9 @@ class DashboardController extends BaseAdminController
         return 'Error: Can\'t load '.$requestedWidget.'';
     }
 
-    public function saveGrid()
+    public function saveGrid(Request $input)
     {
-        $grid = Input::get('grid');
+        $grid = $input->get('grid');
         if (empty($grid)) {
             return 'false';
         }

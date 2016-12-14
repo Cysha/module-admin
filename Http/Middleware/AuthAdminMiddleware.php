@@ -3,23 +3,23 @@
 namespace Cms\Modules\Admin\Http\Middleware;
 
 use Closure;
-use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\Auth\Factory as AuthFactory;
 
 class AuthAdminMiddleware
 {
     /**
-     * The Guard implementation.
+     * The guard factory instance.
      *
-     * @var Guard
+     * @var \Illuminate\Contracts\Auth\Factory
      */
     protected $auth;
 
     /**
-     * Create a new filter instance.
+     * Create a new middleware instance.
      *
-     * @param Guard $auth
+     * @param \Illuminate\Contracts\Auth\Factory $auth
      */
-    public function __construct(Guard $auth)
+    public function __construct(AuthFactory $auth)
     {
         $this->auth = $auth;
     }
@@ -43,7 +43,7 @@ class AuthAdminMiddleware
             }
         }
 
-        if (!$this->auth->getUser()->isAdmin()) {
+        if (!$this->auth->user()->isAdmin()) {
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {

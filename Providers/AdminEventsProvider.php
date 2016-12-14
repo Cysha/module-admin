@@ -2,7 +2,6 @@
 
 namespace Cms\Modules\Admin\Providers;
 
-use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Cms\Modules\Core\Providers\BaseEventsProvider;
 use Cms\Modules\Core;
 use Cms\Modules\Admin;
@@ -32,12 +31,10 @@ class AdminEventsProvider extends BaseEventsProvider
 
     /**
      * Register any other events for your application.
-     *
-     * @param \Illuminate\Contracts\Events\Dispatcher $events
      */
-    public function boot(DispatcherContract $events)
+    public function boot()
     {
-        parent::boot($events);
+        parent::boot();
 
         Core\Models\DBConfig::saved(function ($model) {
             Cache::forget('core.config_table');
