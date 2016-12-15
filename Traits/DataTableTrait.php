@@ -62,7 +62,8 @@ trait DataTableTrait
         }
 
         // otherwise output the table
-        $data = $this->getDataTableData();
+        $type = array_pull($tableConfig, 'options.collection_type', 'of');
+        $data = $this->getDataTableData($type);
 
         return $this->getDataTableHtml($data);
     }
@@ -124,9 +125,9 @@ trait DataTableTrait
         return $data;
     }
 
-    private function getDataTableJson()
+    private function getDataTableJson($type = 'of')
     {
-        $table = Datatables::of($this->collection);
+        $table = Datatables::$type($this->collection);
         $columns = $this->getColumns();
 
         // process columns
