@@ -15,8 +15,7 @@ class NavLinksController extends BaseAdminController
     {
         $this->theme->setTitle(sprintf('Manage Navigation > %s', $nav->name));
         $this->theme->breadcrumb()->add('Manage Navigation', route('admin.nav.manager'));
-        $this->theme->breadcrumb()->add('Nav Update', route('admin.nav.update'));
-        $this->theme->breadcrumb()->add('Create', route('admin.nav.links.create'));
+        $this->theme->breadcrumb()->add('Nav Update', route('admin.nav.update', $nav->name));
 
         Former::populate($navLink);
 
@@ -27,8 +26,7 @@ class NavLinksController extends BaseAdminController
     {
         $this->theme->setTitle(sprintf('Manage Navigation > %s', $nav->name));
         $this->theme->breadcrumb()->add('Manage Navigation', route('admin.nav.manager'));
-        $this->theme->breadcrumb()->add('Nav Update', route('admin.nav.update'));
-        $this->theme->breadcrumb()->add('Update', route('admin.nav.links.update'));
+        $this->theme->breadcrumb()->add('Nav Update', route('admin.nav.update', $nav->name));
 
         Former::populate($navLink);
 
