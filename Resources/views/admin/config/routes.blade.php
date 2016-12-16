@@ -3,7 +3,7 @@
 @section('admin-config')
 {!! Former::horizontal_open(route('admin.config.store')) !!}
     <div class="alert alert-warning"><strong>Warning:</strong> This panel is still WIP and might not work 100%, if at all.</div>
-
+    @set($url, str_replace(request()->path(), '', request()->url()))
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">Routes <small>(Make sure paths have the trailing slash)</small></h3>
@@ -17,15 +17,15 @@
             <tbody>
                 <tr>
                     <td>API Path</td>
-                    <td>{!! Form::Config('api.prefix')->label(false) !!}</td>
+                    <td>{!! Form::Config('api.prefix')->label(false)->prepend($url) !!}</td>
                 </tr>
                 <tr>
                     <td>Frontend Path</td>
-                    <td>{!! Form::Config('cms.core.app.paths.frontend')->label(false) !!}</td>
+                    <td>{!! Form::Config('cms.core.app.paths.frontend')->label(false)->prepend($url) !!}</td>
                 </tr>
                 <tr>
                     <td>Backend Path</td>
-                    <td>{!! Form::Config('cms.core.app.paths.backend')->label(false) !!}</td>
+                    <td>{!! Form::Config('cms.core.app.paths.backend')->label(false)->prepend($url) !!}</td>
                 </tr>
             </tbody>
         </table>
