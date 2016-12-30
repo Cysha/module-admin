@@ -2,6 +2,7 @@
 
 namespace Cms\Modules\Admin\Providers;
 
+use Cms\Modules\Admin\Models\Widget;
 use Cms\Modules\Core\Models\Module;
 use Cms\Modules\Core\Models\Navigation;
 use Cms\Modules\Core\Models\NavigationLink;
@@ -53,6 +54,12 @@ class AdminRoutingProvider extends CmsRoutingProvider
 
         Route::bind('admin_link_id', function ($id) {
             return (new NavigationLink())->findOrFail($id);
+        });
+
+        Route::bind('admin_widget_id', function ($id) {
+            return (new Widget())
+                ->with('options')
+                ->findOrFail($id);
         });
     }
 }

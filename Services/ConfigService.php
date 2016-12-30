@@ -25,16 +25,14 @@ class ConfigService
         $this->modules = $modules;
     }
 
-    public function getIndexRoutes()
+    public function getConfigVals($configVal)
     {
-        // grab a list of all the index routes
-        $indexRoutes = [];
-
         // grab the module list
         if (!count($this->modules->enabled())) {
-            return $indexRoutes;
+            return [];
         }
 
+        $values = [];
         foreach ($this->modules->getOrdered() as $module) {
             // make sure the module is enabled
             if (!$module->enabled()) {
@@ -42,7 +40,7 @@ class ConfigService
             }
 
             // test for the pre-defined config string
-            $configStr = sprintf('cms.%s.config.pxcms-index', $module->getLowerName());
+            $configStr = sprintf('cms.%s.%s', $module->getLowerName(), $configVal);
             if (!$this->config->has($configStr)) {
                 continue;
             }
@@ -58,7 +56,20 @@ class ConfigService
                 $configVar = [$configVar];
             }
 
-            foreach ($configVar as $route => $name) {
+            $values[$module->getLowerName()] = $configVar;
+        }
+
+        return $values;
+    }
+
+    public function getIndexRoutes()
+    {
+        // grab a list of all the index routes
+        $indexRoutes = [];
+
+        $modules = $this->getConfigVals('config.pxcms-index');
+        foreach ($modules as $moduleName => $routes) {
+            foreach ($routes as $route => $name) {
                 // if route is numeric, means we dont have a human readable name
                 if (is_numeric($route)) {
                     $route = $name;
@@ -66,7 +77,9 @@ class ConfigService
                 }
 
                 // add this route to the array to pass back
-                $indexRoutes = array_merge($indexRoutes, [$route => '['.$module->getStudlyName().'] '.$name]);
+                $indexRoutes = array_merge($indexRoutes, [
+                    $route => '['.ucwords($moduleName).'] '.$name,
+                ]);
             }
         }
 
@@ -85,26 +98,34 @@ class ConfigService
         $locations = [];
         $zones = timezone_identifiers_list();
 
+        $continentNames = [
+            'Africa', 'America', 'Antarctica', 'Arctic', 'Asia',
+            'Atlantic', 'Australia', 'Europe', 'Indian', 'Pacific',
+        ];
+
         foreach ($zones as $zone) {
             $zoneExploded = explode('/', $zone); // 0 => Continent, 1 => City
 
             // Only use "friendly" continent names
-            if ($zoneExploded[0] == 'Africa' || $zoneExploded[0] == 'America' || $zoneExploded[0] == 'Antarctica' || $zoneExploded[0] == 'Arctic' || $zoneExploded[0] == 'Asia' || $zoneExploded[0] == 'Atlantic' || $zoneExploded[0] == 'Australia' || $zoneExploded[0] == 'Europe' || $zoneExploded[0] == 'Indian' || $zoneExploded[0] == 'Pacific') {
-                if (isset($zoneExploded[1]) != '') {
-                    $area = str_replace('_', ' ', $zoneExploded[1]);
-
-                    if (!empty($zoneExploded[2])) {
-                        $area = $area.' ('.str_replace('_', ' ', $zoneExploded[2]).')';
-                    }
-
-                    $offset = (new DateTime('now', new DateTimeZone($zone)))->getOffset();
-                    $locations[$zoneExploded[0]][$zone] = sprintf('UTC%s%s %s',
-                        ($offset < 0 ? '-' : '+'),
-                        gmdate('H:i', abs($offset)),
-                        $area
-                    );
-                }
+            if (!in_array($zoneExploded[0], $continentNames)) {
+                continue;
             }
+
+            if (!isset($zoneExploded[1])) {
+                continue;
+            }
+            $area = str_replace('_', ' ', $zoneExploded[1]);
+
+            if (!empty($zoneExploded[2])) {
+                $area = $area.' ('.str_replace('_', ' ', $zoneExploded[2]).')';
+            }
+
+            $offset = (new DateTime('now', new DateTimeZone($zone)))->getOffset();
+            $locations[$zoneExploded[0]][$zone] = sprintf('UTC%s%s %s',
+                ($offset < 0 ? '-' : '+'),
+                gmdate('H:i', abs($offset)),
+                $area
+            );
         }
 
         return $locations;

@@ -1,0 +1,17 @@
+.dashboardcontroller.getindex .content {
+    position: relative;
+    min-height: 100vh;
+}
+
+.dashboard {
+    @include font-sans;
+
+    color: $white;
+    font-size: setting($font-size, base);
+    overflow: hidden;
+    // position: fixed;
+    // left: setting($grid, cell-spacing)/2;
+    // right: setting($grid, cell-spacing)/2;
+    // top: setting($grid, cell-spacing)/2;
+    // bottom: setting($grid, cell-spacing)/2;
+}

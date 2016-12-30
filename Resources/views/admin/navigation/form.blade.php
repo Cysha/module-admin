@@ -38,7 +38,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                @forelse($nav->links as $link)
+                @forelse($nav->links->sortBy('order') as $link)
                     <tr>
                         <td>{{ $link->title }}</td>
                         <td><span title="{{ $link->url ?: route($link->route) }}" data-toggle="tooltip">{{ $link->url ?: $link->route }}</span></td>

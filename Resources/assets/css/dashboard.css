@@ -1,0 +1,1880 @@
+html {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  /*bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+
+    * {
+        box-sizing: border-box;
+        line-height: 1.2;
+        margin: 0;
+        padding: 0;
+        position: relative;
+
+        &:after,
+        &:before {
+            box-sizing: border-box;
+        }
+    }*/
+}
+
+/*
+ul {
+    list-style: none;
+}
+
+h1 {
+    @include font-sans-light;
+
+    color: $white;
+    font-size: setting($font-size, m);
+    margin-bottom: .5em;
+    opacity: .75;
+    text-transform: uppercase;
+}
+
+h2 {
+    @include font-sans-black;
+
+    color: $white;
+    font-size: setting($font-size, default);
+}
+
+li {
+    border-bottom: solid .1vw color($blue, lightest, .2);
+    padding: .35vh 0;
+}
+*/
+.dashboardcontroller.getindex .content {
+  position: relative;
+  min-height: 100vh;
+}
+
+.dashboard {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  color: #fff;
+  font-size: 1.6vw;
+  overflow: hidden;
+}
+
+.grid {
+  position: absolute;
+  display: none;
+  overflow: hidden;
+}
+
+.grid--from-a1 {
+  display: block;
+  left: 0%;
+  top: 0%;
+  z-index: 998;
+}
+
+.grid--to-a1 {
+  right: 91.6666666667%;
+  bottom: 91.6666666667%;
+}
+
+.grid--from-b1 {
+  display: block;
+  left: 8.3333333333%;
+  top: 0%;
+  z-index: 997;
+}
+
+.grid--to-b1 {
+  right: 83.3333333333%;
+  bottom: 91.6666666667%;
+}
+
+.grid--from-c1 {
+  display: block;
+  left: 16.6666666667%;
+  top: 0%;
+  z-index: 996;
+}
+
+.grid--to-c1 {
+  right: 75%;
+  bottom: 91.6666666667%;
+}
+
+.grid--from-d1 {
+  display: block;
+  left: 25%;
+  top: 0%;
+  z-index: 995;
+}
+
+.grid--to-d1 {
+  right: 66.6666666667%;
+  bottom: 91.6666666667%;
+}
+
+.grid--from-e1 {
+  display: block;
+  left: 33.3333333333%;
+  top: 0%;
+  z-index: 994;
+}
+
+.grid--to-e1 {
+  right: 58.3333333333%;
+  bottom: 91.6666666667%;
+}
+
+.grid--from-f1 {
+  display: block;
+  left: 41.6666666667%;
+  top: 0%;
+  z-index: 993;
+}
+
+.grid--to-f1 {
+  right: 50%;
+  bottom: 91.6666666667%;
+}
+
+.grid--from-g1 {
+  display: block;
+  left: 50%;
+  top: 0%;
+  z-index: 992;
+}
+
+.grid--to-g1 {
+  right: 41.6666666667%;
+  bottom: 91.6666666667%;
+}
+
+.grid--from-h1 {
+  display: block;
+  left: 58.3333333333%;
+  top: 0%;
+  z-index: 991;
+}
+
+.grid--to-h1 {
+  right: 33.3333333333%;
+  bottom: 91.6666666667%;
+}
+
+.grid--from-i1 {
+  display: block;
+  left: 66.6666666667%;
+  top: 0%;
+  z-index: 990;
+}
+
+.grid--to-i1 {
+  right: 25%;
+  bottom: 91.6666666667%;
+}
+
+.grid--from-j1 {
+  display: block;
+  left: 75%;
+  top: 0%;
+  z-index: 989;
+}
+
+.grid--to-j1 {
+  right: 16.6666666667%;
+  bottom: 91.6666666667%;
+}
+
+.grid--from-k1 {
+  display: block;
+  left: 83.3333333333%;
+  top: 0%;
+  z-index: 988;
+}
+
+.grid--to-k1 {
+  right: 8.3333333333%;
+  bottom: 91.6666666667%;
+}
+
+.grid--from-l1 {
+  display: block;
+  left: 91.6666666667%;
+  top: 0%;
+  z-index: 987;
+}
+
+.grid--to-l1 {
+  right: 0%;
+  bottom: 91.6666666667%;
+}
+
+.grid--from-a2 {
+  display: block;
+  left: 0%;
+  top: 8.3333333333%;
+  z-index: 997;
+}
+
+.grid--to-a2 {
+  right: 91.6666666667%;
+  bottom: 83.3333333333%;
+}
+
+.grid--from-b2 {
+  display: block;
+  left: 8.3333333333%;
+  top: 8.3333333333%;
+  z-index: 996;
+}
+
+.grid--to-b2 {
+  right: 83.3333333333%;
+  bottom: 83.3333333333%;
+}
+
+.grid--from-c2 {
+  display: block;
+  left: 16.6666666667%;
+  top: 8.3333333333%;
+  z-index: 995;
+}
+
+.grid--to-c2 {
+  right: 75%;
+  bottom: 83.3333333333%;
+}
+
+.grid--from-d2 {
+  display: block;
+  left: 25%;
+  top: 8.3333333333%;
+  z-index: 994;
+}
+
+.grid--to-d2 {
+  right: 66.6666666667%;
+  bottom: 83.3333333333%;
+}
+
+.grid--from-e2 {
+  display: block;
+  left: 33.3333333333%;
+  top: 8.3333333333%;
+  z-index: 993;
+}
+
+.grid--to-e2 {
+  right: 58.3333333333%;
+  bottom: 83.3333333333%;
+}
+
+.grid--from-f2 {
+  display: block;
+  left: 41.6666666667%;
+  top: 8.3333333333%;
+  z-index: 992;
+}
+
+.grid--to-f2 {
+  right: 50%;
+  bottom: 83.3333333333%;
+}
+
+.grid--from-g2 {
+  display: block;
+  left: 50%;
+  top: 8.3333333333%;
+  z-index: 991;
+}
+
+.grid--to-g2 {
+  right: 41.6666666667%;
+  bottom: 83.3333333333%;
+}
+
+.grid--from-h2 {
+  display: block;
+  left: 58.3333333333%;
+  top: 8.3333333333%;
+  z-index: 990;
+}
+
+.grid--to-h2 {
+  right: 33.3333333333%;
+  bottom: 83.3333333333%;
+}
+
+.grid--from-i2 {
+  display: block;
+  left: 66.6666666667%;
+  top: 8.3333333333%;
+  z-index: 989;
+}
+
+.grid--to-i2 {
+  right: 25%;
+  bottom: 83.3333333333%;
+}
+
+.grid--from-j2 {
+  display: block;
+  left: 75%;
+  top: 8.3333333333%;
+  z-index: 988;
+}
+
+.grid--to-j2 {
+  right: 16.6666666667%;
+  bottom: 83.3333333333%;
+}
+
+.grid--from-k2 {
+  display: block;
+  left: 83.3333333333%;
+  top: 8.3333333333%;
+  z-index: 987;
+}
+
+.grid--to-k2 {
+  right: 8.3333333333%;
+  bottom: 83.3333333333%;
+}
+
+.grid--from-l2 {
+  display: block;
+  left: 91.6666666667%;
+  top: 8.3333333333%;
+  z-index: 986;
+}
+
+.grid--to-l2 {
+  right: 0%;
+  bottom: 83.3333333333%;
+}
+
+.grid--from-a3 {
+  display: block;
+  left: 0%;
+  top: 16.6666666667%;
+  z-index: 996;
+}
+
+.grid--to-a3 {
+  right: 91.6666666667%;
+  bottom: 75%;
+}
+
+.grid--from-b3 {
+  display: block;
+  left: 8.3333333333%;
+  top: 16.6666666667%;
+  z-index: 995;
+}
+
+.grid--to-b3 {
+  right: 83.3333333333%;
+  bottom: 75%;
+}
+
+.grid--from-c3 {
+  display: block;
+  left: 16.6666666667%;
+  top: 16.6666666667%;
+  z-index: 994;
+}
+
+.grid--to-c3 {
+  right: 75%;
+  bottom: 75%;
+}
+
+.grid--from-d3 {
+  display: block;
+  left: 25%;
+  top: 16.6666666667%;
+  z-index: 993;
+}
+
+.grid--to-d3 {
+  right: 66.6666666667%;
+  bottom: 75%;
+}
+
+.grid--from-e3 {
+  display: block;
+  left: 33.3333333333%;
+  top: 16.6666666667%;
+  z-index: 992;
+}
+
+.grid--to-e3 {
+  right: 58.3333333333%;
+  bottom: 75%;
+}
+
+.grid--from-f3 {
+  display: block;
+  left: 41.6666666667%;
+  top: 16.6666666667%;
+  z-index: 991;
+}
+
+.grid--to-f3 {
+  right: 50%;
+  bottom: 75%;
+}
+
+.grid--from-g3 {
+  display: block;
+  left: 50%;
+  top: 16.6666666667%;
+  z-index: 990;
+}
+
+.grid--to-g3 {
+  right: 41.6666666667%;
+  bottom: 75%;
+}
+
+.grid--from-h3 {
+  display: block;
+  left: 58.3333333333%;
+  top: 16.6666666667%;
+  z-index: 989;
+}
+
+.grid--to-h3 {
+  right: 33.3333333333%;
+  bottom: 75%;
+}
+
+.grid--from-i3 {
+  display: block;
+  left: 66.6666666667%;
+  top: 16.6666666667%;
+  z-index: 988;
+}
+
+.grid--to-i3 {
+  right: 25%;
+  bottom: 75%;
+}
+
+.grid--from-j3 {
+  display: block;
+  left: 75%;
+  top: 16.6666666667%;
+  z-index: 987;
+}
+
+.grid--to-j3 {
+  right: 16.6666666667%;
+  bottom: 75%;
+}
+
+.grid--from-k3 {
+  display: block;
+  left: 83.3333333333%;
+  top: 16.6666666667%;
+  z-index: 986;
+}
+
+.grid--to-k3 {
+  right: 8.3333333333%;
+  bottom: 75%;
+}
+
+.grid--from-l3 {
+  display: block;
+  left: 91.6666666667%;
+  top: 16.6666666667%;
+  z-index: 985;
+}
+
+.grid--to-l3 {
+  right: 0%;
+  bottom: 75%;
+}
+
+.grid--from-a4 {
+  display: block;
+  left: 0%;
+  top: 25%;
+  z-index: 995;
+}
+
+.grid--to-a4 {
+  right: 91.6666666667%;
+  bottom: 66.6666666667%;
+}
+
+.grid--from-b4 {
+  display: block;
+  left: 8.3333333333%;
+  top: 25%;
+  z-index: 994;
+}
+
+.grid--to-b4 {
+  right: 83.3333333333%;
+  bottom: 66.6666666667%;
+}
+
+.grid--from-c4 {
+  display: block;
+  left: 16.6666666667%;
+  top: 25%;
+  z-index: 993;
+}
+
+.grid--to-c4 {
+  right: 75%;
+  bottom: 66.6666666667%;
+}
+
+.grid--from-d4 {
+  display: block;
+  left: 25%;
+  top: 25%;
+  z-index: 992;
+}
+
+.grid--to-d4 {
+  right: 66.6666666667%;
+  bottom: 66.6666666667%;
+}
+
+.grid--from-e4 {
+  display: block;
+  left: 33.3333333333%;
+  top: 25%;
+  z-index: 991;
+}
+
+.grid--to-e4 {
+  right: 58.3333333333%;
+  bottom: 66.6666666667%;
+}
+
+.grid--from-f4 {
+  display: block;
+  left: 41.6666666667%;
+  top: 25%;
+  z-index: 990;
+}
+
+.grid--to-f4 {
+  right: 50%;
+  bottom: 66.6666666667%;
+}
+
+.grid--from-g4 {
+  display: block;
+  left: 50%;
+  top: 25%;
+  z-index: 989;
+}
+
+.grid--to-g4 {
+  right: 41.6666666667%;
+  bottom: 66.6666666667%;
+}
+
+.grid--from-h4 {
+  display: block;
+  left: 58.3333333333%;
+  top: 25%;
+  z-index: 988;
+}
+
+.grid--to-h4 {
+  right: 33.3333333333%;
+  bottom: 66.6666666667%;
+}
+
+.grid--from-i4 {
+  display: block;
+  left: 66.6666666667%;
+  top: 25%;
+  z-index: 987;
+}
+
+.grid--to-i4 {
+  right: 25%;
+  bottom: 66.6666666667%;
+}
+
+.grid--from-j4 {
+  display: block;
+  left: 75%;
+  top: 25%;
+  z-index: 986;
+}
+
+.grid--to-j4 {
+  right: 16.6666666667%;
+  bottom: 66.6666666667%;
+}
+
+.grid--from-k4 {
+  display: block;
+  left: 83.3333333333%;
+  top: 25%;
+  z-index: 985;
+}
+
+.grid--to-k4 {
+  right: 8.3333333333%;
+  bottom: 66.6666666667%;
+}
+
+.grid--from-l4 {
+  display: block;
+  left: 91.6666666667%;
+  top: 25%;
+  z-index: 984;
+}
+
+.grid--to-l4 {
+  right: 0%;
+  bottom: 66.6666666667%;
+}
+
+.grid--from-a5 {
+  display: block;
+  left: 0%;
+  top: 33.3333333333%;
+  z-index: 994;
+}
+
+.grid--to-a5 {
+  right: 91.6666666667%;
+  bottom: 58.3333333333%;
+}
+
+.grid--from-b5 {
+  display: block;
+  left: 8.3333333333%;
+  top: 33.3333333333%;
+  z-index: 993;
+}
+
+.grid--to-b5 {
+  right: 83.3333333333%;
+  bottom: 58.3333333333%;
+}
+
+.grid--from-c5 {
+  display: block;
+  left: 16.6666666667%;
+  top: 33.3333333333%;
+  z-index: 992;
+}
+
+.grid--to-c5 {
+  right: 75%;
+  bottom: 58.3333333333%;
+}
+
+.grid--from-d5 {
+  display: block;
+  left: 25%;
+  top: 33.3333333333%;
+  z-index: 991;
+}
+
+.grid--to-d5 {
+  right: 66.6666666667%;
+  bottom: 58.3333333333%;
+}
+
+.grid--from-e5 {
+  display: block;
+  left: 33.3333333333%;
+  top: 33.3333333333%;
+  z-index: 990;
+}
+
+.grid--to-e5 {
+  right: 58.3333333333%;
+  bottom: 58.3333333333%;
+}
+
+.grid--from-f5 {
+  display: block;
+  left: 41.6666666667%;
+  top: 33.3333333333%;
+  z-index: 989;
+}
+
+.grid--to-f5 {
+  right: 50%;
+  bottom: 58.3333333333%;
+}
+
+.grid--from-g5 {
+  display: block;
+  left: 50%;
+  top: 33.3333333333%;
+  z-index: 988;
+}
+
+.grid--to-g5 {
+  right: 41.6666666667%;
+  bottom: 58.3333333333%;
+}
+
+.grid--from-h5 {
+  display: block;
+  left: 58.3333333333%;
+  top: 33.3333333333%;
+  z-index: 987;
+}
+
+.grid--to-h5 {
+  right: 33.3333333333%;
+  bottom: 58.3333333333%;
+}
+
+.grid--from-i5 {
+  display: block;
+  left: 66.6666666667%;
+  top: 33.3333333333%;
+  z-index: 986;
+}
+
+.grid--to-i5 {
+  right: 25%;
+  bottom: 58.3333333333%;
+}
+
+.grid--from-j5 {
+  display: block;
+  left: 75%;
+  top: 33.3333333333%;
+  z-index: 985;
+}
+
+.grid--to-j5 {
+  right: 16.6666666667%;
+  bottom: 58.3333333333%;
+}
+
+.grid--from-k5 {
+  display: block;
+  left: 83.3333333333%;
+  top: 33.3333333333%;
+  z-index: 984;
+}
+
+.grid--to-k5 {
+  right: 8.3333333333%;
+  bottom: 58.3333333333%;
+}
+
+.grid--from-l5 {
+  display: block;
+  left: 91.6666666667%;
+  top: 33.3333333333%;
+  z-index: 983;
+}
+
+.grid--to-l5 {
+  right: 0%;
+  bottom: 58.3333333333%;
+}
+
+.grid--from-a6 {
+  display: block;
+  left: 0%;
+  top: 41.6666666667%;
+  z-index: 993;
+}
+
+.grid--to-a6 {
+  right: 91.6666666667%;
+  bottom: 50%;
+}
+
+.grid--from-b6 {
+  display: block;
+  left: 8.3333333333%;
+  top: 41.6666666667%;
+  z-index: 992;
+}
+
+.grid--to-b6 {
+  right: 83.3333333333%;
+  bottom: 50%;
+}
+
+.grid--from-c6 {
+  display: block;
+  left: 16.6666666667%;
+  top: 41.6666666667%;
+  z-index: 991;
+}
+
+.grid--to-c6 {
+  right: 75%;
+  bottom: 50%;
+}
+
+.grid--from-d6 {
+  display: block;
+  left: 25%;
+  top: 41.6666666667%;
+  z-index: 990;
+}
+
+.grid--to-d6 {
+  right: 66.6666666667%;
+  bottom: 50%;
+}
+
+.grid--from-e6 {
+  display: block;
+  left: 33.3333333333%;
+  top: 41.6666666667%;
+  z-index: 989;
+}
+
+.grid--to-e6 {
+  right: 58.3333333333%;
+  bottom: 50%;
+}
+
+.grid--from-f6 {
+  display: block;
+  left: 41.6666666667%;
+  top: 41.6666666667%;
+  z-index: 988;
+}
+
+.grid--to-f6 {
+  right: 50%;
+  bottom: 50%;
+}
+
+.grid--from-g6 {
+  display: block;
+  left: 50%;
+  top: 41.6666666667%;
+  z-index: 987;
+}
+
+.grid--to-g6 {
+  right: 41.6666666667%;
+  bottom: 50%;
+}
+
+.grid--from-h6 {
+  display: block;
+  left: 58.3333333333%;
+  top: 41.6666666667%;
+  z-index: 986;
+}
+
+.grid--to-h6 {
+  right: 33.3333333333%;
+  bottom: 50%;
+}
+
+.grid--from-i6 {
+  display: block;
+  left: 66.6666666667%;
+  top: 41.6666666667%;
+  z-index: 985;
+}
+
+.grid--to-i6 {
+  right: 25%;
+  bottom: 50%;
+}
+
+.grid--from-j6 {
+  display: block;
+  left: 75%;
+  top: 41.6666666667%;
+  z-index: 984;
+}
+
+.grid--to-j6 {
+  right: 16.6666666667%;
+  bottom: 50%;
+}
+
+.grid--from-k6 {
+  display: block;
+  left: 83.3333333333%;
+  top: 41.6666666667%;
+  z-index: 983;
+}
+
+.grid--to-k6 {
+  right: 8.3333333333%;
+  bottom: 50%;
+}
+
+.grid--from-l6 {
+  display: block;
+  left: 91.6666666667%;
+  top: 41.6666666667%;
+  z-index: 982;
+}
+
+.grid--to-l6 {
+  right: 0%;
+  bottom: 50%;
+}
+
+.grid--from-a7 {
+  display: block;
+  left: 0%;
+  top: 50%;
+  z-index: 992;
+}
+
+.grid--to-a7 {
+  right: 91.6666666667%;
+  bottom: 41.6666666667%;
+}
+
+.grid--from-b7 {
+  display: block;
+  left: 8.3333333333%;
+  top: 50%;
+  z-index: 991;
+}
+
+.grid--to-b7 {
+  right: 83.3333333333%;
+  bottom: 41.6666666667%;
+}
+
+.grid--from-c7 {
+  display: block;
+  left: 16.6666666667%;
+  top: 50%;
+  z-index: 990;
+}
+
+.grid--to-c7 {
+  right: 75%;
+  bottom: 41.6666666667%;
+}
+
+.grid--from-d7 {
+  display: block;
+  left: 25%;
+  top: 50%;
+  z-index: 989;
+}
+
+.grid--to-d7 {
+  right: 66.6666666667%;
+  bottom: 41.6666666667%;
+}
+
+.grid--from-e7 {
+  display: block;
+  left: 33.3333333333%;
+  top: 50%;
+  z-index: 988;
+}
+
+.grid--to-e7 {
+  right: 58.3333333333%;
+  bottom: 41.6666666667%;
+}
+
+.grid--from-f7 {
+  display: block;
+  left: 41.6666666667%;
+  top: 50%;
+  z-index: 987;
+}
+
+.grid--to-f7 {
+  right: 50%;
+  bottom: 41.6666666667%;
+}
+
+.grid--from-g7 {
+  display: block;
+  left: 50%;
+  top: 50%;
+  z-index: 986;
+}
+
+.grid--to-g7 {
+  right: 41.6666666667%;
+  bottom: 41.6666666667%;
+}
+
+.grid--from-h7 {
+  display: block;
+  left: 58.3333333333%;
+  top: 50%;
+  z-index: 985;
+}
+
+.grid--to-h7 {
+  right: 33.3333333333%;
+  bottom: 41.6666666667%;
+}
+
+.grid--from-i7 {
+  display: block;
+  left: 66.6666666667%;
+  top: 50%;
+  z-index: 984;
+}
+
+.grid--to-i7 {
+  right: 25%;
+  bottom: 41.6666666667%;
+}
+
+.grid--from-j7 {
+  display: block;
+  left: 75%;
+  top: 50%;
+  z-index: 983;
+}
+
+.grid--to-j7 {
+  right: 16.6666666667%;
+  bottom: 41.6666666667%;
+}
+
+.grid--from-k7 {
+  display: block;
+  left: 83.3333333333%;
+  top: 50%;
+  z-index: 982;
+}
+
+.grid--to-k7 {
+  right: 8.3333333333%;
+  bottom: 41.6666666667%;
+}
+
+.grid--from-l7 {
+  display: block;
+  left: 91.6666666667%;
+  top: 50%;
+  z-index: 981;
+}
+
+.grid--to-l7 {
+  right: 0%;
+  bottom: 41.6666666667%;
+}
+
+.grid--from-a8 {
+  display: block;
+  left: 0%;
+  top: 58.3333333333%;
+  z-index: 991;
+}
+
+.grid--to-a8 {
+  right: 91.6666666667%;
+  bottom: 33.3333333333%;
+}
+
+.grid--from-b8 {
+  display: block;
+  left: 8.3333333333%;
+  top: 58.3333333333%;
+  z-index: 990;
+}
+
+.grid--to-b8 {
+  right: 83.3333333333%;
+  bottom: 33.3333333333%;
+}
+
+.grid--from-c8 {
+  display: block;
+  left: 16.6666666667%;
+  top: 58.3333333333%;
+  z-index: 989;
+}
+
+.grid--to-c8 {
+  right: 75%;
+  bottom: 33.3333333333%;
+}
+
+.grid--from-d8 {
+  display: block;
+  left: 25%;
+  top: 58.3333333333%;
+  z-index: 988;
+}
+
+.grid--to-d8 {
+  right: 66.6666666667%;
+  bottom: 33.3333333333%;
+}
+
+.grid--from-e8 {
+  display: block;
+  left: 33.3333333333%;
+  top: 58.3333333333%;
+  z-index: 987;
+}
+
+.grid--to-e8 {
+  right: 58.3333333333%;
+  bottom: 33.3333333333%;
+}
+
+.grid--from-f8 {
+  display: block;
+  left: 41.6666666667%;
+  top: 58.3333333333%;
+  z-index: 986;
+}
+
+.grid--to-f8 {
+  right: 50%;
+  bottom: 33.3333333333%;
+}
+
+.grid--from-g8 {
+  display: block;
+  left: 50%;
+  top: 58.3333333333%;
+  z-index: 985;
+}
+
+.grid--to-g8 {
+  right: 41.6666666667%;
+  bottom: 33.3333333333%;
+}
+
+.grid--from-h8 {
+  display: block;
+  left: 58.3333333333%;
+  top: 58.3333333333%;
+  z-index: 984;
+}
+
+.grid--to-h8 {
+  right: 33.3333333333%;
+  bottom: 33.3333333333%;
+}
+
+.grid--from-i8 {
+  display: block;
+  left: 66.6666666667%;
+  top: 58.3333333333%;
+  z-index: 983;
+}
+
+.grid--to-i8 {
+  right: 25%;
+  bottom: 33.3333333333%;
+}
+
+.grid--from-j8 {
+  display: block;
+  left: 75%;
+  top: 58.3333333333%;
+  z-index: 982;
+}
+
+.grid--to-j8 {
+  right: 16.6666666667%;
+  bottom: 33.3333333333%;
+}
+
+.grid--from-k8 {
+  display: block;
+  left: 83.3333333333%;
+  top: 58.3333333333%;
+  z-index: 981;
+}
+
+.grid--to-k8 {
+  right: 8.3333333333%;
+  bottom: 33.3333333333%;
+}
+
+.grid--from-l8 {
+  display: block;
+  left: 91.6666666667%;
+  top: 58.3333333333%;
+  z-index: 980;
+}
+
+.grid--to-l8 {
+  right: 0%;
+  bottom: 33.3333333333%;
+}
+
+.grid--from-a9 {
+  display: block;
+  left: 0%;
+  top: 66.6666666667%;
+  z-index: 990;
+}
+
+.grid--to-a9 {
+  right: 91.6666666667%;
+  bottom: 25%;
+}
+
+.grid--from-b9 {
+  display: block;
+  left: 8.3333333333%;
+  top: 66.6666666667%;
+  z-index: 989;
+}
+
+.grid--to-b9 {
+  right: 83.3333333333%;
+  bottom: 25%;
+}
+
+.grid--from-c9 {
+  display: block;
+  left: 16.6666666667%;
+  top: 66.6666666667%;
+  z-index: 988;
+}
+
+.grid--to-c9 {
+  right: 75%;
+  bottom: 25%;
+}
+
+.grid--from-d9 {
+  display: block;
+  left: 25%;
+  top: 66.6666666667%;
+  z-index: 987;
+}
+
+.grid--to-d9 {
+  right: 66.6666666667%;
+  bottom: 25%;
+}
+
+.grid--from-e9 {
+  display: block;
+  left: 33.3333333333%;
+  top: 66.6666666667%;
+  z-index: 986;
+}
+
+.grid--to-e9 {
+  right: 58.3333333333%;
+  bottom: 25%;
+}
+
+.grid--from-f9 {
+  display: block;
+  left: 41.6666666667%;
+  top: 66.6666666667%;
+  z-index: 985;
+}
+
+.grid--to-f9 {
+  right: 50%;
+  bottom: 25%;
+}
+
+.grid--from-g9 {
+  display: block;
+  left: 50%;
+  top: 66.6666666667%;
+  z-index: 984;
+}
+
+.grid--to-g9 {
+  right: 41.6666666667%;
+  bottom: 25%;
+}
+
+.grid--from-h9 {
+  display: block;
+  left: 58.3333333333%;
+  top: 66.6666666667%;
+  z-index: 983;
+}
+
+.grid--to-h9 {
+  right: 33.3333333333%;
+  bottom: 25%;
+}
+
+.grid--from-i9 {
+  display: block;
+  left: 66.6666666667%;
+  top: 66.6666666667%;
+  z-index: 982;
+}
+
+.grid--to-i9 {
+  right: 25%;
+  bottom: 25%;
+}
+
+.grid--from-j9 {
+  display: block;
+  left: 75%;
+  top: 66.6666666667%;
+  z-index: 981;
+}
+
+.grid--to-j9 {
+  right: 16.6666666667%;
+  bottom: 25%;
+}
+
+.grid--from-k9 {
+  display: block;
+  left: 83.3333333333%;
+  top: 66.6666666667%;
+  z-index: 980;
+}
+
+.grid--to-k9 {
+  right: 8.3333333333%;
+  bottom: 25%;
+}
+
+.grid--from-l9 {
+  display: block;
+  left: 91.6666666667%;
+  top: 66.6666666667%;
+  z-index: 979;
+}
+
+.grid--to-l9 {
+  right: 0%;
+  bottom: 25%;
+}
+
+.grid--from-a10 {
+  display: block;
+  left: 0%;
+  top: 75%;
+  z-index: 989;
+}
+
+.grid--to-a10 {
+  right: 91.6666666667%;
+  bottom: 16.6666666667%;
+}
+
+.grid--from-b10 {
+  display: block;
+  left: 8.3333333333%;
+  top: 75%;
+  z-index: 988;
+}
+
+.grid--to-b10 {
+  right: 83.3333333333%;
+  bottom: 16.6666666667%;
+}
+
+.grid--from-c10 {
+  display: block;
+  left: 16.6666666667%;
+  top: 75%;
+  z-index: 987;
+}
+
+.grid--to-c10 {
+  right: 75%;
+  bottom: 16.6666666667%;
+}
+
+.grid--from-d10 {
+  display: block;
+  left: 25%;
+  top: 75%;
+  z-index: 986;
+}
+
+.grid--to-d10 {
+  right: 66.6666666667%;
+  bottom: 16.6666666667%;
+}
+
+.grid--from-e10 {
+  display: block;
+  left: 33.3333333333%;
+  top: 75%;
+  z-index: 985;
+}
+
+.grid--to-e10 {
+  right: 58.3333333333%;
+  bottom: 16.6666666667%;
+}
+
+.grid--from-f10 {
+  display: block;
+  left: 41.6666666667%;
+  top: 75%;
+  z-index: 984;
+}
+
+.grid--to-f10 {
+  right: 50%;
+  bottom: 16.6666666667%;
+}
+
+.grid--from-g10 {
+  display: block;
+  left: 50%;
+  top: 75%;
+  z-index: 983;
+}
+
+.grid--to-g10 {
+  right: 41.6666666667%;
+  bottom: 16.6666666667%;
+}
+
+.grid--from-h10 {
+  display: block;
+  left: 58.3333333333%;
+  top: 75%;
+  z-index: 982;
+}
+
+.grid--to-h10 {
+  right: 33.3333333333%;
+  bottom: 16.6666666667%;
+}
+
+.grid--from-i10 {
+  display: block;
+  left: 66.6666666667%;
+  top: 75%;
+  z-index: 981;
+}
+
+.grid--to-i10 {
+  right: 25%;
+  bottom: 16.6666666667%;
+}
+
+.grid--from-j10 {
+  display: block;
+  left: 75%;
+  top: 75%;
+  z-index: 980;
+}
+
+.grid--to-j10 {
+  right: 16.6666666667%;
+  bottom: 16.6666666667%;
+}
+
+.grid--from-k10 {
+  display: block;
+  left: 83.3333333333%;
+  top: 75%;
+  z-index: 979;
+}
+
+.grid--to-k10 {
+  right: 8.3333333333%;
+  bottom: 16.6666666667%;
+}
+
+.grid--from-l10 {
+  display: block;
+  left: 91.6666666667%;
+  top: 75%;
+  z-index: 978;
+}
+
+.grid--to-l10 {
+  right: 0%;
+  bottom: 16.6666666667%;
+}
+
+.grid--from-a11 {
+  display: block;
+  left: 0%;
+  top: 83.3333333333%;
+  z-index: 988;
+}
+
+.grid--to-a11 {
+  right: 91.6666666667%;
+  bottom: 8.3333333333%;
+}
+
+.grid--from-b11 {
+  display: block;
+  left: 8.3333333333%;
+  top: 83.3333333333%;
+  z-index: 987;
+}
+
+.grid--to-b11 {
+  right: 83.3333333333%;
+  bottom: 8.3333333333%;
+}
+
+.grid--from-c11 {
+  display: block;
+  left: 16.6666666667%;
+  top: 83.3333333333%;
+  z-index: 986;
+}
+
+.grid--to-c11 {
+  right: 75%;
+  bottom: 8.3333333333%;
+}
+
+.grid--from-d11 {
+  display: block;
+  left: 25%;
+  top: 83.3333333333%;
+  z-index: 985;
+}
+
+.grid--to-d11 {
+  right: 66.6666666667%;
+  bottom: 8.3333333333%;
+}
+
+.grid--from-e11 {
+  display: block;
+  left: 33.3333333333%;
+  top: 83.3333333333%;
+  z-index: 984;
+}
+
+.grid--to-e11 {
+  right: 58.3333333333%;
+  bottom: 8.3333333333%;
+}
+
+.grid--from-f11 {
+  display: block;
+  left: 41.6666666667%;
+  top: 83.3333333333%;
+  z-index: 983;
+}
+
+.grid--to-f11 {
+  right: 50%;
+  bottom: 8.3333333333%;
+}
+
+.grid--from-g11 {
+  display: block;
+  left: 50%;
+  top: 83.3333333333%;
+  z-index: 982;
+}
+
+.grid--to-g11 {
+  right: 41.6666666667%;
+  bottom: 8.3333333333%;
+}
+
+.grid--from-h11 {
+  display: block;
+  left: 58.3333333333%;
+  top: 83.3333333333%;
+  z-index: 981;
+}
+
+.grid--to-h11 {
+  right: 33.3333333333%;
+  bottom: 8.3333333333%;
+}
+
+.grid--from-i11 {
+  display: block;
+  left: 66.6666666667%;
+  top: 83.3333333333%;
+  z-index: 980;
+}
+
+.grid--to-i11 {
+  right: 25%;
+  bottom: 8.3333333333%;
+}
+
+.grid--from-j11 {
+  display: block;
+  left: 75%;
+  top: 83.3333333333%;
+  z-index: 979;
+}
+
+.grid--to-j11 {
+  right: 16.6666666667%;
+  bottom: 8.3333333333%;
+}
+
+.grid--from-k11 {
+  display: block;
+  left: 83.3333333333%;
+  top: 83.3333333333%;
+  z-index: 978;
+}
+
+.grid--to-k11 {
+  right: 8.3333333333%;
+  bottom: 8.3333333333%;
+}
+
+.grid--from-l11 {
+  display: block;
+  left: 91.6666666667%;
+  top: 83.3333333333%;
+  z-index: 977;
+}
+
+.grid--to-l11 {
+  right: 0%;
+  bottom: 8.3333333333%;
+}
+
+.grid--from-a12 {
+  display: block;
+  left: 0%;
+  top: 91.6666666667%;
+  z-index: 987;
+}
+
+.grid--to-a12 {
+  right: 91.6666666667%;
+  bottom: 0%;
+}
+
+.grid--from-b12 {
+  display: block;
+  left: 8.3333333333%;
+  top: 91.6666666667%;
+  z-index: 986;
+}
+
+.grid--to-b12 {
+  right: 83.3333333333%;
+  bottom: 0%;
+}
+
+.grid--from-c12 {
+  display: block;
+  left: 16.6666666667%;
+  top: 91.6666666667%;
+  z-index: 985;
+}
+
+.grid--to-c12 {
+  right: 75%;
+  bottom: 0%;
+}
+
+.grid--from-d12 {
+  display: block;
+  left: 25%;
+  top: 91.6666666667%;
+  z-index: 984;
+}
+
+.grid--to-d12 {
+  right: 66.6666666667%;
+  bottom: 0%;
+}
+
+.grid--from-e12 {
+  display: block;
+  left: 33.3333333333%;
+  top: 91.6666666667%;
+  z-index: 983;
+}
+
+.grid--to-e12 {
+  right: 58.3333333333%;
+  bottom: 0%;
+}
+
+.grid--from-f12 {
+  display: block;
+  left: 41.6666666667%;
+  top: 91.6666666667%;
+  z-index: 982;
+}
+
+.grid--to-f12 {
+  right: 50%;
+  bottom: 0%;
+}
+
+.grid--from-g12 {
+  display: block;
+  left: 50%;
+  top: 91.6666666667%;
+  z-index: 981;
+}
+
+.grid--to-g12 {
+  right: 41.6666666667%;
+  bottom: 0%;
+}
+
+.grid--from-h12 {
+  display: block;
+  left: 58.3333333333%;
+  top: 91.6666666667%;
+  z-index: 980;
+}
+
+.grid--to-h12 {
+  right: 33.3333333333%;
+  bottom: 0%;
+}
+
+.grid--from-i12 {
+  display: block;
+  left: 66.6666666667%;
+  top: 91.6666666667%;
+  z-index: 979;
+}
+
+.grid--to-i12 {
+  right: 25%;
+  bottom: 0%;
+}
+
+.grid--from-j12 {
+  display: block;
+  left: 75%;
+  top: 91.6666666667%;
+  z-index: 978;
+}
+
+.grid--to-j12 {
+  right: 16.6666666667%;
+  bottom: 0%;
+}
+
+.grid--from-k12 {
+  display: block;
+  left: 83.3333333333%;
+  top: 91.6666666667%;
+  z-index: 977;
+}
+
+.grid--to-k12 {
+  right: 8.3333333333%;
+  bottom: 0%;
+}
+
+.grid--from-l12 {
+  display: block;
+  left: 91.6666666667%;
+  top: 91.6666666667%;
+  z-index: 976;
+}
+
+.grid--to-l12 {
+  right: 0%;
+  bottom: 0%;
+}
+
+.grid__tile {
+  background-color: #23272f;
+  background-color: transparent;
+  border-radius: .25vw;
+  bottom: 0.5vw;
+  left: 0.5vw;
+  overflow: hidden;
+  position: absolute;
+  right: 0.5vw;
+  top: 0.5vw;
+}
+
+.grid__tile:after {
+  background: -webkit-linear-gradient(top, rgba(35, 39, 47, 0) 0%, #23272f 100%);
+  background: linear-gradient(to bottom, rgba(35, 39, 47, 0) 0%, #23272f 100%);
+}
+
+.grid__tile > :first-child {
+  height: 100%;
+}
+
+.grid__tile--overflow:after {
+  bottom: 0;
+  content: '';
+  height: 1em;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 100;
+}
+
+.grid__tile--padded > :first-child {
+  padding: 1vw;
+}
+
+.grid__tile--transparent {
+  background-color: #1a1e25;
+}
+
+.grid__tile--transparent:after {
+  background: -webkit-linear-gradient(top, rgba(26, 30, 37, 0) 0%, #1a1e25 100%);
+  background: linear-gradient(to bottom, rgba(26, 30, 37, 0) 0%, #1a1e25 100%);
+}
+
+.grid__tile--blue {
+  background-color: #202f53;
+}
+
+.grid__tile--blue:after {
+  background: -webkit-linear-gradient(top, rgba(32, 47, 83, 0) 0%, #202f53 100%);
+  background: linear-gradient(to bottom, rgba(32, 47, 83, 0) 0%, #202f53 100%);
+}
+
+.grid__tile--green {
+  background-color: #287368;
+}
+
+.grid__tile--green:after {
+  background: -webkit-linear-gradient(top, rgba(40, 115, 104, 0) 0%, #287368 100%);
+  background: linear-gradient(to bottom, rgba(40, 115, 104, 0) 0%, #287368 100%);
+}
+
+.grid__tile--red {
+  background-color: #e83134;
+}
+
+.grid__tile--red:after {
+  background: -webkit-linear-gradient(top, rgba(232, 49, 52, 0) 0%, #e83134 100%);
+  background: linear-gradient(to bottom, rgba(232, 49, 52, 0) 0%, #e83134 100%);
+}
+
+.blank__content {
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  text-align: center;
+  font-size: 1.1em;
+}
+
+/*# sourceMappingURL=dashboard.css.map */

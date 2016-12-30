@@ -10,6 +10,15 @@ return [
         'cache' => 'Manage the Cache',
         'debug' => 'Enable &amp; Disable debugging',
         'routes' => 'Clear and Cache routes',
+        'dashboard' => 'Configure the dashboard',
+    ],
+
+    'admin_dashboard' => [
+        'manage' => 'Manage widgets',
+        'manage.create' => 'Create a widget instance?',
+        'manage.read' => 'Read a widgets configuration',
+        'manage.update' => 'Update a widgets configuration',
+        'manage.delete' => 'Remove a widget from the dashboard',
     ],
 
     'admin_modules' => [

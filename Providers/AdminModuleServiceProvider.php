@@ -3,6 +3,7 @@
 namespace Cms\Modules\Admin\Providers;
 
 use Cms\Modules\Core\Providers\BaseModuleProvider;
+use Cms\Modules\Admin\Composers\DashboardConfig;
 
 class AdminModuleServiceProvider extends BaseModuleProvider
 {
@@ -42,23 +43,6 @@ class AdminModuleServiceProvider extends BaseModuleProvider
     {
         parent::boot();
 
-        $this->registerWidgets();
-    }
-
-    /**
-     * Register all the widgets from the modules.
-     */
-    public function registerWidgets()
-    {
-        $config = get_array_column(config('cms'), 'widgets');
-        if (!count($config)) {
-            return;
-        }
-
-        foreach ($config as $module) {
-            foreach (array_get($module, 'dashboard') as $widget) {
-                view()->composer(array_get($widget, 'view'), array_get($widget, 'class'));
-            }
-        }
+        view()->composer('admin::admin.config.dashboard', DashboardConfig::class.'@listWidgets');
     }
 }

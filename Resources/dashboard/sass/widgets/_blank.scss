@@ -1,0 +1,7 @@
+.blank__content {
+    @include position-center;
+
+    text-align: center;
+    font-size: setting($font-size, m);
+}
+

@@ -14,6 +14,7 @@ $router->group([
     $router->get('routes', ['as' => 'admin.config.routes', 'uses' => 'RoutesController@getIndex', 'middleware' => 'hasPermission', 'hasPermission' => 'routes@admin_config']);
     $router->get('cache', ['as' => 'admin.config.cache', 'uses' => 'CacheController@getIndex', 'middleware' => 'hasPermission', 'hasPermission' => 'cache@admin_config']);
     $router->get('debug', ['as' => 'admin.config.debug', 'uses' => 'DebugController@getIndex', 'middleware' => 'hasPermission', 'hasPermission' => 'debug@admin_config']);
+    $router->get('dashboard', ['as' => 'admin.config.dashboard', 'uses' => 'DashboardController@manager', 'middleware' => 'hasPermission', 'hasPermission' => 'manage@admin_dashboard']);
 
     $router->post('cache', ['uses' => 'CacheController@postIndex', 'middleware' => 'hasPermission', 'hasPermission' => 'cache@admin_config']);
 
@@ -28,8 +29,18 @@ $router->group([
     'hasPermission' => 'access@admin_config',
 ], function (Router $router) {
 
-    $router->post('saveGrid', ['as' => 'admin.dashboard.savegrid', 'uses' => 'DashboardController@saveGrid']);
-    $router->post('loadWidget', ['as' => 'admin.dashboard.widget', 'uses' => 'DashboardController@loadWidget']);
+    $router->group(['prefix' => 'widget'], function (Router $router) {
+        $router->post('add', ['as' => 'admin.widget.create', 'uses' => 'CreateWidgetController@postForm']);
+
+        $router->group(['prefix' => '{admin_widget_id}'], function (Router $router) {
+            $router->delete('delete', ['as' => 'admin.widget.delete', 'uses' => 'UpdateWidgetController@delete']);
+
+            $router->post('update', 'UpdateWidgetController@postForm');
+            $router->get('update', ['as' => 'admin.widget.update', 'uses' => 'UpdateWidgetController@getForm']);
+        });
+
+        $router->get('/', ['uses' => 'CreateWidgetController@redirect']);
+    });
 
     $router->get('/', ['as' => 'pxcms.admin.index', 'uses' => 'DashboardController@getIndex']);
 });

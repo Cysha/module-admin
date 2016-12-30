@@ -4,8 +4,11 @@
             <div class="panel-heading">
                 <div class="panel-title">Config</div>
             </div>
-            <div class="panel-body">@menu('backend_config_menu')</div>
+            <div class="panel-body">
+                @menu('backend_config_menu')
+            </div>
         </div>
+        @yield('admin-config-sidebar')
     </div>
     <div class="col-md-{{ $col_two or '9'}}">
         @yield('admin-config')

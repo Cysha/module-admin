@@ -13,6 +13,7 @@ return [
         'admin_config',
         'admin_modules',
         'admin_nav',
+        'admin_dashboard',
     ],
 
     /*
@@ -21,4 +22,5 @@ return [
     'cache_keys' => [
 
     ],
+
 ];
