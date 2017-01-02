@@ -2,8 +2,9 @@
 
 namespace Cms\Modules\Admin\Http\Requests;
 
-use Cms\Http\Requests\Request;
 use Auth;
+use Cms\Http\Requests\Request;
+use Illuminate\Validation\Rule;
 
 class BackendCreateNavigationRequest extends Request
 {
@@ -27,7 +28,7 @@ class BackendCreateNavigationRequest extends Request
         $tblPrefix = config('cms.admin.table-prefix', 'core_');
 
         return [
-            'name' => 'required|unique:'.$tblPrefix.'navigation,name',
+            'name' => ['required', Rule::unique($tblPrefix.'navigation')->ignore($this->name, 'name')],
             'class' => 'string',
         ];
     }

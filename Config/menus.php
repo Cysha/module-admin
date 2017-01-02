@@ -33,6 +33,7 @@ return [
                    'icon' => 'fa-list-ul',
                    'order' => 4,
                    'permission' => 'manage@admin_nav',
+                    'activePattern' => '\/{backend}\/navigation\/*',
                 ],
             ],
         ],

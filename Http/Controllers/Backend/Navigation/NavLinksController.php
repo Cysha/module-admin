@@ -40,7 +40,10 @@ class NavLinksController extends BaseAdminController
         $input['navigation_id'] = $nav->id;
 
         $link = with(new NavigationLink())->updateOrCreate(
-            ['title' => array_get($input, 'title')],
+            [
+                'navigation_id' => $nav->id,
+                'title' => array_get($input, 'title'),
+            ],
             $input
         );
 
