@@ -26,4 +26,9 @@ class DashboardController extends BaseAdminController
     {
         return redirect(route('pxcms.admin.index'));
     }
+
+    public function test()
+    {
+        return $this->setView('admin.test');
+    }
 }

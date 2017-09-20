@@ -95,3 +95,4 @@ $router->group([
 });
 
 $router->get('/', ['uses' => 'Dashboard\DashboardController@redirect']);
+$router->get('test', ['uses' => 'Dashboard\DashboardController@test']);
